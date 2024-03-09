@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -46,6 +48,31 @@ class HomeScreen extends StatelessWidget {
               userLevel: 1,
             ),
           ),
+
+          Positioned(
+            top: 38.0,
+            right: 20.0,
+            child: Container(
+              width: 120.0,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white70, width: 2.5),
+                borderRadius: BorderRadius.circular(8.0) // Add border
+              ),
+              child: ClipRRect( // Use ClipRRect to clip the child widget to fit within the container
+                borderRadius: BorderRadius.circular(10.0), // Adjust border radius as needed
+                child: LinearPercentIndicator(
+                  lineHeight: 14.0,
+                  percent: 0.5,
+                  padding: EdgeInsets.symmetric(horizontal: 2.0), // Adjust padding to keep indicator within the border
+                  backgroundColor: Colors.black54,
+                  progressColor: Colors.red,
+                  animation: true,
+                  animationDuration: 1000,
+                ),
+              ),
+            ),
+          ),
+
           // Bottom navigation bar with notch
           Positioned(
             bottom: 0,

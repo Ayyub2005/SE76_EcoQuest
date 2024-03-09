@@ -4,11 +4,9 @@
   import 'character_customization.dart';
 
   final navigatorKey = GlobalKey<NavigatorState>();
-  // final GlobalKey<NavigatorState> splashNavigatorKey = GlobalKey();
-  // final GlobalKey<NavigatorState> homeScreenNavigatorKey = GlobalKey();
-  // final GlobalKey<NavigatorState> characterCustomizationNavigatorKey = GlobalKey();
+
 void main() {
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 class MyApp extends StatelessWidget {
   @override
