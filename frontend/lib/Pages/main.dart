@@ -8,7 +8,7 @@
   // final GlobalKey<NavigatorState> homeScreenNavigatorKey = GlobalKey();
   // final GlobalKey<NavigatorState> characterCustomizationNavigatorKey = GlobalKey();
 void main() {
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 class MyApp extends StatelessWidget {
   @override
