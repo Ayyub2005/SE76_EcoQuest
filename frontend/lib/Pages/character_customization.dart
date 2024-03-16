@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -14,16 +14,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         bottomNavigationBarTheme: BottomNavigationBarTheme.of(context).copyWith(
           backgroundColor: Colors.black,
-          selectedItemColor: Color.fromRGBO(0, 162, 142, 1).withOpacity(0.7),
+          selectedItemColor: const Color.fromRGBO(0, 162, 142, 1).withOpacity(0.7),
           unselectedItemColor: Colors.white,
         ),
        ),
-      home: Character_cust(),
+      home: const Character_cust(),
     );
   }
 }
 
 class Character_cust extends StatelessWidget {
+  const Character_cust({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +44,7 @@ class Character_cust extends StatelessWidget {
             top: 60,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12), // Adjust the radius as needed
-            child: Container(
+            child: SizedBox(
               width: 120,
               height: 450,
               //   color: Colors.black38.withOpacity(0.7), // Example background color// Adjust height as needed
@@ -58,7 +60,7 @@ class Character_cust extends StatelessWidget {
               // ),
               child: GridView.count(
                 crossAxisCount: 1, // Adjust as needed
-                padding: EdgeInsets.all(17),
+                padding: const EdgeInsets.all(17),
                 children: List.generate(7, (index) {
                   // Example grid items
                   return GestureDetector(
@@ -69,14 +71,14 @@ class Character_cust extends StatelessWidget {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        color: (Color.fromRGBO(0,162,142,1)).withOpacity(0.7),
+                        color: (const Color.fromRGBO(0,162,142,1)).withOpacity(0.7),
                         borderRadius: BorderRadius.circular(12), // Apply borderRadius to each grid item
                       ),
-                      margin: EdgeInsets.all(8),
+                      margin: const EdgeInsets.all(8),
                       child: Center(
                         child: Text(
                           'Option $index',
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
@@ -122,7 +124,7 @@ class Character_cust extends StatelessWidget {
             child: Container(
               width: 230,
               height: 350,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.rectangle,
                 image: DecorationImage(
                   image: AssetImage('assets/animal.1.png'), // Replace 'assets/character_image.png' with your image path
