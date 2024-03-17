@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.white,
         ),
        ),
-      home: Character_cust(),
+      home: const Character_cust(),
     );
   }
 }
@@ -31,7 +31,11 @@ class Character_cust extends StatefulWidget {
 
 class _Character_custState extends State<Character_cust> {
   String displayedAccessory = 'assets/dog-character_default.png';
-  Set<int> selectedAccessories = {};
+
+
+class Character_cust extends StatelessWidget {
+  const Character_cust({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +54,7 @@ class _Character_custState extends State<Character_cust> {
           ),
           // Title "Choose your Avatar" with rounded white box stroke
           Positioned(
+
             top: 30, // Adjusted for better positioning
             left: 50, // Adjust as needed for horizontal centering
             right: 50, // Adjust as needed for horizontal centering
@@ -68,6 +73,7 @@ class _Character_custState extends State<Character_cust> {
                   fontSize: 15, // Adjusted for space
                   fontWeight: FontWeight.bold,
                   color: Colors.white, // Font color changed to black
+
                 ),
               ),
             ),
@@ -234,7 +240,7 @@ class _Character_custState extends State<Character_cust> {
             child: Container(
               width: 230,
               height: 350,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.rectangle,
                 image: DecorationImage(
                   image: AssetImage('assets/animal-2.png'), // Replace 'assets/character_image.png' with your image path
