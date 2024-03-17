@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
           // Background image
           Positioned.fill(
             child: Image.asset(
-              'assets/background pic-f.jpg',
+              'assets/background6.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -53,22 +53,64 @@ class HomeScreen extends StatelessWidget {
             top: 38.0,
             right: 20.0,
             child: Container(
-              width: 120.0,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white70, width: 2.5),
-                borderRadius: BorderRadius.circular(8.0) // Add border
-              ),
-              child: ClipRRect( // Use ClipRRect to clip the child widget to fit within the container
-                borderRadius: BorderRadius.circular(10.0), // Adjust border radius as needed
-                child: LinearPercentIndicator(
-                  lineHeight: 14.0,
-                  percent: 0.5,
-                  padding: EdgeInsets.symmetric(horizontal: 2.0), // Adjust padding to keep indicator within the border
-                  backgroundColor: Colors.black54,
-                  progressColor: Colors.red,
-                  animation: true,
-                  animationDuration: 1000,
-                ),
+              width: 150.0, // Adjusted width to accommodate the heart image and the linear percentage indicators
+              height: 45.0, // Adjusted height to accommodate both linear percentage indicators
+              child: Stack(
+                children: [
+                  // HP Indicator
+                  Positioned(
+                    left: 0.0,
+                    top: 0.0,
+                    child: Image.asset('assets/heart.png.png', width: 24.0, height: 24.0),
+                  ),
+                  Positioned(
+                    left: 30.0, // Adjusted left position to create space for the heart image
+                    top: 3.0, // Adjusted top position to center the HP indicator vertically
+                    right: 2.0, // Adjusted right position to leave space for the border
+                    bottom: 28.0, // Adjusted bottom position to leave space for the border and XP indicator
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white70, width: 2.0),
+
+                      ),
+                      child: LinearPercentIndicator(
+                        lineHeight: 20.0, // Adjusted line height to match the height of the heart image
+                        percent: 1.0,
+                        padding: EdgeInsets.zero, // Removed padding to ensure full width of the container
+                        backgroundColor: Colors.black54,
+                        progressColor: Colors.red,
+                        animation: true,
+                        animationDuration: 1000,
+                      ),
+                    ),
+                  ),
+                  // XP Indicator
+                  Positioned(
+                    left: 0.0,
+                    top: 25.0,
+                    child: Image.asset('assets/flash.png', width: 24.0, height: 24.0),
+                  ),
+                  Positioned(
+                    left: 30.0, // Adjusted left position to create space for the heart image
+                    top: 25.0, // Adjusted top position to center the XP indicator vertically
+                    right: 2.0, // Adjusted right position to leave space for the border
+                    bottom: 3.0, // Adjusted bottom position to leave space for the border
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white70, width: 2.0),
+                      ),
+                      child: LinearPercentIndicator(
+                        lineHeight: 20.0, // Adjusted line height to match the height of the heart image
+                        percent: 1.0,
+                        padding: EdgeInsets.zero, // Removed padding to ensure full width of the container
+                        backgroundColor: Colors.black54,
+                        progressColor: Colors.yellow,
+                        animation: true,
+                        animationDuration: 1000,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -78,16 +120,14 @@ class HomeScreen extends StatelessWidget {
             bottom: 0,
             left: 0,
             right: 0,
-
             child: BottomAppBar(
-              color: Colors.black, // Adjusted for dark theme
+              color: Colors.black,
               child: Row(
-
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   IconButton(
                     iconSize: 32,
-                    icon: const Icon(Icons.home, color: Colors.white), // Adjusted icon color
+                    icon: const Icon(Icons.home, color: Colors.white),
                     onPressed: () {},
                   ),
                   IconButton(
@@ -100,45 +140,46 @@ class HomeScreen extends StatelessWidget {
                   ),
                   IconButton(
                     iconSize: 32,
-                    icon: const Icon(Icons.people, color: Colors.white), // Adjusted icon color
+                    icon: const Icon(Icons.person, color: Colors.white),
                     onPressed: () {},
                   ),
                   IconButton(
                     iconSize: 32,
-                    icon: const Icon(Icons.settings, color: Colors.white), // Adjusted icon color
+                    icon: const Icon(Icons.settings, color: Colors.white),
                     onPressed: () {},
                   ),
                 ],
               ),
             ),
           ),
+
         ],
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 55.0),
-        child: Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: Colors.black, width: 4.0), // Black border
-          ),
-          child: const ClipOval(
-            child: Material(
-              color: Colors.white,
-              child: Icon(
-                Icons.camera_alt_outlined,
-                size: 36,
-                color: Colors.black,
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(bottom: 55.0),
+            child: Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.black, width: 4.0), // Black border
+              ),
+              child: const ClipOval(
+                child: Material(
+                  color: Colors.white,
+                  child: Icon(
+                    Icons.camera_alt_outlined,
+                    size: 36,
+                    color: Colors.black,
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-    );
-  }
-}
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        );
+      }
+    }
 
 class UserInfo extends StatelessWidget {
   final String avatarUrl;
@@ -192,3 +233,4 @@ class UserInfo extends StatelessWidget {
     );
   }
 }
+

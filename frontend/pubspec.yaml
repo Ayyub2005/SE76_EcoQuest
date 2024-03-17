@@ -46,6 +46,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
+  flame: ^1.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -64,8 +65,16 @@ flutter:
     - assets/Logo-final.png
     - assets/background pic-f.jpg
     - assets/dragon.png
-    - assets/animal.1.png
-    - assets/animal-2.png
+    - assets/accessory_1.png
+    - assets/accessory_2.png
+    - assets/dog-character_default.png
+    - assets/dog_char_access_2.png
+    - assets/dog_char_access_1.2.png
+    - assets/backgground.jpg
+    - assets/background6.png
+    - assets/background5.jpeg
+    - assets/heart.png.png
+    - assets/flash.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
