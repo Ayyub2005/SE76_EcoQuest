@@ -83,6 +83,13 @@ flutter:
     - assets/heart.png.png
     - assets/flash.png
     - assets/animal.1.png
+    - assets/character_1.png
+    - assets/character_2.png
+    - assets/character_3.png
+    - assets/character_4.png
+    - assets/character_5.png
+    - assets/locked_icon.png
+    - assets/lock_2.png
 
 
 

@@ -151,9 +151,9 @@ class HomeScreen extends StatelessWidget {
                 children: <Widget>[
                   IconButton(
                     iconSize: 32,
-<<
+
                     icon: const Icon(Icons.home, color: Colors.white),
-===
+
                     onPressed: () {},
                   ),
                   IconButton(
@@ -166,9 +166,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                   IconButton(
                     iconSize: 32,
-<<
+
                     icon: const Icon(Icons.person, color: Colors.white),
-==
+
                     onPressed: () {},
                   ),
                   IconButton(

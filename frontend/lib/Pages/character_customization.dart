@@ -26,10 +26,10 @@ class MyApp extends StatelessWidget {
 // class Character_cust extends StatelessWidget {
 class Character_cust extends StatefulWidget {
   @override
-  _Character_custState createState() => _Character_custState();
-}
+  Character_custState createState() => Character_custState();
 
-class _Character_custState extends State<Character_cust> {
+
+class Character_custState extends State<Character_cust> {
   String displayedAccessory = 'assets/dog-character_default.png';
 
 
