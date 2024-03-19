@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.white,
         ),
        ),
-      home: const Character_cust(),
+      home: Character_cust(),
     );
   }
 }
@@ -27,14 +27,11 @@ class MyApp extends StatelessWidget {
 class Character_cust extends StatefulWidget {
   @override
   Character_custState createState() => Character_custState();
-
+}
 
 class Character_custState extends State<Character_cust> {
   String displayedAccessory = 'assets/dog-character_default.png';
 
-
-class Character_cust extends StatelessWidget {
-  const Character_cust({super.key});
 
 
   @override
