@@ -14,11 +14,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         bottomNavigationBarTheme: BottomNavigationBarTheme.of(context).copyWith(
           backgroundColor: Colors.black,
-          selectedItemColor: const Color.fromRGBO(0, 162, 142, 1).withOpacity(0.7),
+          selectedItemColor:
+              const Color.fromRGBO(0, 162, 142, 1).withOpacity(0.7),
           unselectedItemColor: Colors.white,
         ),
-       ),
-      home: const Character_cust(),
+      ),
+      home: Character_cust(),
     );
   }
 }
@@ -32,11 +33,6 @@ class Character_cust extends StatefulWidget {
 class _Character_custState extends State<Character_cust> {
   String displayedAccessory = 'assets/dog-character_default.png';
 
-
-class Character_cust extends StatelessWidget {
-  const Character_cust({super.key});
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,25 +40,26 @@ class Character_cust extends StatelessWidget {
         children: [
           // Background image
           Positioned.fill(
-              child: Opacity(
-                opacity: 0.5, // Adjust opacity between 0.0 (fully transparent) and 1.0 (fully opaque)
+            child: Opacity(
+                opacity:
+                    0.5, // Adjust opacity between 0.0 (fully transparent) and 1.0 (fully opaque)
                 child: Image.asset(
-                 'assets/background6.png',
+                  'assets/background6.png',
                   fit: BoxFit.cover,
-                )
-            ),
+                )),
           ),
           // Title "Choose your Avatar" with rounded white box stroke
           Positioned(
-
             top: 30, // Adjusted for better positioning
             left: 50, // Adjust as needed for horizontal centering
             right: 50, // Adjust as needed for horizontal centering
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
               decoration: BoxDecoration(
-                color: Colors.black38.withOpacity(0.5), // Semi-transparent white background
-                border: Border.all(color: Colors.white, width: 2.0), // White border
+                color: Colors.black38
+                    .withOpacity(0.5), // Semi-transparent white background
+                border:
+                    Border.all(color: Colors.white, width: 2.0), // White border
                 borderRadius: BorderRadius.circular(18), // Rounded corners
               ),
               child: Text(
@@ -73,7 +70,6 @@ class Character_cust extends StatelessWidget {
                   fontSize: 15, // Adjusted for space
                   fontWeight: FontWeight.bold,
                   color: Colors.white, // Font color changed to black
-
                 ),
               ),
             ),
@@ -175,12 +171,15 @@ class Character_cust extends StatelessWidget {
                           if (index == 0) {
                             displayedAccessory = 'assets/dog_char_access_2.png';
                           } else if (index == 1) {
-                            displayedAccessory = 'assets/dog_char_access_1.2.png';
+                            displayedAccessory =
+                                'assets/dog_char_access_1.2.png';
                           } else {
-                            displayedAccessory = 'assets/dog-character_default.png';
+                            displayedAccessory =
+                                'assets/dog-character_default.png';
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('Accessory Locked,Scan to unlock new acccessories'),
+                                content: Text(
+                                    'Accessory Locked,Scan to unlock new acccessories'),
                                 duration: Duration(milliseconds: 1000),
                               ),
                             );
@@ -194,16 +193,16 @@ class Character_cust extends StatelessWidget {
                         ),
                         margin: EdgeInsets.all(8),
                         child: Center(
-                          child: index==0||index==1
-                              ?Image.asset(
-                                'assets/accessory_${index + 1}.png',
-                                fit: BoxFit.cover,
-                              )
+                          child: index == 0 || index == 1
+                              ? Image.asset(
+                                  'assets/accessory_${index + 1}.png',
+                                  fit: BoxFit.cover,
+                                )
                               : Icon(
                                   Icons.lock,
                                   color: Colors.black,
-                                  size:36 ,
-                          ),
+                                  size: 36,
+                                ),
                         ),
                       ),
                     );
@@ -213,12 +212,16 @@ class Character_cust extends StatelessWidget {
             ),
           ),
           // Display character images on left-hand side
-          if (displayedAccessory.isNotEmpty) // Only display if an accessory is selected
+          if (displayedAccessory
+              .isNotEmpty) // Only display if an accessory is selected
             Positioned(
               left: 0,
               top: 320,
               child: AnimatedOpacity(
-                opacity: displayedAccessory == 'assets/dog-character_default.png' ? 0.7 : 1.0 ,
+                opacity:
+                    displayedAccessory == 'assets/dog-character_default.png'
+                        ? 0.7
+                        : 1.0,
                 duration: Duration(milliseconds: 500),
                 child: Image.asset(
                   displayedAccessory,
@@ -229,21 +232,20 @@ class Character_cust extends StatelessWidget {
               ),
             ),
 
-
-
           // // Bottom navigation bar with notch
           Positioned(
             left: 20, // Adjust the left position as needed
             top: 180,
             right: 180,
-            bottom: 160,// Adjust the top position as needed
+            bottom: 160, // Adjust the top position as needed
             child: Container(
               width: 230,
               height: 350,
               decoration: const BoxDecoration(
                 shape: BoxShape.rectangle,
                 image: DecorationImage(
-                  image: AssetImage('assets/animal-2.png'), // Replace 'assets/character_image.png' with your image path
+                  image: AssetImage(
+                      'assets/animal-2.png'), // Replace 'assets/character_image.png' with your image path
                   fit: BoxFit.contain,
                 ),
               ),
@@ -253,16 +255,15 @@ class Character_cust extends StatelessWidget {
             bottom: 0,
             left: 0,
             right: 0,
-
             child: BottomAppBar(
               color: Colors.black, // Adjusted for dark theme
               child: Row(
-
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   IconButton(
                     iconSize: 32,
-                    icon: const Icon(Icons.home, color: Colors.white), // Adjusted icon color
+                    icon: const Icon(Icons.home,
+                        color: Colors.white), // Adjusted icon color
                     onPressed: () {},
                   ),
                   IconButton(
@@ -275,12 +276,14 @@ class Character_cust extends StatelessWidget {
                   ),
                   IconButton(
                     iconSize: 32,
-                    icon: const Icon(Icons.people, color: Colors.white), // Adjusted icon color
+                    icon: const Icon(Icons.people,
+                        color: Colors.white), // Adjusted icon color
                     onPressed: () {},
                   ),
                   IconButton(
                     iconSize: 32,
-                    icon: const Icon(Icons.settings, color: Colors.white), // Adjusted icon color
+                    icon: const Icon(Icons.settings,
+                        color: Colors.white), // Adjusted icon color
                     onPressed: () {},
                   ),
                 ],

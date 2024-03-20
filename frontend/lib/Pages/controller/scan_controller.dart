@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:camera/camera.dart';
 import 'package:flutter_tflite/flutter_tflite.dart';
 import 'package:get/get.dart';
-import 'package:image/image.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class ScanController extends GetxController {
