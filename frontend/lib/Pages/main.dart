@@ -1,16 +1,18 @@
-  import 'package:flutter/material.dart';
-  import 'splash.dart';
-  import 'homescreen.dart';
-  import 'character_customization.dart';
+import 'package:flutter/material.dart';
+import 'views/camera_view.dart';
+import 'splash.dart';
+import 'homescreen.dart';
+import 'character_customization.dart';
 
-  final navigatorKey = GlobalKey<NavigatorState>();
-  // final GlobalKey<NavigatorState> splashNavigatorKey = GlobalKey();
-  // final GlobalKey<NavigatorState> homeScreenNavigatorKey = GlobalKey();
-  // final GlobalKey<NavigatorState> characterCustomizationNavigatorKey = GlobalKey();
+final navigatorKey = GlobalKey<NavigatorState>();
+
 void main() {
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,10 +22,12 @@ class MyApp extends StatelessWidget {
       initialRoute: '/splash',
 
       routes: {
-        '/splash': (context) => PageOne(),
-        '/homescreen': (context) =>  HomeScreen(), // Use HomeScreen from Page2
-        '/character_customization': (context) =>  Character_cust(), // Use HomeScreen from Page3
+        '/splash': (context) => const PageOne(),
+        '/homescreen': (context) => const HomeScreen(), // Use HomeScreen from Page2
+        '/character_customization': (context) => const Character_cust(), // Use HomeScreen from Page3
+        '/cameraview': (context) => const CameraView(),
       },
     );
   }
 }
+
