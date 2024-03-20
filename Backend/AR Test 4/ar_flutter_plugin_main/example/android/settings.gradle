@@ -1,0 +1,43 @@
+pluginManagement {
+    def flutterSdkPath = {
+        def properties = new Properties()
+        file("local.properties").withInputStream { properties.load(it) }
+        def flutterSdkPath = properties.getProperty("flutter.sdk")
+        assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
+        return flutterSdkPath
+    }()
+
+    includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+
+    plugins {
+        id "dev.flutter.flutter-plugin-loader" version "1.0.0"
+        id "com.android.application" version "7.1.2" apply false
+        id 'org.jetbrains.kotlin.jvm' version "1.7.0" apply false
+        id "org.jetbrains.kotlin.android" version "1.7.0" apply false
+        id "com.google.gms.google-services" version "4.3.8" apply false
+    }
+}
+
+
+include ':app'
+include ':firebase_core'
+include ':permission_handler_android'
+include ':geolocator_android'
+include ':flutter_archive'
+include ':path_provider_android'
+include ':cloud_firestore'
+include ':ar_flutter_plugin'
+
+project(':firebase_core').projectDir = new File('../flutter_plugins/firebase_core/android')
+project(':permission_handler_android').projectDir = new File('../flutter_plugins/permission_handler_android/android')
+project(':geolocator_android').projectDir = new File('../flutter_plugins/geolocator_android/android')
+project(':flutter_archive').projectDir = new File('../flutter_plugins/flutter_archive/android')
+project(':path_provider_android').projectDir = new File('../flutter_plugins/path_provider_android/android')
+project(':cloud_firestore').projectDir = new File('../flutter_plugins/cloud_firestore/android')
+project(':ar_flutter_plugin').projectDir = new File('../flutter_plugins/ar_flutter_plugin/android')
