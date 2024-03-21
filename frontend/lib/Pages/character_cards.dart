@@ -19,22 +19,22 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.white,
         ),
       ),
-      home: const HomeScreen(numCards: 4), // Set the number of cards here
+      home: const characterCards(numCards: 4), // Set the number of cards here
     );
   }
 }
 
-class HomeScreen extends StatefulWidget {
+class characterCards extends StatefulWidget {
   final int numCards;
 
-  const HomeScreen({Key? key, required this.numCards}) : super(key: key);
+  const characterCards({Key? key, required this.numCards}) : super(key: key);
 
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<characterCards> {
   late List<bool> cardUnlocked;
   late List<String> cardContents;
   late List<Map<String, String>> cardDetails;

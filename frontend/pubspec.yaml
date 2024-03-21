@@ -43,11 +43,14 @@ dependencies:
   permission_handler: ^11.3.0
   image: ^3.3.0
   flutter_tflite: ^1.0.1
-  #firebase_auth: ^3.3.3
+  arcore_flutter_plugin: ^0.1.0
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  firebase_core: ^2.27.1
+  firebase_auth: ^4.17.9
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -78,14 +81,15 @@ flutter:
     - assets/accessory_2.png
     - assets/dog-character_default.png
     - assets/dog_char_access_2.png
-    - assets/dog_char_access_1.2.png
+    - assets/dog_char_access_1.png
     - assets/backgground.jpg
     - assets/background6.png
     - assets/background5.jpeg
     - assets/heart.png.png
     - assets/flash.png
     - assets/animal.1.png
-    - assets/character_1.png
+    - assets/character_1.jpeg
+    - assets/character_2.jpeg
     - assets/character_2.png
     - assets/character_3.png
     - assets/character_4.png

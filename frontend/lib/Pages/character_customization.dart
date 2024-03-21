@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.white,
         ),
        ),
-      home: Character_cust(),
+      home:  Character_cust(),
     );
   }
 }
@@ -26,13 +26,11 @@ class MyApp extends StatelessWidget {
 // class Character_cust extends StatelessWidget {
 class Character_cust extends StatefulWidget {
   @override
-  Character_custState createState() => Character_custState();
+  _Character_custState createState() => _Character_custState();
 }
 
-class Character_custState extends State<Character_cust> {
+class _Character_custState extends State<Character_cust> {
   String displayedAccessory = 'assets/dog-character_default.png';
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -170,9 +168,9 @@ class Character_custState extends State<Character_cust> {
                       onTap: () {
                         setState(() {
                           if (index == 0) {
-                            displayedAccessory = 'assets/dog_char_access_2.png';
+                            displayedAccessory = 'assets/dog_char_access_1.png';
                           } else if (index == 1) {
-                            displayedAccessory = 'assets/dog_char_access_1.2.png';
+                            displayedAccessory = 'assets/dog_char_access_2.png';
                           } else {
                             displayedAccessory = 'assets/dog-character_default.png';
                             ScaffoldMessenger.of(context).showSnackBar(

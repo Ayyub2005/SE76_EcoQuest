@@ -19,21 +19,21 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.white,
         ),
       ),
-      home: const HomeScreen(numCards: 2), // Set the number of cards here
+      home: const CharacterCards(numCards: 2), // Set the number of cards here
     );
   }
 }
 
-class HomeScreen extends StatefulWidget {
+class CharacterCards extends StatefulWidget {
   final int numCards;
 
-  const HomeScreen({super.key, required this.numCards});
+  const CharacterCards({super.key, required this.numCards});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _CharacterCardsState createState() => _CharacterCardsState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class _CharacterCardsState extends State<CharacterCards> with SingleTickerProviderStateMixin {
   late List<bool> cardUnlocked;
   late List<String> cardContents;
   late List<Map<String, String>> cardDetails;
@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           // Background image
           Positioned.fill(
             child: Image.asset(
-              'assets/background pic-f.jpg',
+              'assets/background6.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -159,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                 );
                               },
                               child: Card(
-                                color: const Color.fromRGBO(0, 162, 142, 1),
+                                color: const Color.fromRGBO(142, 169, 185, 1),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16.0),
                                 ),
@@ -179,10 +179,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                         ),
                                       if (!_isCardFlipped)
                                         SizedBox(
-                                          width: MediaQuery.of(context).size.width / 3,
-                                          height: MediaQuery.of(context).size.height / 4,
+                                          width: MediaQuery.of(context).size.width / 2,
+                                          height: MediaQuery.of(context).size.height / 3,
                                           child: Image.asset(
-                                            'assets/character_${index + 1}.png',
+                                            'assets/character_${index + 1}.jpeg',
                                             fit: BoxFit.cover,
                                           ),
                                         ),
