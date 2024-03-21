@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Pages/character_cards.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 void main() {
@@ -152,15 +153,27 @@ class HomeScreen extends StatelessWidget {
                   IconButton(
                     iconSize: 32,
                     icon: const Icon(Icons.home, color: Colors.white),
-                    onPressed: () {},
-                  ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                      );
+                      Navigator.pop(context);
+                    },
+                    ),
+
                   IconButton(
                     icon: Image.asset(
                       'assets/dragon.png',
                       width: 30,
                       height: 30,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => characterCards(numCards: 4))
+                      );
+                    },
                   ),
                   IconButton(
                     iconSize: 32,

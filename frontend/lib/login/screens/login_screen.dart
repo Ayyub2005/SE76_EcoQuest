@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:frontend/Pages/homescreen.dart';
 import '../components/app_text_form_field.dart';
-import '../resources/resources.dart';
-import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../utils/helpers/snackbar_helper.dart';
 import '../values/app_constants.dart';
@@ -10,6 +8,7 @@ import '../values/app_regex.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -26,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
 
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
-
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   void initializeControllers() {
     emailController = TextEditingController()..addListener(controllerListener);
     passwordController = TextEditingController()
@@ -63,7 +62,29 @@ class _LoginPageState extends State<LoginPage> {
     disposeControllers();
     super.dispose();
   }
-
+  Future<void> loginUser() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await _auth
+            .signInWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        )
+            .then((value) {
+          // Navigate to the next screen or show success message
+          // Navigator.pushNamed(context, AppRoutes.login); // or any other route
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomeScreen()),
+          );
+          print('Successfully Logged in');
+        });
+      } catch (e) {
+        print(e);
+        SnackbarHelper.showSnackBar(e.toString());
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -191,14 +212,7 @@ class _LoginPageState extends State<LoginPage> {
                             builder: (_, isValid, __) {
                               return FilledButton(
                                 onPressed: isValid
-                                    ? () {
-                                        SnackbarHelper.showSnackBar(
-                                          AppStrings.loggedIn,
-                                        );
-                                        emailController.clear();
-                                        passwordController.clear();
-                                      }
-                                    : null,
+                                    ? loginUser : null,
                                 child: const Text(AppStrings.login),
                               );
                             },

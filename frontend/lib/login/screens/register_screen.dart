@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:frontend/Pages/homescreen.dart';
 import '../components/app_text_form_field.dart';
 import '../utils/helpers/snackbar_helper.dart';
 import '../values/app_constants.dart';
-import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -57,7 +57,11 @@ class _RegisterPageState extends State<RegisterPage> {
         )
             .then((value) {
           // Navigate to the next screen or show success message
-          Navigator.pushNamed(context, AppRoutes.login); // or any other route
+          // Navigator.pushNamed(context, AppRoutes.login); // or any other route
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomeScreen()),
+          );
           print('Successfully Created User Account');
         });
       } catch (e) {
