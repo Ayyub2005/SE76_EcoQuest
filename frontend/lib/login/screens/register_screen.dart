@@ -1,16 +1,15 @@
+
 import 'package:flutter/material.dart';
 import '../components/app_text_form_field.dart';
-import '../utils/common_widgets/gradient_background.dart';
-import '../utils/helpers/navigation_helper.dart';
 import '../utils/helpers/snackbar_helper.dart';
 import '../values/app_constants.dart';
-import '../values/app_regex.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -24,58 +23,48 @@ class _RegisterPageState extends State<RegisterPage> {
   late final TextEditingController passwordController;
   late final TextEditingController confirmPasswordController;
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   final ValueNotifier<bool> passwordNotifier = ValueNotifier(true);
   final ValueNotifier<bool> confirmPasswordNotifier = ValueNotifier(true);
   final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
 
-  void initializeControllers() {
-    nameController = TextEditingController()
-      ..addListener(controllerListener);
-    emailController = TextEditingController()
-      ..addListener(controllerListener);
-    passwordController = TextEditingController()
-      ..addListener(controllerListener);
-    confirmPasswordController = TextEditingController()
-      ..addListener(controllerListener);
-  }
-
-  void disposeControllers() {
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
-  }
-
-  void controllerListener() {
-    final name = nameController.text;
-    final email = emailController.text;
-    final password = passwordController.text;
-    final confirmPassword = confirmPasswordController.text;
-
-    if (name.isEmpty &&
-        email.isEmpty &&
-        password.isEmpty &&
-        confirmPassword.isEmpty) return;
-
-    if (AppRegex.emailRegex.hasMatch(email) &&
-        AppRegex.passwordRegex.hasMatch(password) &&
-        AppRegex.passwordRegex.hasMatch(confirmPassword)) {
-      fieldValidNotifier.value = true;
-    } else {
-      fieldValidNotifier.value = false;
-    }
-  }
-
   @override
   void initState() {
-    initializeControllers();
     super.initState();
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
   }
 
   @override
   void dispose() {
-    disposeControllers();
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
+  }
+
+  Future<void> registerUser() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await _auth
+            .createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        )
+            .then((value) {
+          // Navigate to the next screen or show success message
+          Navigator.pushNamed(context, AppRoutes.login); // or any other route
+          print('Successfully Created User Account');
+        });
+      } catch (e) {
+        print(e);
+        SnackbarHelper.showSnackBar(e.toString());
+      }
+    }
   }
 
   @override
@@ -102,32 +91,26 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: Form(
                   key: _formKey,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Center(
-                        child: Column(
-                          children: [
-                            // Add your image here
-                            Image.asset(
-                              'assets/Logo-final.png', // Your image asset path
-                              width: 500, // Adjust size as needed
-                              height: 150,
-                            ),
-
-                            const Text(
-                              AppStrings.signUp,
-                              style: AppTheme.titleLarge,
-                            ),
-                          ],
-                        ),
+                      Image.asset(
+                        'assets/Logo-final.png', // Your image asset path
+                        width: 500, // Adjust size as needed
+                        height: 150,
+                      ),
+                      const Text(
+                        AppStrings.signUp,
+                        style: AppTheme.titleLarge,
                       ),
                       const SizedBox(height: 6),
-                      const Text(AppStrings.createYourAccount,
+                      const Text(
+                        AppStrings.createYourAccount,
+                        textAlign: TextAlign.left,
                         style: TextStyle(
                           color: Color.fromRGBO(0, 162, 142, 1),
                         ),
                       ),
 
+                      // Your form fields
                       AppTextFormField(
                         autofocus: true,
                         labelText: AppStrings.name,
@@ -138,8 +121,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           return value!.isEmpty
                               ? AppStrings.pleaseEnterName
                               : value.length < 4
-                              ? AppStrings.invalidName
-                              : null;
+                                  ? AppStrings.invalidName
+                                  : null;
                         },
                         controller: nameController,
                       ),
@@ -153,8 +136,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           return value!.isEmpty
                               ? AppStrings.pleaseEnterEmailAddress
                               : AppConstants.emailRegex.hasMatch(value)
-                              ? null
-                              : AppStrings.invalidEmailAddress;
+                                  ? null
+                                  : AppStrings.invalidEmailAddress;
                         },
                       ),
                       ValueListenableBuilder<bool>(
@@ -171,8 +154,8 @@ class _RegisterPageState extends State<RegisterPage> {
                               return value!.isEmpty
                                   ? AppStrings.pleaseEnterPassword
                                   : AppConstants.passwordRegex.hasMatch(value)
-                                  ? null
-                                  : AppStrings.invalidPassword;
+                                      ? null
+                                      : AppStrings.invalidPassword;
                             },
                             suffixIcon: Focus(
                               /// If false,
@@ -186,7 +169,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               // descendantsAreTraversable: false,
                               child: IconButton(
                                 onPressed: () =>
-                                passwordNotifier.value = !passwordObscure,
+                                    passwordNotifier.value = !passwordObscure,
                                 style: IconButton.styleFrom(
                                   minimumSize: const Size.square(48),
                                 ),
@@ -215,11 +198,11 @@ class _RegisterPageState extends State<RegisterPage> {
                               return value!.isEmpty
                                   ? AppStrings.pleaseReEnterPassword
                                   : AppConstants.passwordRegex.hasMatch(value)
-                                  ? passwordController.text ==
-                                  confirmPasswordController.text
-                                  ? null
-                                  : AppStrings.passwordNotMatched
-                                  : AppStrings.invalidPassword;
+                                      ? passwordController.text ==
+                                              confirmPasswordController.text
+                                          ? null
+                                          : AppStrings.passwordNotMatched
+                                      : AppStrings.invalidPassword;
                             },
                             suffixIcon: Focus(
                               /// If false,
@@ -233,7 +216,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               // descendantsAreTraversable: false,
                               child: IconButton(
                                 onPressed: () => confirmPasswordNotifier.value =
-                                !confirmPasswordObscure,
+                                    !confirmPasswordObscure,
                                 style: IconButton.styleFrom(
                                   minimumSize: const Size.square(48),
                                 ),
@@ -248,43 +231,23 @@ class _RegisterPageState extends State<RegisterPage> {
                           );
                         },
                       ),
-                      ValueListenableBuilder(
-                        valueListenable: fieldValidNotifier,
-                        builder: (_, isValid, __) {
-                          return FilledButton(
-                            onPressed: isValid
-                                ? () {
-                              SnackbarHelper.showSnackBar(
-                                AppStrings.registrationComplete,
-                              );
-                              nameController.clear();
-                              emailController.clear();
-                              passwordController.clear();
-                              confirmPasswordController.clear();
-                            }
-                                : null,
-                            child: const Text(AppStrings.signUp),
-                          );
-                        },
-                      ),
                     ],
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    AppStrings.iHaveAnAccount,
-                    style: AppTheme.bodySmall,
-                  ),
-                  TextButton(
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.login,
-                    ),
-                    child: const Text(AppStrings.login),
-                  ),
-                ],
+              ElevatedButton(
+                onPressed: registerUser,
+              style: FilledButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: const Color.fromRGBO(0, 162, 142, 1),
+                disabledBackgroundColor: Colors.grey.shade300,
+                minimumSize: const Size(double.infinity, 52),
+                shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+              ),
+              textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+              ),
+                child: const Text('Signup'),
               ),
             ],
           ),
@@ -292,6 +255,4 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
-
-
 }

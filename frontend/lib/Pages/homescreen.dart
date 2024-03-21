@@ -55,7 +55,7 @@ class HomeScreen extends StatelessWidget {
             right: 20.0,
             child: Container(
 
-              width: 150.0, // Adjusted width to accommodate the heart image and the linear percentage indicators
+              width: 130.0, // Adjusted width to accommodate the heart image and the linear percentage indicators
               height: 45.0, // Adjusted height to accommodate both linear percentage indicators
               child: Stack(
                 children: [
@@ -151,9 +151,7 @@ class HomeScreen extends StatelessWidget {
                 children: <Widget>[
                   IconButton(
                     iconSize: 32,
-
                     icon: const Icon(Icons.home, color: Colors.white),
-
                     onPressed: () {},
                   ),
                   IconButton(
@@ -166,9 +164,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   IconButton(
                     iconSize: 32,
-
                     icon: const Icon(Icons.person, color: Colors.white),
-
                     onPressed: () {},
                   ),
                   IconButton(
