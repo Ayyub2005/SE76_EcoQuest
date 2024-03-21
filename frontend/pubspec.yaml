@@ -43,7 +43,7 @@ dependencies:
   permission_handler: ^11.3.0
   image: ^3.3.0
   flutter_tflite: ^1.0.1
-  firebase_auth: ^3.3.3
+  #firebase_auth: ^3.3.3
 
 dev_dependencies:
   flutter_test:
@@ -92,6 +92,18 @@ flutter:
     - assets/character_5.png
     - assets/locked_icon.png
     - assets/lock_2.png
+    - assets/spot.jpg
+    - assets/spot.png
+    - assets/dragon (1).png
+    - assets/aqeel.png
+    - assets/sen.png
+    - assets/dineth.png
+    - assets/ayyub.png
+    - assets/man.png
+    - assets/sugar.png
+    - assets/dances.png
+    - assets/output-onlinegiftools.gif
+
 
 
 
