@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 import '../components/app_text_form_field.dart';
 import '../resources/resources.dart';
 import '../utils/common_widgets/gradient_background.dart';
@@ -66,7 +65,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
-
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
@@ -92,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                   Padding(
+                  Padding(
                     padding: const EdgeInsets.all(10),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -138,14 +136,13 @@ class _LoginPageState extends State<LoginPage> {
                             labelText: AppStrings.email,
                             keyboardType: TextInputType.emailAddress,
                             textInputAction: TextInputAction.next,
-                            onChanged: (_) =>
-                                _formKey.currentState?.validate(),
+                            onChanged: (_) => _formKey.currentState?.validate(),
                             validator: (value) {
                               return value!.isEmpty
                                   ? AppStrings.pleaseEnterEmailAddress
                                   : AppConstants.emailRegex.hasMatch(value)
-                                  ? null
-                                  : AppStrings.invalidEmailAddress;
+                                      ? null
+                                      : AppStrings.invalidEmailAddress;
                             },
                           ),
                           ValueListenableBuilder(
@@ -163,13 +160,13 @@ class _LoginPageState extends State<LoginPage> {
                                   return value!.isEmpty
                                       ? AppStrings.pleaseEnterPassword
                                       : AppConstants.passwordRegex
-                                      .hasMatch(value)
-                                      ? null
-                                      : AppStrings.invalidPassword;
+                                              .hasMatch(value)
+                                          ? null
+                                          : AppStrings.invalidPassword;
                                 },
                                 suffixIcon: IconButton(
                                   onPressed: () =>
-                                  passwordNotifier.value = !passwordObscure,
+                                      passwordNotifier.value = !passwordObscure,
                                   style: IconButton.styleFrom(
                                     minimumSize: const Size.square(48),
                                   ),
@@ -195,12 +192,12 @@ class _LoginPageState extends State<LoginPage> {
                               return FilledButton(
                                 onPressed: isValid
                                     ? () {
-                                  SnackbarHelper.showSnackBar(
-                                    AppStrings.loggedIn,
-                                  );
-                                  emailController.clear();
-                                  passwordController.clear();
-                                }
+                                        SnackbarHelper.showSnackBar(
+                                          AppStrings.loggedIn,
+                                        );
+                                        emailController.clear();
+                                        passwordController.clear();
+                                      }
                                     : null,
                                 child: const Text(AppStrings.login),
                               );
