@@ -3,7 +3,7 @@
 class CardData {
   static List<Map<String, String>> cardDetails = [
     {
-      'name': 'SCARY CAT',
+      'name': 'EMBER',
       'careLevel': 'High',
       'nutritionFavorite': 'Cute Dogs',
     },

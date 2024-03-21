@@ -280,6 +280,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   TextButton(
                     onPressed: () => NavigationHelper.pushReplacementNamed(
+
                       AppRoutes.login,
                     ),
                     child: const Text(AppStrings.login),

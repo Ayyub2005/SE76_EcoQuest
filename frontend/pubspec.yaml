@@ -43,7 +43,7 @@ dependencies:
   permission_handler: ^11.3.0
   image: ^3.3.0
   flutter_tflite: ^1.0.1
-  firebase_auth: ^3.3.3
+  arcore_flutter_plugin: ^0.1.0
 
 dev_dependencies:
   flutter_test:
@@ -85,7 +85,8 @@ flutter:
     - assets/heart.png.png
     - assets/flash.png
     - assets/animal.1.png
-    - assets/character_1.png
+    - assets/character_1.jpeg
+    - assets/character_2.jpeg
     - assets/character_2.png
     - assets/character_3.png
     - assets/character_4.png
