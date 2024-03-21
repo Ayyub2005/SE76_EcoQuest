@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Pages/character_cards.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 void main() {
@@ -55,7 +56,7 @@ class HomeScreen extends StatelessWidget {
             right: 20.0,
             child: Container(
 
-              width: 150.0, // Adjusted width to accommodate the heart image and the linear percentage indicators
+              width: 130.0, // Adjusted width to accommodate the heart image and the linear percentage indicators
               height: 45.0, // Adjusted height to accommodate both linear percentage indicators
               child: Stack(
                 children: [
@@ -151,24 +152,32 @@ class HomeScreen extends StatelessWidget {
                 children: <Widget>[
                   IconButton(
                     iconSize: 32,
-
                     icon: const Icon(Icons.home, color: Colors.white),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                      );
+                      Navigator.pop(context);
+                    },
+                    ),
 
-                    onPressed: () {},
-                  ),
                   IconButton(
                     icon: Image.asset(
                       'assets/dragon.png',
                       width: 30,
                       height: 30,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => characterCards(numCards: 4))
+                      );
+                    },
                   ),
                   IconButton(
                     iconSize: 32,
-
                     icon: const Icon(Icons.person, color: Colors.white),
-
                     onPressed: () {},
                   ),
                   IconButton(
