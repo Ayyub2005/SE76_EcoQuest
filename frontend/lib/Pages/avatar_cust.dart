@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           // Title "Choose your Avatar" with rounded white box stroke
           Positioned(
-            top: 20, // Adjusted for better positioning
+            top: 40, // Adjusted for better positioning
             left: 50, // Adjust as needed for horizontal centering
             right: 50, // Adjust as needed for horizontal centering
             child: Container(
@@ -149,7 +149,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-
 
 //select button
           Positioned(
