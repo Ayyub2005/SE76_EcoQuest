@@ -19,17 +19,17 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.white,
         ),
       ),
-      home: HomeScreen(),
+      home: FYI(),
     );
   }
 }
 
-class HomeScreen extends StatefulWidget {
+class FYI extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _FYIState createState() => _FYIState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
   late List<Map<String, String>> cardDetails;
   late AnimationController _controller;
   late bool _isCardFlipped;

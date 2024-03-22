@@ -253,11 +253,11 @@ class _CharacterCardsState extends State<CharacterCards> with SingleTickerProvid
                               // width: MediaQuery.of(context).size.width / 3,
                               // height: MediaQuery.of(context).size.height / 4,
                               child: Center(
-                                child: Image.asset(
-                                  'assets/lock_2.png', // Add your locked icon image path here
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  height: MediaQuery.of(context).size.height / 4,
-                                ),
+                                child:Icon(
+                                  Icons.lock,
+                                  color: Colors.white,
+                                  size:100 ,
+                                )
                               ),
                             ),
                         ],
@@ -270,6 +270,7 @@ class _CharacterCardsState extends State<CharacterCards> with SingleTickerProvid
           ),
         ],
       ),
+
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 55.0),
         child: Container(
