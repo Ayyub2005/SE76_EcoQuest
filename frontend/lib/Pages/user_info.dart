@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,15 +40,15 @@ class UserInfoPage extends StatelessWidget {
             left: 0,
             right: 0,
             child: Container(
-              height: MediaQuery.of(context).size.height /
-                  3, // Third of screen height
+              height: MediaQuery.of(context).size.height / 3 -
+                  20, // Third of screen height
               color: Color.fromRGBO(0, 162, 142, 1),
             ),
           ),
 
           // User info container
           Positioned(
-            top: MediaQuery.of(context).size.height / 3 + 20,
+            top: MediaQuery.of(context).size.height / 3,
             left: 20,
             child: const UserInfo(
               avatarUrl: 'https://example.com/avatar.jpg',
@@ -56,7 +58,7 @@ class UserInfoPage extends StatelessWidget {
           ),
 
           Positioned(
-            top: MediaQuery.of(context).size.height / 3 + 23,
+            top: MediaQuery.of(context).size.height / 3 + 3,
             right: 20.0,
             child: Container(
               width:
@@ -158,9 +160,9 @@ class UserInfoPage extends StatelessWidget {
             ),
           ),
 
-          // Display User Information
+          //Display User Information
           Positioned(
-            top: MediaQuery.of(context).size.height / 3 + 95,
+            top: MediaQuery.of(context).size.height / 3 + 75,
             left: 20,
             right: 20,
             child: Column(
@@ -223,7 +225,7 @@ class UserInfoPage extends StatelessWidget {
           // Update Password Button
           Positioned(
             top: MediaQuery.of(context).size.height / 3 +
-                290, // Adjust position as needed
+                270, // Adjust position as needed
             left: 20,
             right: 20,
             child: Container(
@@ -249,7 +251,7 @@ class UserInfoPage extends StatelessWidget {
           // Delete Account Button
           Positioned(
             top: MediaQuery.of(context).size.height / 3 +
-                350, // Adjust position as needed
+                330, // Adjust position as needed
             left: 20,
             right: 20,
             child: Container(
@@ -404,3 +406,116 @@ class UserInfo extends StatelessWidget {
     );
   }
 }
+
+class GetUserInfo {
+  final String name;
+  final String email;
+  final String password;
+
+  const GetUserInfo({
+    required this.name,
+    required this.email,
+    required this.password,
+  });
+
+  toJson() {
+    return {"Name": name, "Email": email, "password": password};
+  }
+
+  factory GetUserInfo.fromsnapshot(
+      DocumentSnapshot<Map<String, dynamic>> document) {
+    final data = document.data()!;
+    return GetUserInfo(
+      name: data["name"],
+      email: data["Email"],
+      password: data["Password"],
+    );
+  }
+}
+
+
+
+
+// Future<void> getUserData(context) async {
+//   // Get the current user
+//   User? user = FirebaseAuth.instance.currentUser;
+
+//   if (user != null) {
+//     // Get the user's document from Firestore
+//     DocumentSnapshot userDoc = await FirebaseFirestore.instance
+//         .collection('users')
+//         .doc(user.uid)
+//         .get();
+
+//     // Extract the user's data
+//     Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+
+//     // Access the user's name, email, and password
+//     String name = userData['name'];
+//     String email = userData['email'];
+//     String password = userData[
+//         'password']; // Note: Storing passwords directly is not recommended. Use Firebase Authentication for authentication.
+
+//     // Use the data as needed, e.g., update the UI
+//     Positioned(
+//       top: MediaQuery.of(context).size.height / 3 + 75,
+//       left: 20,
+//       right: 20,
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Container(
+//             padding: const EdgeInsets.all(10),
+//             decoration: BoxDecoration(
+//               color: Colors.white,
+//               borderRadius: BorderRadius.circular(10),
+//               border: Border.all(
+//                 color: Colors.black,
+//                 width: 2,
+//               ),
+//             ),
+//             child: const Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Name:           Senali Wij',
+//                   style: TextStyle(
+//                     fontSize: 16,
+//                     color: Colors.black,
+//                   ),
+//                 ),
+//                 SizedBox(height: 5),
+//                 Divider(color: Colors.grey),
+//                 Text(
+//                   'Email:            senali@example.com',
+//                   style: TextStyle(
+//                     fontSize: 16,
+//                     color: Colors.black,
+//                   ),
+//                 ),
+//                 SizedBox(height: 5),
+//                 Divider(color: Colors.grey),
+//                 Text(
+//                   'Password:    ********',
+//                   style: TextStyle(
+//                     fontSize: 16,
+//                     color: Colors.black,
+//                   ),
+//                 ),
+//                 SizedBox(height: 5),
+//                 Divider(color: Colors.grey),
+//                 Text(
+//                   'XP Level:       1',
+//                   style: TextStyle(
+//                     fontSize: 16,
+//                     color: Colors.black,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

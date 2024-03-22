@@ -44,6 +44,7 @@ dependencies:
   image: ^3.3.0
   flutter_tflite: ^1.0.1
   arcore_flutter_plugin: ^0.1.0
+  cloud_firestore: ^4.15.9
 
 
 
