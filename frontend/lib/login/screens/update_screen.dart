@@ -77,23 +77,29 @@ class _RegisterPageState extends State<UpdatePasswordPage> {
     super.dispose();
   }
 
-  Future<void> registerUser() async {
+  Future<void> updatePassword() async {
     if (_formKey.currentState!.validate()) {
       try {
-        await _auth
-            .createUserWithEmailAndPassword(
+        // Reauthenticate user
+        final user = _auth.currentUser;
+        final credential = EmailAuthProvider.credential(
           email: emailController.text,
-          password: passwordController.text,
-        )
-            .then((value) {
-          // Navigate to the next screen or show success message
-          // Navigator.pushNamed(context, AppRoutes.login); // or any other route
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
-          );
-          print('Successfully Created User Account');
-        });
+          password: oldPasswordController.text,
+        );
+        await user!.reauthenticateWithCredential(credential);
+
+        // Update password
+        await user.updatePassword(passwordController.text);
+
+        // Navigate to success screen or show success message
+        // For example, navigate to the home screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
+
+        // Show success snackbar
+        SnackbarHelper.showSnackBar('Password updated successfully!');
       } catch (e) {
         print(e);
         SnackbarHelper.showSnackBar(e.toString());
@@ -314,7 +320,7 @@ class _RegisterPageState extends State<UpdatePasswordPage> {
                 ),
               ),
               ElevatedButton(
-                onPressed: registerUser,
+                onPressed: updatePassword,
                 style: FilledButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: const Color.fromRGBO(0, 162, 142, 1),
