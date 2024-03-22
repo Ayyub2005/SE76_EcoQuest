@@ -33,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isHovered = false; // Define the isHovered variable
   String selectedImage = 'assets/ayyub.png'; // Default selected image
 
+
   // Function to handle option selection
   void selectOption(int index) {
     setState(() {
@@ -153,58 +154,39 @@ class _HomeScreenState extends State<HomeScreen> {
 //select button
           Positioned(
             left: 40,
-            top: 480,
-            bottom: 130,
+            top: 460,
+            bottom: 140,
             right: 155,
-            child: Material(
-              color: Colors.transparent,
-              child: MouseRegion(
-                onEnter: (_) {
-                  setState(() {
-                    isHovered = true;
-                  });
-                },
-                onExit: (_) {
-                  setState(() {
-                    isHovered = false;
-                  });
-                },
-                child: Container(
-                  width: 70,
-                  height: 40,
-                  child: TextButton(
-                    onPressed: () {
-                      // Add your logic here
-                    },
-                    child: Text(
-                      'Select',
-                      style: TextStyle(color: isHovered ? Colors.white : Colors.white),
-                    ),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.hovered)) {
-                            return Colors.white.withOpacity(1);
-                          }
-                          return Color.fromRGBO(0, 162, 142, 1);
-                        },
-                      ),
-                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(12)),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(
-                            color: Colors.black38,
-                            width: 2.0,
-                          ),
-                        ),
-                      ),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  // Add logic for button press animation here
+                });
+              },
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 1000), // Adjust animation duration as needed
+                curve: Curves.easeInOut,
+                width: 90,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(0, 162, 142, 1),
+                  borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(color: Colors.black38, width: 2.0),
+                ),
+                child: Center(
+                  child: Text(
+                    'Select',
+                    style: TextStyle(
+                      color: Colors.white, // Added comma here
+                      fontSize: 15, // Changed semicolon to comma here
                     ),
                   ),
                 ),
               ),
             ),
           ),
+
+
 
           Positioned(
             left: 8, // Adjust the left position as needed
