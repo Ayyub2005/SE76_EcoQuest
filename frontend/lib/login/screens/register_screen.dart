@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:frontend/Pages/homescreen.dart';
 import '../components/app_text_form_field.dart';
@@ -241,16 +240,17 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               ElevatedButton(
                 onPressed: registerUser,
-              style: FilledButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: const Color.fromRGBO(0, 162, 142, 1),
-                disabledBackgroundColor: Colors.grey.shade300,
-                minimumSize: const Size(double.infinity, 52),
-                shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-              ),
-              textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-              ),
+                style: FilledButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: const Color.fromRGBO(0, 162, 142, 1),
+                  disabledBackgroundColor: Colors.grey.shade300,
+                  minimumSize: const Size(double.infinity, 52),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                  ),
+                  textStyle: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w500),
+                ),
                 child: const Text('Signup'),
               ),
             ],
