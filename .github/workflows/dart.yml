@@ -13,10 +13,19 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest-flutter
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Download Flutter
+        run: |
+          curl -sL https://raw.githubusercontent.com/flutter/flutter/master/install-flutter.sh | bash
+
+      - name: Setup Flutter (Optional)
+        uses: flutter/flutter-action@v2
+        with:
+          channel: stable
 
       # Note: This workflow uses the latest stable version of the Dart SDK.
       # You can specify other versions if desired, see documentation here:
