@@ -1,5 +1,6 @@
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:vector_math/vector_math_64.dart' as vector64;
 
 class ArMysteryBoxScreen extends StatefulWidget {
@@ -18,15 +19,17 @@ class _ArMysteryBoxScreenState extends State<ArMysteryBoxScreen> {
     displayCube(coreController!);
   }
 
-  displayCube(ArCoreController controller){
+  displayCube(ArCoreController controller)async{
+    final ByteData questionMtextureBytes = await rootBundle.load("assets/QM.png");
+
     final materials = ArCoreMaterial(
-      color: Colors.teal,
-      metallic: 2,
+      color: Colors.purple,
+      textureBytes: questionMtextureBytes.buffer.asUint8List(),
     );
 
     final cube = ArCoreCube(
-        size: vector64.Vector3(0.75,0.75,0.75),
-        materials: [materials],
+      size: vector64.Vector3(0.75,0.75,0.75),
+      materials: [materials],
     );
 
     final node = ArCoreNode(
@@ -37,20 +40,6 @@ class _ArMysteryBoxScreenState extends State<ArMysteryBoxScreen> {
     coreController!.addArCoreNode(node);
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       title: const Text(
-  //         "Mystery Box"
-  //       ),
-  //     ),
-  //     body: ArCoreView(
-  //       onArCoreViewCreated: augmentedRealityViewCreated,
-  //     ),
-  //   );
-  // }
-  //
   void claimReward() {
     // Implement your function to claim the reward
     print("Claim reward");
@@ -85,7 +74,53 @@ class _ArMysteryBoxScreenState extends State<ArMysteryBoxScreen> {
   }
 }
 
-
-
-
+// import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
+// import 'package:flutter/material.dart';
+// import 'package:vector_math/vector_math_64.dart';
+//
+// class ArMysteryBoxScreen extends StatefulWidget {
+//   const ArMysteryBoxScreen({super.key});
+//
+//   @override
+//   State<ArMysteryBoxScreen> createState() => _ArMysteryBoxScreenState();
+// }
+//
+// class _ArMysteryBoxScreenState extends State<ArMysteryBoxScreen> {
+//   ArCoreController? coreController;
+//
+//   augmentedRealityViewCreated(ArCoreController controller) {
+//     coreController = controller;
+//     displayModel(coreController!);
+//       debugPrint("Mystery box loaded");
+//
+//   }
+//
+//   displayModel(ArCoreController controller) async {
+//     // Ensure your .obj file is correctly referenced in your pubspec.yamlw
+//     String modelPath = "assets/untitled.glb";  // Update with your actual model path
+//
+//     // Use ArCoreNode with ArCoreReferenceNode to load the .obj model
+//     final node = ArCoreReferenceNode(
+//       name: '3DModel',
+//       objectUrl: modelPath,
+//       position: Vector3(0, 0, 0),
+//       scale: Vector3.all(2.0),
+//       rotation: Vector4(0,0,0,0),
+//     );
+//
+//     controller.addArCoreNode(node);
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text("Mystery Box"),
+//       ),
+//       body: ArCoreView(
+//         onArCoreViewCreated: augmentedRealityViewCreated,
+//       ),
+//     );
+//   }
+// }
 

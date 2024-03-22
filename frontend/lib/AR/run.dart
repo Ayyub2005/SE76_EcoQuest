@@ -1,4 +1,4 @@
-import 'package:frontend/AR/ar_mystery_box_screen.dart';
+import 'package:frontend/AR//ar_mystery_box_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,12 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Get Mystery Box',
-      theme: ThemeData(
-
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      title: 'Flutter AR GSA',
       home: ArMysteryBoxScreen(),
     );
   }
