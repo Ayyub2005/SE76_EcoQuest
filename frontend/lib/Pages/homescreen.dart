@@ -25,8 +25,32 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  // This variable holds the currently displayed image
+  String displayedImage = 'assets/dog-character_default.png';
+  Key gifKey = UniqueKey();
+
+
+  void changeDisplayedImage(String imagePath, int duration) {
+    setState(() {
+      displayedImage = imagePath;
+    });
+
+    Future.delayed(Duration(milliseconds: duration), () {
+      setState(() {
+        displayedImage = 'assets/dog-character_default.png'; // Change back to the default image
+      });
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -152,21 +176,37 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-
           Positioned(
-            left: 100,
-            // Adjust as needed for spacing from the left edge
-            top: 200,
-            bottom: 40,
-            right: 0,
-            // Top and bottom set to 0 to center vertically
-            child: Image.asset(
-              'assets/output-onlinegiftools.gif',
-              // Replace with your actual character image file
-              width: 200, // Adjust width as needed
+          left: 80,
+          top: 200,
+          bottom: 40,
+          right: 0,
+            child: AnimatedSwitcher(
+              duration: Duration(milliseconds: 500),
+                  child: Image.asset(
+                    displayedImage,
+                    key: ValueKey(displayedImage),
+                    width: 400,
+                     height: 400,
+    ),
+    ),
+    ),
 
-            ),
-          ),
+
+          // Positioned(
+          //   left: 80,
+          //   // Adjust as needed for spacing from the left edge
+          //   top: 200,
+          //   bottom: 40,
+          //   right: 0,
+          //   // Top and bottom set to 0 to center vertically
+          //   child: Image.asset(
+          //     'assets/output-onlinegiftools.gif',
+          //     // Replace with your actual character image file
+          //     width: 200, // Adjust width as needed
+          //
+          //   ),
+          // ),
 
           // Positioned(
           //   left: 100,
@@ -177,45 +217,38 @@ class HomeScreen extends StatelessWidget {
           // ),
 
           Positioned(
-              left: 20, // Distance from left edge
-              top: 200, // Distance from top to start the buttons
+              left: 20,
+              top: 200,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  // First button without lock
+                  // Button 1 - Display gif1
                   FloatingActionButton(
                     onPressed: () {
-                      // Add your action for button 1
+                     changeDisplayedImage('assets/output-onlinegiftools.gif', 2500);
                     },
-                    backgroundColor: Color(0xFF058743), // Emerald green color
+                    backgroundColor: Color(0xFF058743),
                     child: Image.asset(
                       'assets/sugar.png',
-                      // Replace with your actual image file name
-                      width: 50, // Adjust the size as needed
-                      height: 50, // Adjust the size as needed
+                      width: 150,
+                      height: 150,
+                      key: gifKey, // Pass the gifKey here
                     ),
                   ),
+
                   SizedBox(height: 20), // Space between buttons
 
-                  // Second button with lock
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      FloatingActionButton(
-                        onPressed: () {
-                          // Add your action for button 2 (locked state action if necessary)
-                        },
-                        backgroundColor: Color(0xFF058743),
-                        // Emerald green color
-                        child: Image.asset(
-                          'assets/dances.png',
-                          // Replace with your actual image file name
-                          width: 50, // Adjust the size as needed
-                          height: 50, // Adjust the size as needed
-                        ),
-                      ),
-                      // Lock icon overlay
-                    ],
+                  // Button 2 - Display gif2
+                  FloatingActionButton(
+                    onPressed: () {
+                       changeDisplayedImage('assets/heart1.gif', 2400);
+                    },
+                    backgroundColor: Color(0xFF058743),
+                    child: Image.asset(
+                      'assets/hed.png',
+                      width: 250,
+                      height: 250,
+                    ),
                   ),
                   SizedBox(height: 20), // Space between buttons
 
@@ -225,22 +258,50 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       FloatingActionButton(
                         onPressed: () {
-                          // Add your action for button 3 (locked state action if necessary)
+                          // Show a dialog notification when the button is pressed
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Center( // Center the title
+                                  child: Text(
+                                    'Unlock at level 7',
+                                    style: TextStyle(fontSize: 14), // Adjust font size
+                                  ),
+                                ),
+                                content: Container(
+                                  height: 8, // Adjust height
+                                ),
+                                actions: [
+                                  Center( // Center the button
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text(
+                                        'OK',
+                                        style: TextStyle(fontSize: 12), // Adjust font size
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                                contentPadding: EdgeInsets.all(5), // Adjust padding
+                              );
+                            },
+                          );
                         },
                         backgroundColor: Color(0xFF058743),
-                        // Emerald green color
                         child: Image.asset(
                           'assets/dances.png',
-                          // Replace with your actual image file name
-                          width: 50, // Adjust the size as needed
-                          height: 50, // Adjust the size as needed
+                          width: 50,
+                          height: 50,
                         ),
                       ),
                       Icon(Icons.lock, color: Colors.white),
-                      // Lock icon overlay
                     ],
                   ),
                 ],
+
               )),
 
           // Bottom navigation bar with notch
@@ -383,27 +444,27 @@ class UserInfo extends StatelessWidget {
     );
   }
 }
-class DisplayGIF extends StatefulWidget {
-  const DisplayGIF({Key? key}) : super(key: key);
-
-  @override
-  _DisplayGIFState createState() => _DisplayGIFState();
-}
-
-class _DisplayGIFState extends State<DisplayGIF> {
-  bool isButtonPressed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return isButtonPressed
-        ? Image.asset(
-      'assets/output-onlinegiftools.gif',
-      width: 200,
-    )
-        : Image.asset(
-      'assets/default_image.png', // Replace with your default image file
-      width: 200,
-    );
-  }
-}
+// class DisplayGIF extends StatefulWidget {
+//   const DisplayGIF({Key? key}) : super(key: key);
+//
+//   @override
+//   _DisplayGIFState createState() => _DisplayGIFState();
+// }
+//
+// class _DisplayGIFState extends State<DisplayGIF> {
+//   bool isButtonPressed = false;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return isButtonPressed
+//         ? Image.asset(
+//       'assets/output-onlinegiftools.gif',
+//       width: 200,
+//     )
+//         : Image.asset(
+//       'assets/default_image.png', // Replace with your default image file
+//       width: 200,
+//     );
+//   }
+// }
 

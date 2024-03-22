@@ -46,11 +46,13 @@ dependencies:
   arcore_flutter_plugin: ^0.1.0
 
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   firebase_core: ^2.27.1
   firebase_auth: ^4.17.9
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -107,6 +109,9 @@ flutter:
     - assets/sugar.png
     - assets/dances.png
     - assets/output-onlinegiftools.gif
+    - assets/hed.png
+    - assets/heart.gif
+    - assets/heart1.gif
 
 
 
