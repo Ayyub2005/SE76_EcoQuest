@@ -43,6 +43,7 @@ dependencies:
   permission_handler: ^11.3.0
   image: ^3.3.0
   flutter_tflite: ^1.0.1
+  file_picker: ^8.0.0+1
   #arcore_flutter_plugin: ^0.1.0
 
 
