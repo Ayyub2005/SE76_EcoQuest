@@ -1,4 +1,4 @@
- import 'dart:ui';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -99,6 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
+
           // User info container
           // User info container
           Positioned(
@@ -135,12 +136,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(12), // Apply borderRadius to each grid item
                         ),
                         margin: EdgeInsets.only(left: 4, top: 8, right: 4, bottom: 8), // Adjusted margin
-                        height: 5,
-                        width: 5,
                         child: Center(
-                          child: Text(
-                            'Avatar ${index + 1}',
-                            style: TextStyle(color: Colors.black38),
+                          child: Image.asset(
+                            'assets/avatar${index + 1}.png', // Assuming your images are named as 'avatar1.png', 'avatar2.png', etc.
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -152,6 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 
 
+//select button
           Positioned(
             left: 40,
             top: 480,

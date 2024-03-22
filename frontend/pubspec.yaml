@@ -43,7 +43,7 @@ dependencies:
   permission_handler: ^11.3.0
   image: ^3.3.0
   flutter_tflite: ^1.0.1
-  arcore_flutter_plugin: ^0.1.0
+  #arcore_flutter_plugin: ^0.1.0
 
 
 
@@ -112,6 +112,11 @@ flutter:
     - assets/hed.png
     - assets/heart.gif
     - assets/heart1.gif
+    - assets/avatar1.png
+    - assets/avatar2.png
+    - assets/avatar3.png
+    - assets/avatar4.png
+    - assets/avatar5.png
 
 
 
