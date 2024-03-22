@@ -45,6 +45,7 @@ dependencies:
   flutter_tflite: ^1.0.1
   arcore_flutter_plugin: ^0.1.0
   cloud_firestore: ^4.15.9
+  #arcore_flutter_plugin: ^0.1.0
 
 
 
@@ -113,6 +114,11 @@ flutter:
     - assets/hed.png
     - assets/heart.gif
     - assets/heart1.gif
+    - assets/avatar1.png
+    - assets/avatar2.png
+    - assets/avatar3.png
+    - assets/avatar4.png
+    - assets/avatar5.png
 
 
 
