@@ -43,7 +43,14 @@ dependencies:
   permission_handler: ^11.3.0
   image: ^3.3.0
   flutter_tflite: ^1.0.1
+  arcore_flutter_plugin: ^0.1.0
+  cloud_firestore: ^4.15.9
+  http: ^1.2.0
+  file_picker: ^6.2.0
+  image_picker: ^1.0.7
+
   #arcore_flutter_plugin: ^0.1.0
+
 
 
 dev_dependencies:
@@ -60,6 +67,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
   flame: ^1.0.0
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -108,6 +116,14 @@ flutter:
     - assets/sugar.png
     - assets/dances.png
     - assets/output-onlinegiftools.gif
+    - assets/hed.png
+    - assets/heart.gif
+    - assets/heart1.gif
+    - assets/avatar1.png
+    - assets/avatar2.png
+    - assets/avatar3.png
+    - assets/avatar4.png
+    - assets/avatar5.png
 
 
 

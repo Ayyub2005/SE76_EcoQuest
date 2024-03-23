@@ -1,4 +1,4 @@
- import 'dart:ui';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -33,6 +33,7 @@ class AvatartCust extends StatefulWidget {
 class _AvatartCustState extends State<AvatartCust> {
   bool isHovered = false; // Define the isHovered variable
   String selectedImage = 'assets/ayyub.png'; // Default selected image
+
 
   // Function to handle option selection
   void selectOption(int index) {
@@ -77,7 +78,7 @@ class _AvatartCustState extends State<AvatartCust> {
 
           // Title "Choose your Avatar" with rounded white box stroke
           Positioned(
-            top: 20, // Adjusted for better positioning
+            top: 40, // Adjusted for better positioning
             left: 50, // Adjust as needed for horizontal centering
             right: 50, // Adjust as needed for horizontal centering
             child: Container(
@@ -99,6 +100,7 @@ class _AvatartCustState extends State<AvatartCust> {
               ),
             ),
           ),
+
 
           // User info container
           // User info container
@@ -136,12 +138,10 @@ class _AvatartCustState extends State<AvatartCust> {
                           borderRadius: BorderRadius.circular(12), // Apply borderRadius to each grid item
                         ),
                         margin: EdgeInsets.only(left: 4, top: 8, right: 4, bottom: 8), // Adjusted margin
-                        height: 5,
-                        width: 5,
                         child: Center(
-                          child: Text(
-                            'Avatar ${index + 1}',
-                            style: TextStyle(color: Colors.black38),
+                          child: Image.asset(
+                            'assets/avatar${index + 1}.png', // Assuming your images are named as 'avatar1.png', 'avatar2.png', etc.
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -152,61 +152,42 @@ class _AvatartCustState extends State<AvatartCust> {
             ),
           ),
 
-
+//select button
           Positioned(
             left: 40,
-            top: 480,
-            bottom: 130,
+            top: 460,
+            bottom: 140,
             right: 155,
-            child: Material(
-              color: Colors.transparent,
-              child: MouseRegion(
-                onEnter: (_) {
-                  setState(() {
-                    isHovered = true;
-                  });
-                },
-                onExit: (_) {
-                  setState(() {
-                    isHovered = false;
-                  });
-                },
-                child: Container(
-                  width: 70,
-                  height: 40,
-                  child: TextButton(
-                    onPressed: () {
-                      // Add your logic here
-                    },
-                    child: Text(
-                      'Select',
-                      style: TextStyle(color: isHovered ? Colors.white : Colors.white),
-                    ),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.hovered)) {
-                            return Colors.white.withOpacity(1);
-                          }
-                          return Color.fromRGBO(0, 162, 142, 1);
-                        },
-                      ),
-                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(12)),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(
-                            color: Colors.black38,
-                            width: 2.0,
-                          ),
-                        ),
-                      ),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  // Add logic for button press animation here
+                });
+              },
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 1000), // Adjust animation duration as needed
+                curve: Curves.easeInOut,
+                width: 90,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(0, 162, 142, 1),
+                  borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(color: Colors.black38, width: 2.0),
+                ),
+                child: Center(
+                  child: Text(
+                    'Select',
+                    style: TextStyle(
+                      color: Colors.white, // Added comma here
+                      fontSize: 15, // Changed semicolon to comma here
                     ),
                   ),
                 ),
               ),
             ),
           ),
+
+
 
           Positioned(
             left: 8, // Adjust the left position as needed
