@@ -74,10 +74,10 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
 
     if (xpLevel.contains(widget.userXp)) {
       index = random.nextInt(characterList.length);
-      cardDetails[0]=({'name': characterList[index]['name']!}); // Add character name to cardDetails
+      cardDetails.add({'name': characterList[index]['name']!}); // Add character name to cardDetails
     } else {
       index = random.nextInt(rewardDetails.length);
-      cardDetails[0]=({'name': rewardDetails[index]['name']!}); // Add reward name to cardDetails
+      cardDetails.add({'name': rewardDetails[index]['name']!}); // Add reward name to cardDetails
     }
   }
 
