@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:frontend/Pages/FYI_data.dart';
 import 'card_data.dart';
 
 void main() {
@@ -19,26 +22,33 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.white,
         ),
       ),
-      home: FYI(),
+      home: FYI(userXp:12),
     );
   }
 }
 
 class FYI extends StatefulWidget {
+  final int userXp;
+  const FYI({super.key, required this.userXp});
   @override
   _FYIState createState() => _FYIState();
 }
 
 class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
-  late List<Map<String, String>> cardDetails;
+  List<Map<String, String>> cardDetails = [];
+  late List<Map<String, String>> rewardDetails;
+  late List<Map<String, String>> characterList;
+  late List<int> xpLevel;
   late AnimationController _controller;
   late bool _isCardFlipped;
-  int currentIndex = 3; // Variable to track the current card index
+
+
 
   @override
   void initState() {
     super.initState();
     initializeCards();
+    cardDetails = [];
     _controller = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 500),
@@ -53,7 +63,21 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
   }
 
   void initializeCards() {
-    cardDetails = CardData.cardDetails;
+    rewardDetails = Rewards.rewardDetails;
+    characterList = Rewards.rewardDetails;
+    xpLevel = Rewards.xpLevels;
+    cardDetails = []; // Initialize cardDetails as an empty list
+
+    Random random = Random();
+    int index;
+
+    if (xpLevel.contains(widget.userXp)) {
+      index = random.nextInt(characterList.length);
+      cardDetails.add({'name': characterList[index]['name']!}); // Add character name to cardDetails
+    } else {
+      index = random.nextInt(rewardDetails.length);
+      cardDetails.add({'name': rewardDetails[index]['name']!}); // Add reward name to cardDetails
+    }
   }
 
   void _toggleCardFlip() {
@@ -65,7 +89,26 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
     } else {
       _controller.reverse(from: 1.0);
     }
+
   }
+
+  // void _xpCheck(){
+  //   Random random = Random();
+  //   int index;
+  //   if (xpLevel.contains(widget.userXp)) {
+  //     index = random.nextInt(characterList.length);
+  //     // Update the card name based on the selected index from characterList
+  //     setState(() {
+  //       cardDetails[0]['name'] = characterList[index]['name']!;
+  //     });
+  //   } else {
+  //     index = random.nextInt(rewardDetails.length);
+  //     // Update the card name based on the selected index from rewardDetails
+  //     setState(() {
+  //       cardDetails[0]['name'] = rewardDetails[index]['name']!;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +196,7 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 20.0),
                                   child: Text(
-                                    '${cardDetails[currentIndex]['name']}',
+                                    '${cardDetails[0]['name']}',
                                     style: const TextStyle(fontSize: 25.0),
                                   ),
                                 ),
@@ -162,7 +205,7 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                                   width: MediaQuery.of(context).size.width / 3,
                                   height: MediaQuery.of(context).size.height / 4,
                                   child: Image.asset(
-                                    'assets/character_${currentIndex + 1}.jpeg',
+                                    'assets/character_${1}.jpeg',
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -175,7 +218,7 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'Care Level: ${cardDetails[currentIndex]['careLevel']}',
+                                          'Care Level: ${cardDetails[0]['careLevel']}',
                                           style: const TextStyle(fontSize: 18.0),
                                         ),
                                         SizedBox(height: 20),
