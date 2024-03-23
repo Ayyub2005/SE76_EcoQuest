@@ -46,7 +46,7 @@ dependencies:
   arcore_flutter_plugin: ^0.1.0
   cloud_firestore: ^4.15.9
   http: ^1.2.0
-  file_picker: ^8.0.0+1
+  file_picker: ^6.2.0
   image_picker: ^0.8.9
   shared_preferences: ^2.0.7
 
