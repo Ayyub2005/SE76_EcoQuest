@@ -1,7 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:frontend/Pages/service/database.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -15,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         bottomNavigationBarTheme: BottomNavigationBarTheme.of(context).copyWith(
           backgroundColor: Colors.black,
-          selectedItemColor: Color.fromRGBO(0,162,142,1),
+          selectedItemColor: Color.fromRGBO(0, 162, 142, 1),
           unselectedItemColor: Colors.white,
         ),
       ),
@@ -32,11 +36,84 @@ class AvatartCust extends StatefulWidget {
 
 class _AvatartCustState extends State<AvatartCust> {
   bool isHovered = false; // Define the isHovered variable
-  String selectedImage = 'assets/ayyub.png'; // Default selected image
+  String selectedImage = ""; // Default selected image
 
+  Session session = Session();
+  late int index = 1;
 
   // Function to handle option selection
-  void selectOption(int index) {
+  // void selectOption(int index) {
+  //   setState(() {
+  //     // Update selectedImage based on the index
+  //     switch (index) {
+  //       case 1:
+  //         selectedImage = 'assets/sen.png';
+  //         break;
+  //       case 2:
+  //         selectedImage =
+  //             'assets/aqeel.png'; // Replace 'assets/image2.png' with your actual image path
+  //         break;
+  //       case 3:
+  //         selectedImage =
+  //             'assets/dineth.png'; // Replace 'assets/image3.png' with your actual image path
+  //         break;
+  //       case 4:
+  //         selectedImage = 'assets/man.png';
+  //         break;
+  //       default:
+  //         selectedImage = 'assets/ayyub.png'; // Default case
+  //     }
+  //   });
+  // }
+
+  // void selectOption(index) async {
+  //   UserModel currentUser = await session.getCurrentUser();
+  //   currentUser.character = index; // Update the character field
+  //   await session
+  //       .updateUserData(currentUser); // Update the user's data in Firebase
+  //   setState(() {
+  //     // Update selectedImage based on the index
+  //     switch (index) {
+  //       case 1:
+  //         selectedImage = 'assets/sen.png';
+  //         break;
+  //       case 2:
+  //         selectedImage = 'assets/aqeel.png';
+  //         break;
+  //       case 3:
+  //         selectedImage = 'assets/dineth.png';
+  //         break;
+  //       case 4:
+  //         selectedImage = 'assets/man.png';
+  //         break;
+  //       default:
+  //         selectedImage = 'assets/ayyub.png'; // Default case
+  //     }
+  //   });
+  // }
+
+  void fetchAndSetCharacter() async {
+    UserModel currentUser = await session.getCurrentUser();
+    if (currentUser != null) {
+      setState(() {
+        index = currentUser
+            .character; // Set the index based on the fetched character value
+        selectOption(index); // Update the selectedImage based on the index
+      });
+    }
+  }
+
+  void selectOption(int optionIndex) async {
+    setState(() {
+      index = optionIndex; // Update the value of index
+    });
+
+    // Fetch current user
+    // UserModel currentUser = await session.getCurrentUser();
+
+    // // Update the character field with the current index
+    // currentUser.character = index;
+
     setState(() {
       // Update selectedImage based on the index
       switch (index) {
@@ -44,18 +121,24 @@ class _AvatartCustState extends State<AvatartCust> {
           selectedImage = 'assets/sen.png';
           break;
         case 2:
-          selectedImage = 'assets/aqeel.png'; // Replace 'assets/image2.png' with your actual image path
+          selectedImage = 'assets/aqeel.png';
           break;
         case 3:
-          selectedImage = 'assets/dineth.png'; // Replace 'assets/image3.png' with your actual image path
+          selectedImage = 'assets/dineth.png';
           break;
         case 4:
           selectedImage = 'assets/man.png';
           break;
-        default:
+        case 5:
           selectedImage = 'assets/ayyub.png'; // Default case
       }
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAndSetCharacter();
   }
 
   @override
@@ -67,7 +150,10 @@ class _AvatartCustState extends State<AvatartCust> {
           Positioned.fill(
             child: ClipRect(
               child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 300, sigmaY: 300), // Adjust the sigmaX and sigmaY values for blur intensity
+                filter: ImageFilter.blur(
+                    sigmaX: 300,
+                    sigmaY:
+                        300), // Adjust the sigmaX and sigmaY values for blur intensity
                 child: Image.asset(
                   'assets/spot.png',
                   fit: BoxFit.cover,
@@ -84,8 +170,10 @@ class _AvatartCustState extends State<AvatartCust> {
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
               decoration: BoxDecoration(
-                color: Colors.black38.withOpacity(0.5), // Semi-transparent white background
-                border: Border.all(color: Colors.white, width: 2.0), // White border
+                color: Colors.black38
+                    .withOpacity(0.5), // Semi-transparent white background
+                border:
+                    Border.all(color: Colors.white, width: 2.0), // White border
                 borderRadius: BorderRadius.circular(15), // Rounded corners
               ),
               child: Text(
@@ -101,19 +189,20 @@ class _AvatartCustState extends State<AvatartCust> {
             ),
           ),
 
-
           // User info container
           // User info container
           Positioned(
             right: 18,
             top: 120,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(12), // Adjust the radius as needed
+              borderRadius:
+                  BorderRadius.circular(12), // Adjust the radius as needed
               child: Container(
                 width: 100,
                 height: 400, // Adjust height as needed
                 decoration: BoxDecoration(
-                  color: Colors.black38.withOpacity(0.7), // Example background color
+                  color: Colors.black38
+                      .withOpacity(0.7), // Example background color
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.5),
@@ -135,9 +224,14 @@ class _AvatartCustState extends State<AvatartCust> {
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(12), // Apply borderRadius to each grid item
+                          borderRadius: BorderRadius.circular(
+                              12), // Apply borderRadius to each grid item
                         ),
-                        margin: EdgeInsets.only(left: 4, top: 8, right: 4, bottom: 8), // Adjusted margin
+                        margin: EdgeInsets.only(
+                            left: 4,
+                            top: 8,
+                            right: 4,
+                            bottom: 8), // Adjusted margin
                         child: Center(
                           child: Image.asset(
                             'assets/avatar${index + 1}.png', // Assuming your images are named as 'avatar1.png', 'avatar2.png', etc.
@@ -149,8 +243,8 @@ class _AvatartCustState extends State<AvatartCust> {
                   }),
                 ),
               ),
-    ),
-    ),
+            ),
+          ),
 
 //select button
           Positioned(
@@ -159,13 +253,18 @@ class _AvatartCustState extends State<AvatartCust> {
             bottom: 140,
             right: 155,
             child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  // Add logic for button press animation here
-                });
+              onTap: () async {
+                UserModel currentUser = await session.getCurrentUser();
+                if (currentUser != null) {
+                  currentUser.character =
+                      index; // Update the character field with the current index
+                  await session.updateUserData(
+                      currentUser); // Update the user's data in Firebase
+                }
               },
               child: AnimatedContainer(
-                duration: Duration(milliseconds: 1000), // Adjust animation duration as needed
+                duration: Duration(
+                    milliseconds: 1000), // Adjust animation duration as needed
                 curve: Curves.easeInOut,
                 width: 90,
                 height: 100,
@@ -187,13 +286,11 @@ class _AvatartCustState extends State<AvatartCust> {
             ),
           ),
 
-
-
           Positioned(
             left: 8, // Adjust the left position as needed
             top: 100, // Adjust the top position as needed
             bottom: 180,
-            right:110,
+            right: 110,
             child: Container(
               width: 140,
               height: 180,
@@ -206,7 +303,6 @@ class _AvatartCustState extends State<AvatartCust> {
               ),
             ),
           ),
-
         ],
       ),
       floatingActionButton: Padding(
