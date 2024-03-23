@@ -1,9 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:frontend/login/screens/update_screen.dart';
 import 'package:frontend/login/screens/login_screen.dart';
+import 'package:frontend/Pages/service/database.dart';
 import '../login/utils/helpers/snackbar_helper.dart';
 
 void main() {
@@ -42,11 +45,59 @@ class UserInfoPage extends StatefulWidget {
 
 class _UserInfoPageState extends State<UserInfoPage> {
   late Future<GetUserInfo> _userDataFuture;
+  String selectedImage = "";
+  String avatarEmoji = "";
+
+  Session session = Session();
+  late int index = 1;
+
+  void fetchAndSetAvatar() async {
+    UserModel currentUser = await session.getCurrentUser();
+    if (currentUser != null) {
+      setState(() {
+        index = currentUser
+            .avatar; // Set the index based on the fetched character value
+        selectOption(index); // Update the selectedImage based on the index
+      });
+    }
+  }
+
+  void selectOption(int optionIndex) async {
+    setState(() {
+      index = optionIndex; // Update the value of index
+    });
+
+    setState(() {
+      // Update selectedImage based on the index
+      switch (index) {
+        case 1:
+          selectedImage = "Image.asset('assets/sen.png')";
+          avatarEmoji = 'assets/avatar1.png';
+          break;
+        case 2:
+          selectedImage = 'assets/aqeel.png';
+          avatarEmoji = 'assets/avatar2.png';
+          break;
+        case 3:
+          selectedImage = 'assets/dineth.png';
+          avatarEmoji = 'assets/avatar3.png';
+          break;
+        case 4:
+          selectedImage = 'assets/man.png';
+          avatarEmoji = 'assets/avatar4.png';
+          break;
+        case 5:
+          selectedImage = 'assets/ayyub.png';
+          avatarEmoji = 'assets/avatar5.png';
+      }
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     _userDataFuture = getUserData();
+    fetchAndSetAvatar();
   }
 
   @override
@@ -62,6 +113,17 @@ class _UserInfoPageState extends State<UserInfoPage> {
             child: Container(
               height: MediaQuery.of(context).size.height / 3 - 20,
               color: const Color.fromRGBO(0, 162, 142, 1),
+              child: Center(
+                child: Hero(
+                  tag: 'selectedAvatar',
+                  child: Image.asset(
+                    selectedImage,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height / 3 - 60,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
             ),
           ),
 
@@ -72,7 +134,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
               future: _userDataFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator(); // Show loading indicator while fetching data
+                  return const CircularProgressIndicator(); // Show loading indicator while fetching data
                 }
                 if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
@@ -81,12 +143,12 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 30,
-                      backgroundImage: NetworkImage(
-                          'https://example.com/avatar.jpg'), // Use appropriate avatar URL
+                      backgroundImage:
+                          AssetImage(avatarEmoji), // Use appropriate avatar URL
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Text(
                       userData.name,
                       style: const TextStyle(
@@ -113,7 +175,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   Positioned(
                     left: 0.0,
                     top: 0.0,
-                    child: Image.asset('assets/heart.png.png',
+                    child: Image.asset('assets/hearts.png',
                         width: 24.0, height: 24.0),
                   ),
                   Positioned(
@@ -177,7 +239,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
               future: _userDataFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator(); // Show loading indicator while fetching data
+                  return const CircularProgressIndicator(); // Show loading indicator while fetching data
                 }
                 if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
@@ -195,25 +257,25 @@ class _UserInfoPageState extends State<UserInfoPage> {
                     children: [
                       Text(
                         'Name: ${userData.name}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(height: 5),
-                      Divider(color: Colors.grey),
+                      const SizedBox(height: 5),
+                      const Divider(color: Colors.grey),
                       Text(
                         'Email: ${userData.email}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(height: 5),
-                      Divider(color: Colors.grey),
+                      const SizedBox(height: 5),
+                      const Divider(color: Colors.grey),
                       Text(
                         'Password: ${userData.password}', // Displaying password is not recommended for security reasons
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           color: Colors.black,
                         ),
@@ -237,7 +299,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => UpdatePasswordPage()),
+                        builder: (context) => const UpdatePasswordPage()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -247,7 +309,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: Text('Update Password'),
+                child: const Text('Update Password'),
               ),
             ),
           ),
@@ -279,7 +341,8 @@ class _UserInfoPageState extends State<UserInfoPage> {
                     // Navigate to login screen after successful deletion
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
                     );
 
                     // Show a Snackbar message indicating successful deletion
@@ -301,7 +364,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: Text('Delete Account'),
+                child: const Text('Delete Account'),
               ),
             ),
           ),
