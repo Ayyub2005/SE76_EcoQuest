@@ -43,7 +43,7 @@ dependencies:
   permission_handler: ^11.3.0
   image: ^3.3.0
   flutter_tflite: ^1.0.1
-  arcore_flutter_plugin: ^0.1.0
+  #arcore_flutter_plugin: ^0.1.0
 
 
 dev_dependencies:
@@ -51,6 +51,7 @@ dev_dependencies:
     sdk: flutter
   firebase_core: ^2.27.1
   firebase_auth: ^4.17.9
+  cloud_firestore: ^4.15.9
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'card_data.dart';
+import 'package:frontend/Pages/Navigation.dart';
+import 'navigation.dart';
+// import 'package:flutter/src/material/bottom_app_bar.dart';
+// import 'package:frontend/Pages/Navigation.dart';
 
 void main() {
   runApp(MyApp());
@@ -92,43 +96,6 @@ class _CharacterCardsState extends State<CharacterCards> with SingleTickerProvid
             ),
           ),
           // User info container
-          // Bottom navigation bar with notch
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: BottomAppBar(
-              color: Colors.black, // Adjusted for dark theme
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 32,
-                    icon: const Icon(Icons.home, color: Colors.white), // Adjusted icon color
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Image.asset(
-                      'assets/dragon.png',
-                      width: 30,
-                      height: 30,
-                    ),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    iconSize: 32,
-                    icon: const Icon(Icons.people, color: Colors.white), // Adjusted icon color
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    iconSize: 32,
-                    icon: const Icon(Icons.settings, color: Colors.white), // Adjusted icon color
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-          ),
 
           Center(
             child: SizedBox(
@@ -268,6 +235,7 @@ class _CharacterCardsState extends State<CharacterCards> with SingleTickerProvid
               ),
             ),
           ),
+
         ],
       ),
 

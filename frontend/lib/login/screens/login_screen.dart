@@ -9,6 +9,8 @@ import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -71,8 +73,6 @@ class _LoginPageState extends State<LoginPage> {
           password: passwordController.text,
         )
             .then((value) {
-          // Navigate to the next screen or show success message
-          // Navigator.pushNamed(context, AppRoutes.login); // or any other route
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => HomeScreen()),
@@ -246,4 +246,5 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
 }

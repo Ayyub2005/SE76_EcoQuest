@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:frontend/Pages/homescreen.dart';
+import '../../Pages/service/database.dart';
 import '../components/app_text_form_field.dart';
 import '../utils/helpers/snackbar_helper.dart';
 import '../values/app_constants.dart';
@@ -46,6 +47,18 @@ class _RegisterPageState extends State<RegisterPage> {
     confirmPasswordController.dispose();
     super.dispose();
   }
+  void addDetailsDB() async{
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null) {
+      Map<String, dynamic> userMap = {
+        "Name": nameController.text, // Assuming you have a TextField for the name
+        "Level": 1, // Assuming you have a TextField for the level
+        "XP": 100,
+        "HP":100
+      };
+      await DatabaseMethods().addUserData(userMap, uid);
+    }
+  }
 
   Future<void> registerUser() async {
     if (_formKey.currentState!.validate()) {
@@ -58,10 +71,7 @@ class _RegisterPageState extends State<RegisterPage> {
             .then((value) {
           // Navigate to the next screen or show success message
           // Navigator.pushNamed(context, AppRoutes.login); // or any other route
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
-          );
+
           print('Successfully Created User Account');
         });
       } catch (e) {
@@ -229,9 +239,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                       ? Icons.visibility_off_outlined
                                       : Icons.visibility_outlined,
                                   color: Colors.white,
-                                ),
+                                // ),
                               ),
                             ),
+                          ),
                           );
                         },
                       ),
@@ -240,7 +251,15 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               ElevatedButton(
-                onPressed: registerUser,
+                onPressed: () {
+                  addDetailsDB();
+                  registerUser();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                  );
+                },
+
               style: FilledButton.styleFrom(
                 foregroundColor: Colors.white,
                 backgroundColor: const Color.fromRGBO(0, 162, 142, 1),
@@ -259,4 +278,5 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
+
 }

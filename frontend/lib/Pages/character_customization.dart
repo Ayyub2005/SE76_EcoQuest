@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:frontend/Pages/service/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -18,13 +19,14 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.white,
         ),
        ),
-      home:  Character_cust(),
+      home: const Character_cust(),
     );
   }
 }
 
 // class Character_cust extends StatelessWidget {
 class Character_cust extends StatefulWidget {
+  const Character_cust({super.key});
   @override
   _Character_custState createState() => _Character_custState();
 }
@@ -224,7 +226,26 @@ class _Character_custState extends State<Character_cust> {
               ),
             ),
 
-
+          Positioned(
+            left: 20, // Adjust the left position as needed
+            bottom: 20, // Adjust the bottom position as needed
+            child: ElevatedButton(
+              onPressed: () async {
+                String? uid = FirebaseAuth.instance.currentUser?.uid;
+                if (uid != null) {
+                Map<String,dynamic> userMap= {
+                  "XP": 450
+                };
+                await DatabaseMethods().addUserData(userMap, uid);
+                print('Elevated Button Pressed');
+              } else {
+                  print("User is not logged in.");
+                  // Handle the case where the user is not logged in
+                  }
+                },
+              child: Text('Customize'),
+            ),
+          ),
 
           // // Bottom navigation bar with notch
           Positioned(
@@ -244,44 +265,7 @@ class _Character_custState extends State<Character_cust> {
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
 
-            child: BottomAppBar(
-              color: Colors.black, // Adjusted for dark theme
-              child: Row(
-
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 32,
-                    icon: const Icon(Icons.home, color: Colors.white), // Adjusted icon color
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Image.asset(
-                      'assets/dragon.png',
-                      width: 30,
-                      height: 30,
-                    ),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    iconSize: 32,
-                    icon: const Icon(Icons.people, color: Colors.white), // Adjusted icon color
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    iconSize: 32,
-                    icon: const Icon(Icons.settings, color: Colors.white), // Adjusted icon color
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-          ),
         ],
       ),
       floatingActionButton: Padding(

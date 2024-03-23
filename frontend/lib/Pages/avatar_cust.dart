@@ -19,17 +19,18 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.white,
         ),
       ),
-      home: HomeScreen(),
+      home: const AvatartCust(),
     );
   }
 }
 
-class HomeScreen extends StatefulWidget {
+class AvatartCust extends StatefulWidget {
+  const AvatartCust({super.key});
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _AvatartCustState createState() => _AvatartCustState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _AvatartCustState extends State<AvatartCust> {
   bool isHovered = false; // Define the isHovered variable
   String selectedImage = 'assets/ayyub.png'; // Default selected image
 
@@ -224,43 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          // Bottom navigation bar with notch
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: BottomAppBar(
-              color: Colors.black, // Adjusted for dark theme
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 32,
-                    icon: const Icon(Icons.home, color: Colors.white), // Adjusted icon color
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Image.asset(
-                      'assets/dragon (1).png',
-                      width: 30,
-                      height: 30,
-                    ),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    iconSize: 32,
-                    icon: const Icon(Icons.people, color: Colors.white), // Adjusted icon color
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    iconSize: 32,
-                    icon: const Icon(Icons.settings, color: Colors.white), // Adjusted icon color
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-          ),
+
         ],
       ),
       floatingActionButton: Padding(
