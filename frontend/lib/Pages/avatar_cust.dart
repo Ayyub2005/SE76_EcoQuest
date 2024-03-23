@@ -149,8 +149,8 @@ class _AvatartCustState extends State<AvatartCust> {
                   }),
                 ),
               ),
-            ),
-          ),
+    ),
+    ),
 
 //select button
           Positioned(
