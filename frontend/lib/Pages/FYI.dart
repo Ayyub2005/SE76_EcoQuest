@@ -53,7 +53,6 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
   }
 
   void initializeCards() {
-    // Initialize card details using data from card_data.dart
     cardDetails = CardData.cardDetails;
   }
 
@@ -76,7 +75,7 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
           // Background image
           Positioned.fill(
             child: Image.asset(
-              'assets/background pic-f.jpg',
+              'assets/background6.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -140,7 +139,7 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                         );
                       },
                       child: Card(
-                        color: const Color.fromRGBO(0, 162, 142, 1),
+                        color: const Color.fromRGBO(142, 169, 185, 1),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16.0),
                         ),
@@ -163,7 +162,7 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                                   width: MediaQuery.of(context).size.width / 3,
                                   height: MediaQuery.of(context).size.height / 4,
                                   child: Image.asset(
-                                    'assets/character_${currentIndex + 1}.png',
+                                    'assets/character_${currentIndex + 1}.jpeg',
                                     fit: BoxFit.cover,
                                   ),
                                 ),
