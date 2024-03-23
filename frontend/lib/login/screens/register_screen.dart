@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:frontend/Pages/homescreen.dart';
 import '../../Pages/service/database.dart';
@@ -47,14 +46,22 @@ class _RegisterPageState extends State<RegisterPage> {
     confirmPasswordController.dispose();
     super.dispose();
   }
-  void addDetailsDB() async{
+
+  void addDetailsDB() async {
     String? uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid != null) {
       Map<String, dynamic> userMap = {
-        "Name": nameController.text, // Assuming you have a TextField for the name
-        "Level": 1, // Assuming you have a TextField for the level
-        "XP": 100,
-        "HP":100
+        "Name": nameController.text,
+        "Level": 1,
+        "XP": 0,
+        "HP": 100,
+        "Avatar": 0,
+        "Character": 1,
+        "Email": emailController.text,
+        "Nutrition": 1,
+        "Password": passwordController
+            .text, // Note: Storing password in plaintext is not recommended for security reasons
+        "Accessory": 1,
       };
       await DatabaseMethods().addUserData(userMap, uid);
     }
@@ -239,10 +246,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                       ? Icons.visibility_off_outlined
                                       : Icons.visibility_outlined,
                                   color: Colors.white,
-                                // ),
+                                  // ),
+                                ),
                               ),
                             ),
-                          ),
                           );
                         },
                       ),
@@ -251,25 +258,31 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {
-                  addDetailsDB();
-                  registerUser();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
-                  );
+                onPressed: () async {
+                  try {
+                    await registerUser(); // Wait for user registration to complete
+                    addDetailsDB(); // Add user details to the database
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
+                  } catch (e) {
+                    // Handle registration errors
+                    print(e);
+                    SnackbarHelper.showSnackBar(e.toString());
+                  }
                 },
-
-              style: FilledButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: const Color.fromRGBO(0, 162, 142, 1),
-                disabledBackgroundColor: Colors.grey.shade300,
-                minimumSize: const Size(double.infinity, 52),
-                shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-              ),
-              textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-              ),
+                style: FilledButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: const Color.fromRGBO(0, 162, 142, 1),
+                  disabledBackgroundColor: Colors.grey.shade300,
+                  minimumSize: const Size(double.infinity, 52),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                  ),
+                  textStyle: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w500),
+                ),
                 child: const Text('Signup'),
               ),
             ],
@@ -278,5 +291,4 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
-
 }
