@@ -41,57 +41,6 @@ class _AvatartCustState extends State<AvatartCust> {
   Session session = Session();
   late int index = 1;
 
-  // Function to handle option selection
-  // void selectOption(int index) {
-  //   setState(() {
-  //     // Update selectedImage based on the index
-  //     switch (index) {
-  //       case 1:
-  //         selectedImage = 'assets/sen.png';
-  //         break;
-  //       case 2:
-  //         selectedImage =
-  //             'assets/aqeel.png'; // Replace 'assets/image2.png' with your actual image path
-  //         break;
-  //       case 3:
-  //         selectedImage =
-  //             'assets/dineth.png'; // Replace 'assets/image3.png' with your actual image path
-  //         break;
-  //       case 4:
-  //         selectedImage = 'assets/man.png';
-  //         break;
-  //       default:
-  //         selectedImage = 'assets/ayyub.png'; // Default case
-  //     }
-  //   });
-  // }
-
-  // void selectOption(index) async {
-  //   UserModel currentUser = await session.getCurrentUser();
-  //   currentUser.character = index; // Update the character field
-  //   await session
-  //       .updateUserData(currentUser); // Update the user's data in Firebase
-  //   setState(() {
-  //     // Update selectedImage based on the index
-  //     switch (index) {
-  //       case 1:
-  //         selectedImage = 'assets/sen.png';
-  //         break;
-  //       case 2:
-  //         selectedImage = 'assets/aqeel.png';
-  //         break;
-  //       case 3:
-  //         selectedImage = 'assets/dineth.png';
-  //         break;
-  //       case 4:
-  //         selectedImage = 'assets/man.png';
-  //         break;
-  //       default:
-  //         selectedImage = 'assets/ayyub.png'; // Default case
-  //     }
-  //   });
-  // }
-
   void fetchAndSetCharacter() async {
     UserModel currentUser = await session.getCurrentUser();
     if (currentUser != null) {
@@ -107,12 +56,6 @@ class _AvatartCustState extends State<AvatartCust> {
     setState(() {
       index = optionIndex; // Update the value of index
     });
-
-    // Fetch current user
-    // UserModel currentUser = await session.getCurrentUser();
-
-    // // Update the character field with the current index
-    // currentUser.character = index;
 
     setState(() {
       // Update selectedImage based on the index
@@ -189,7 +132,6 @@ class _AvatartCustState extends State<AvatartCust> {
             ),
           ),
 
-          // User info container
           // User info container
           Positioned(
             right: 18,
