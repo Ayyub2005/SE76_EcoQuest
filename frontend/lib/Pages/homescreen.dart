@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/Pages/avatar_cust.dart';
 import 'package:frontend/Pages/character_customization.dart';
 import 'package:frontend/Pages/rotate_card.dart';
+import 'package:frontend/login/screens/login_screen.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:frontend/Pages/service/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,69 +37,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  Stream? userStream;
+  final Session session = Session(); // Step 1: Initialize the Session instance
 
   @override
   void initState() {
-    getontheload();
     super.initState();
   }
 
-  Future<DocumentSnapshot> getontheload() async {
-    String? uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid != null) {
-      return await FirebaseFirestore.instance.collection('User').doc(uid).get();
-    } else {
-      throw Exception("No user is currently logged in.");
+  Future<void> loginUser(String email, String password) async {
+    try {
+      await session.loginUser(email, password); // Authenticate the user
+      // Step 3: Fetch user data
+      await session.fetchUserData(session.currentUser?.email ?? "");
+    } catch (e) {
+      print("Error logging in: $e");
     }
   }
-
-  Widget userDetails() {
-    return FutureBuilder<DocumentSnapshot>(
-      future: getontheload(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasError) {
-            return Text("Error: ${snapshot.error}");
-          }
-          DocumentSnapshot ds = snapshot.data!;
-          if (!ds.exists) {
-            // Handle the case where the document does not exist
-            return Text("User data not available.");
-          }
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              // Avatar
-              CircleAvatar(
-                radius: 30,
-                // ds['Avatar'].toString(),
-              ),
-              const SizedBox(width: 10), // Spacing between avatar and text
-                  Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: const BoxDecoration(
-                      color: Colors.black,
-                    ),
-                    child: Text(
-                      ds['Name'].toString(),
-                      style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
-                  ),
-                ],
-              );
-
-        } else {
-          return CircularProgressIndicator();
-        }
-      },
-    );
-  }
-
-
     @override
     Widget build(BuildContext context) {
       return Scaffold(
@@ -113,13 +67,48 @@ class HomeScreenState extends State<HomeScreen> {
             ),
 
             // User info container
-
             Positioned(
               top: 15,
               left: 15,
-              child: userDetails(),
-            ),
+              child: FutureBuilder<UserModel>(
+                future: session.getCurrentUser(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasError) {
+                      return Text("Error: ${snapshot.error}");
+                    }
+                    UserModel user = snapshot.data!;
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                                // Avatar
+                                CircleAvatar(
+                                  radius: 30,
+                                  // ds['Avatar'].toString(),
+                                ),
+                                    const SizedBox(width: 10), // Spacing between avatar and text
+                                        Container(
+                                          padding: const EdgeInsets.all(6),
+                                          decoration: const BoxDecoration(
+                                            color: Colors.black,
+                                          ),
+                                          child: Text(
+                                                 '${user.name}!',
 
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                  } else {
+                    return CircularProgressIndicator();
+                  }
+                },
+              ),
+            ),
             // ),
 
             Positioned(
