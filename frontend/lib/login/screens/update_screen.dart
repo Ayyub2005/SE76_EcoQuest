@@ -149,23 +149,6 @@ class _RegisterPageState extends State<UpdatePasswordPage> {
                           color: Color.fromRGBO(0, 162, 142, 1),
                         ),
                       ),
-
-                      // Your form fields
-                      // AppTextFormField(
-                      //   autofocus: true,
-                      //   labelText: AppStrings.name,
-                      //   keyboardType: TextInputType.name,
-                      //   textInputAction: TextInputAction.next,
-                      //   onChanged: (value) => _formKey.currentState?.validate(),
-                      //   validator: (value) {
-                      //     return value!.isEmpty
-                      //         ? AppStrings.pleaseEnterName
-                      //         : value.length < 4
-                      //             ? AppStrings.invalidName
-                      //             : null;
-                      //   },
-                      //   controller: nameController,
-                      // ),
                       AppTextFormField(
                         labelText: AppStrings.email,
                         controller: emailController,
