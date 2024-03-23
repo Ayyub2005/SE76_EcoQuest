@@ -153,95 +153,92 @@ class _Character_custState extends State<Character_cust> {
           //   ),
 
           // Accessory container
-          Positioned(
-            right: 5,
-            top: 170,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Container(
-                width: 120,
-                height: 450,
-                color: Colors.black38.withOpacity(0.4),
-                child: GridView.count(
-                  crossAxisCount: 1,
-                  padding: EdgeInsets.all(12),
-                  children: List.generate(5, (index) {
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          if (index == 0) {
-                            displayedAccessory = 'assets/dog_char_access_1.png';
-                          } else if (index == 1) {
-                            displayedAccessory = 'assets/dog_char_access_2.png';
-                          } else {
-                            displayedAccessory = 'assets/dog-character_default.png';
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Accessory Locked,Scan to unlock new acccessories'),
-                                duration: Duration(milliseconds: 1000),
-                              ),
-                            );
-                          }
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white54.withOpacity(0.7),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        margin: EdgeInsets.all(8),
-                        child: Center(
-                          child: index==0||index==1
-                              ?Image.asset(
-                                'assets/accessory_${index + 1}.png',
-                                fit: BoxFit.cover,
-                              )
-                              : Icon(
-                                  Icons.lock,
-                                  color: Colors.black,
-                                  size:36 ,
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-                ),
-              ),
-            ),
-          ),
-          // Display character images on left-hand side
-          if (displayedAccessory.isNotEmpty) // Only display if an accessory is selected
-            Positioned(
-              left: 0,
-              top: 320,
-              child: AnimatedOpacity(
-                opacity: displayedAccessory == 'assets/dog-character_default.png' ? 0.7 : 1.0 ,
-                duration: Duration(milliseconds: 500),
-                child: Image.asset(
-                  displayedAccessory,
-                  width: 270,
-                  height: 330,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
+          // Positioned(
+          //   right: 5,
+          //   top: 170,
+          //   child: ClipRRect(
+          //     borderRadius: BorderRadius.circular(12),
+          //     child: Container(
+          //       width: 120,
+          //       height: 450,
+          //       color: Colors.black38.withOpacity(0.4),
+          //       child: GridView.count(
+          //         crossAxisCount: 1,
+          //         padding: EdgeInsets.all(12),
+          //         children: List.generate(5, (index) {
+          //           return GestureDetector(
+          //             onTap: () {
+          //               setState(() {
+          //                 if (index == 0) {
+          //                   displayedAccessory = 'assets/dog_char_access_1.png';
+          //                 } else if (index == 1) {
+          //                   displayedAccessory = 'assets/dog_char_access_2.png';
+          //                 } else {
+          //                   displayedAccessory = 'assets/dog-character_default.png';
+          //                   ScaffoldMessenger.of(context).showSnackBar(
+          //                     SnackBar(
+          //                       content: Text('Accessory Locked,Scan to unlock new acccessories'),
+          //                       duration: Duration(milliseconds: 1000),
+          //                     ),
+          //                   );
+          //                 }
+          //               });
+          //             },
+          //             child: Container(
+          //               decoration: BoxDecoration(
+          //                 color: Colors.white54.withOpacity(0.7),
+          //                 borderRadius: BorderRadius.circular(12),
+          //               ),
+          //               margin: EdgeInsets.all(8),
+          //               child: Center(
+          //                 child: index==0||index==1
+          //                     ?Image.asset(
+          //                       'assets/accessory_${index + 1}.png',
+          //                       fit: BoxFit.cover,
+          //                     )
+          //                     : Icon(
+          //                         Icons.lock,
+          //                         color: Colors.black,
+          //                         size:36 ,
+          //                 ),
+          //               ),
+          //             ),
+          //           );
+          //         }),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // // Display character images on left-hand side
+          // if (displayedAccessory.isNotEmpty) // Only display if an accessory is selected
+          //   Positioned(
+          //     left: 0,
+          //     top: 300,
+          //       child: Image.asset(
+          //         displayedAccessory,
+          //         width: 270,
+          //         height: 330,
+          //         fit: BoxFit.cover,
+          //       ),
+          //     ),
+
 
           Positioned(
-            left: 20, // Adjust the left position as needed
+            left: 60, // Adjust the left position as needed
             bottom: 20, // Adjust the bottom position as needed
             child: ElevatedButton(
               onPressed: () async {
-                String? uid = FirebaseAuth.instance.currentUser?.uid;
-                if (uid != null) {
-                Map<String,dynamic> userMap= {
-                  "XP": 450
-                };
-                await DatabaseMethods().addUserData(userMap, uid);
-                print('Elevated Button Pressed');
-              } else {
-                  print("User is not logged in.");
-                  // Handle the case where the user is not logged in
-                  }
+              //   String? uid = FirebaseAuth.instance.currentUser?.uid;
+              //   if (uid != null) {
+              //   Map<String,dynamic> userMap= {
+              //     "XP": 450
+              //   };
+              //   await DatabaseMethods().addUserData(userMap, uid);
+              //   print('Elevated Button Pressed');
+              // } else {
+              //     print("User is not logged in.");
+              //     // Handle the case where the user is not logged in
+              //     }
                 },
               child: Text('Customize'),
             ),

@@ -10,7 +10,7 @@ import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:frontend/Pages/service/database.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -21,6 +21,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+  final session = Session();
 
   final ValueNotifier<bool> passwordNotifier = ValueNotifier(true);
   final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
@@ -65,26 +66,29 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
   Future<void> loginUser() async {
+
     if (_formKey.currentState!.validate()) {
       try {
         await _auth
             .signInWithEmailAndPassword(
           email: emailController.text,
           password: passwordController.text,
-        )
-            .then((value) {
+        );
+        await session.loginUser(emailController.text, passwordController.text);
+
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => HomeScreen()),
           );
           print('Successfully Logged in');
-        });
+
       } catch (e) {
         print(e);
         SnackbarHelper.showSnackBar(e.toString());
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
