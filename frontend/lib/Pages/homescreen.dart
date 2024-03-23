@@ -72,48 +72,25 @@ class HomeScreenState extends State<HomeScreen> {
               // Avatar
               CircleAvatar(
                 radius: 30,
-                // backgroundImage: NetworkImage(avatarUrl),
+                // ds['Avatar'].toString(),
               ),
               const SizedBox(width: 10), // Spacing between avatar and text
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Name
                   Container(
-                    padding: const EdgeInsets.all(4),
+                    padding: const EdgeInsets.all(6),
                     decoration: const BoxDecoration(
                       color: Colors.black,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     child: Text(
-                      ds['XP'].toString(),
+                      ds['Name'].toString(),
                       style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
                     ),
                   ),
-                  const SizedBox(height: 5),
-                  // Vertical spacing between name and level
-                  // Level
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: Text(
-                      'Level:' + ds['XP'].toString(),
-                      style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    )
-                  )
                 ],
-              ),
-            ],
-          );
+              );
+
         } else {
           return CircularProgressIndicator();
         }
@@ -134,16 +111,15 @@ class HomeScreenState extends State<HomeScreen> {
                 fit: BoxFit.cover,
               ),
             ),
-            userDetails(),
+
             // User info container
-            // const Positioned(
-            //   top: 35,
-            //   left: 20,
-            //   child: UserInfo(
-            //     avatarUrl: 'https://example.com/avatar.jpg',
-            //     userName: 'Senali Wij',
-            //     userLevel: 1,
-            //   ),
+
+            Positioned(
+              top: 15,
+              left: 15,
+              child: userDetails(),
+            ),
+
             // ),
 
             Positioned(
@@ -152,9 +128,7 @@ class HomeScreenState extends State<HomeScreen> {
               child: Container(
 
                 width: 130.0,
-                // Adjusted width to accommodate the heart image and the linear percentage indicators
                 height: 45.0,
-                // Adjusted height to accommodate both linear percentage indicators
                 child: Stack(
                   children: [
                     // HP Indicator
@@ -166,23 +140,17 @@ class HomeScreenState extends State<HomeScreen> {
                     ),
                     Positioned(
                       left: 30.0,
-                      // Adjusted left position to create space for the heart image
                       top: 3.0,
-                      // Adjusted top position to center the HP indicator vertically
                       right: 2.0,
-                      // Adjusted right position to leave space for the border
                       bottom: 28.0,
-                      // Adjusted bottom position to leave space for the border and XP indicator
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.white70, width: 2.0),
                         ),
                         child: LinearPercentIndicator(
                           lineHeight: 20.0,
-                          // Adjusted line height to match the height of the heart image
                           percent: 1.0,
                           padding: EdgeInsets.zero,
-                          // Removed padding to ensure full width of the container
                           backgroundColor: Colors.black54,
                           progressColor: Colors.red,
                           animation: true,
@@ -199,23 +167,17 @@ class HomeScreenState extends State<HomeScreen> {
                     ),
                     Positioned(
                       left: 30.0,
-                      // Adjusted left position to create space for the heart image
                       top: 25.0,
-                      // Adjusted top position to center the XP indicator vertically
                       right: 2.0,
-                      // Adjusted right position to leave space for the border
                       bottom: 3.0,
-                      // Adjusted bottom position to leave space for the border
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.white70, width: 2.0),
                         ),
                         child: LinearPercentIndicator(
                           lineHeight: 20.0,
-                          // Adjusted line height to match the height of the heart image
                           percent: 1.0,
                           padding: EdgeInsets.zero,
-                          // Removed padding to ensure full width of the container
                           backgroundColor: Colors.black54,
                           progressColor: Colors.yellow,
                           animation: true,
@@ -231,22 +193,19 @@ class HomeScreenState extends State<HomeScreen> {
 
             Positioned(
               left: 100,
-              // Adjust as needed for spacing from the left edge
               top: 200,
               bottom: 40,
               right: 0,
-              // Top and bottom set to 0 to center vertically
               child: Image.asset(
                 'assets/output-onlinegiftools.gif',
-                // Replace with your actual character image file
-                width: 200, // Adjust width as needed
+                width: 200,
 
               ),
             ),
 
             Positioned(
-              left: 20, // Distance from left edge
-              top: 200, // Distance from top to start the buttons
+              left: 20,
+              top: 200,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -255,12 +214,12 @@ class HomeScreenState extends State<HomeScreen> {
                     onPressed: () {
                       // Add your action for button 1
                     },
-                    backgroundColor: Color(0xFF058743), // Emerald green color
+                    backgroundColor: Color(0xFF058743),
                     child: Image.asset(
                       'assets/sugar.png',
                       // Replace with your actual image file name
-                      width: 50, // Adjust the size as needed
-                      height: 50, // Adjust the size as needed
+                      width: 50,
+                      height: 50,
                     ),
                   ),
                   SizedBox(height: 20), // Space between buttons
@@ -274,12 +233,11 @@ class HomeScreenState extends State<HomeScreen> {
                           // Add your action for button 2 (locked state action if necessary)
                         },
                         backgroundColor: Color(0xFF058743),
-                        // Emerald green color
                         child: Image.asset(
                           'assets/dances.png',
                           // Replace with your actual image file name
-                          width: 50, // Adjust the size as needed
-                          height: 50, // Adjust the size as needed
+                          width: 50,
+                          height: 50,
                         ),
                       ),
                       // Lock icon overlay
@@ -300,8 +258,8 @@ class HomeScreenState extends State<HomeScreen> {
                         child: Image.asset(
                           'assets/dances.png',
                           // Replace with your actual image file name
-                          width: 50, // Adjust the size as needed
-                          height: 50, // Adjust the size as needed
+                          width: 50,
+                          height: 50,
                         ),
                       ),
                       Icon(Icons.lock, color: Colors.white),
@@ -309,26 +267,6 @@ class HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ],
-              ),
-            ),
-            Positioned(
-              left: 20, // Adjust the left position as needed
-              bottom: 20, // Adjust the bottom position as needed
-              child: ElevatedButton(
-                onPressed: () async {
-                  String? uid = FirebaseAuth.instance.currentUser?.uid;
-                  if (uid != null) {
-                    Map<String, dynamic> userMap = {
-                      "XP": 450
-                    };
-                    await DatabaseMethods().addUserData(userMap, uid);
-                    print('Elevated Button Pressed');
-                  } else {
-                    print("User is not logged in.");
-                    // Handle the case where the user is not logged in
-                  }
-                },
-                child: Text('Customize'),
               ),
             ),
             // BottomAppBar(),
@@ -343,7 +281,7 @@ class HomeScreenState extends State<HomeScreen> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                  color: Colors.black, width: 4.0), // Black border
+                  color: Colors.black, width: 4.0),
             ),
             child: const ClipOval(
               child: Material(
