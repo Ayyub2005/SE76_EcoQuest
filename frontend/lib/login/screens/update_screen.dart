@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:frontend/Pages/homescreen.dart';
+import 'package:frontend/Pages/homepage.dart';
 import '../components/app_text_form_field.dart';
 import '../utils/helpers/snackbar_helper.dart';
 import '../values/app_constants.dart';
@@ -95,7 +95,7 @@ class _RegisterPageState extends State<UpdatePasswordPage> {
         // For example, navigate to the home screen
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => Home()),
         );
 
         // Show success snackbar
