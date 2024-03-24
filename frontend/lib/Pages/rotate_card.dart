@@ -148,6 +148,7 @@ class _CharacterCardsState extends State<CharacterCards>
                   fontSize: 15, // Adjusted for space
                   fontWeight: FontWeight.bold,
                   color: Colors.white, // Font color changed to black
+
                 ),
               ),
             ),
