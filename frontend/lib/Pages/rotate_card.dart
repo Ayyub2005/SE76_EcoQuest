@@ -419,7 +419,7 @@ class _CharacterCardsState extends State<CharacterCards>
                 ),
 
 
-
+]
             ),
           ),
         ],
