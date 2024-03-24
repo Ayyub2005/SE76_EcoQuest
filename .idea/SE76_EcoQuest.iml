@@ -8,10 +8,13 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
-      <excludeFolder url="file://$MODULE_DIR$/frontend/build_bak" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/build" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/frontend/build_bak" />
+      <excludeFolder url="file://$MODULE_DIR$/ar_andriod/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/ar_andriod/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/ar_andriod/build" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 34 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
