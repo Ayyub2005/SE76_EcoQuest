@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           Positioned(
-            top: 25,
+            top: 50,
             left: 15,
             child: FutureBuilder<UserModel>(
               future: session.getCurrentUser(),
