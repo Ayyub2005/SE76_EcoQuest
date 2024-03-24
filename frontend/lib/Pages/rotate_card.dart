@@ -3,6 +3,7 @@ import 'card_data.dart';
 import 'package:frontend/Pages/Navigation.dart';
 import 'navigation.dart';
 import 'package:frontend/Pages/service/database.dart';
+
 // import 'package:flutter/src/material/bottom_app_bar.dart';
 // import 'package:frontend/Pages/Navigation.dart';
 
@@ -44,6 +45,7 @@ class _CharacterCardsState extends State<CharacterCards>
   late AnimationController _controller;
   late bool _isCardFlipped;
   late int numCards = 1;
+  final Session session = Session();
 
   @override
   void initState() {
@@ -120,16 +122,86 @@ class _CharacterCardsState extends State<CharacterCards>
             ),
           ),
           // User info container
+          Positioned(
+            top: 160,
+            left: 20,
+            right: 20,
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+              decoration: BoxDecoration(
+                color: Colors.black38.withOpacity(0.5), // Semi-transparent white background
+                border: Border.all(color: Colors.white, width: 2.0), // White border
+                borderRadius: BorderRadius.circular(18), // Rounded corners
+              ),
+              child: Text(
+                'Eco Heroes',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 15, // Adjusted for space
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white, // Font color changed to black
 
+                ),
+              ),
+            ),
+          ),
+
+          Positioned(
+            top: 50,
+            left: 15,
+            child: FutureBuilder<UserModel>(
+              future: session.getCurrentUser(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasError) {
+                    return Text("Error: ${snapshot.error}");
+                  }
+                  UserModel user = snapshot.data!;
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      // Avatar
+                      CircleAvatar(
+                        radius: 30,
+                        child: Image.asset(
+                          'assets/avatar${user.avatar}.png',
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      // Spacing between avatar and text
+                      Container(
+                        padding: const EdgeInsets.all(6),
+                        decoration: const BoxDecoration(
+                          color: Colors.black,
+                        ),
+                        child: Text(
+                          '${user.name}!',
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return CircularProgressIndicator();
+                }
+              },
+            ),
+          ),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 2,
-                  width: MediaQuery.of(context).size.width / 3 * 2,
-                  child: PageView.builder(
-                    controller: PageController(viewportFraction: 1.0),
+            SizedBox(
+            height: MediaQuery.of(context).size.height / 2,
+            width: MediaQuery.of(context).size.width / 3 * 2,
+            child: Positioned(
+              top: MediaQuery.of(context).size.height / 2, // Adjust as needed
+              child: PageView.builder(
+              controller: PageController(viewportFraction: 1.0),
                     itemCount: cardContents.length,
                     itemBuilder: (context, index) {
                       return Center(
@@ -227,8 +299,8 @@ class _CharacterCardsState extends State<CharacterCards>
                                                             padding:
                                                                 const EdgeInsets
                                                                     .only(
-                                                                    top:
-                                                                        100), // Adjust as needed
+                                                                    top: 100),
+                                                            // Adjust as needed
                                                             child: Row(
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
@@ -242,7 +314,8 @@ class _CharacterCardsState extends State<CharacterCards>
                                                                     // backgroundColor: MaterialStateProperty.all(Color.fromRGBO(5,15,21,255)), // Change button color here
                                                                     foregroundColor:
                                                                         MaterialStateProperty.all(
-                                                                            Colors.cyan), // Change text color here
+                                                                            Colors.cyan),
+                                                                    // Change text color here
                                                                     minimumSize:
                                                                         MaterialStateProperty.all(Size(
                                                                             120,
@@ -262,7 +335,8 @@ class _CharacterCardsState extends State<CharacterCards>
                                                                     // backgroundColor: MaterialStateProperty.all(Color.fromRGBO(5,15,21,255)), // Change button color here
                                                                     foregroundColor:
                                                                         MaterialStateProperty.all(
-                                                                            Colors.cyan), // Change text color here
+                                                                            Colors.cyan),
+                                                                    // Change text color here
                                                                     minimumSize:
                                                                         MaterialStateProperty.all(Size(
                                                                             130,
@@ -313,17 +387,33 @@ class _CharacterCardsState extends State<CharacterCards>
                     },
                   ),
                 ),
+            ),
                 SizedBox(height: 20),
-                Text(
-                  'You have ${cardUnlocked.where((unlocked) => unlocked).length} unlocked',
-                  style: TextStyle(color: Colors.white),
-                ),
-                if (numCards >
-                    1) // Conditionally display the "Scroll Sideways to View" text
-                  Text(
-                    'Scroll Sideways to View',
-                    style: TextStyle(color: Colors.white),
+                SizedBox(
+                  width: 200, // Change this value to the desired width
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        Text(
+                          'You have ${cardUnlocked.where((unlocked) => unlocked).length} unlocked',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        if (numCards > 1)
+                          Text(
+                            'Scroll Sideways to View',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                      ],
+                    ),
                   ),
+                ),
+
+
               ],
             ),
           ),
