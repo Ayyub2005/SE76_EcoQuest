@@ -3,7 +3,7 @@ import 'card_data.dart';
 import 'package:frontend/Pages/Navigation.dart';
 import 'navigation.dart';
 import 'package:frontend/Pages/service/database.dart';
-
+import 'package:frontend/Pages/service/the xp and hp bar.dart';
 // import 'package:flutter/src/material/bottom_app_bar.dart';
 // import 'package:frontend/Pages/Navigation.dart';
 
@@ -45,7 +45,7 @@ class _CharacterCardsState extends State<CharacterCards>
   late AnimationController _controller;
   late bool _isCardFlipped;
   late int numCards = 1;
-  final Session session = Session();
+  Session session = Session();
 
   @override
   void initState() {
@@ -121,6 +121,11 @@ class _CharacterCardsState extends State<CharacterCards>
               fit: BoxFit.cover,
             ),
           ),
+
+          Center(
+            child: XPHPBar(session: session, locaHP: 50, locaXP: 55),
+          ),
+
           // User info container
           Positioned(
             top: 160,
@@ -414,7 +419,7 @@ class _CharacterCardsState extends State<CharacterCards>
                 ),
 
 
-              ],
+
             ),
           ),
         ],
