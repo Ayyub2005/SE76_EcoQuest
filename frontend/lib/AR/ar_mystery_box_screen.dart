@@ -1,10 +1,14 @@
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:frontend/Pages/FYI.dart';
 import 'package:vector_math/vector_math_64.dart' as vector64;
+
+import '../Pages/service/database.dart';
 
 class ArMysteryBoxScreen extends StatefulWidget {
   const ArMysteryBoxScreen({super.key});
+
 
   @override
   State<ArMysteryBoxScreen> createState() => _ArMysteryBoxScreenState();
@@ -12,6 +16,8 @@ class ArMysteryBoxScreen extends StatefulWidget {
 
 class _ArMysteryBoxScreenState extends State<ArMysteryBoxScreen> {
   ArCoreController? coreController;
+  final Session session = Session();
+  int userXp = 0;
 
   augmentedRealityViewCreated(ArCoreController controller){
     coreController = controller;
@@ -45,6 +51,21 @@ class _ArMysteryBoxScreenState extends State<ArMysteryBoxScreen> {
     print("Claim reward");
   }
 
+  void fetchAndSetCharacter() async {
+    UserModel currentUser = await session.getCurrentUser();
+    if (currentUser != null) {
+      setState(() {
+        userXp = currentUser.xp;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAndSetCharacter();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +82,10 @@ class _ArMysteryBoxScreenState extends State<ArMysteryBoxScreen> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
-              onPressed: claimReward,
+              onPressed:(){
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => FYI(userXp: userXp)));
+            },
               child: const Text('Claim'),
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 50), // makes the button wide
