@@ -49,24 +49,6 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  void controllerListener() {
-    final email = emailController.text;
-    final oldPassword = passwordController.text;
-    final newPassword = passwordController.text;
-    final confirmNewPassword = passwordController.text;
-
-    // if (email.isEmpty && oldPassword.isEmpty && newPassword.isEmpty && confirmNewPassword.isEmpty) return;
-
-    if (email.isNotEmpty &&
-        oldPassword.isNotEmpty &&
-        newPassword.isNotEmpty &&
-        confirmNewPassword.isNotEmpty) {
-      fieldValidNotifier.value = true;
-    } else {
-      fieldValidNotifier.value = false;
-    }
-  }
-
   void addDetailsDB() async {
     String? uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid != null) {
@@ -76,7 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
         "XP": 0,
         "HP": 100,
         "Avatar": 5,
-        "Character": 0,
+        "Character": 1,
         "Email": emailController.text,
         "Nutrition": 1,
         "Password": passwordController
@@ -280,16 +262,12 @@ class _RegisterPageState extends State<RegisterPage> {
               ElevatedButton(
                 onPressed: () async {
                   try {
-                    controllerListener();
-                    if (fieldValidNotifier.value) {
-                      await registerUser(); // Wait for user registration to complete
-                      addDetailsDB(); // Add user details to the database
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => NavBar()),
-                      );
-                    } else
-                      (SnackbarHelper.showSnackBar("Enter details to Sign in"));
+                    await registerUser(); // Wait for user registration to complete
+                    addDetailsDB(); // Add user details to the database
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => NavBar()),
+                    );
                   } catch (e) {
                     // Handle registration errors
                     print(e);

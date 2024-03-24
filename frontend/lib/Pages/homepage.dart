@@ -3,7 +3,6 @@ import 'package:frontend/Pages/avatar_cust.dart';
 import 'package:frontend/Pages/character_customization.dart';
 import 'package:frontend/Pages/rotate_card.dart';
 import 'package:frontend/Pages/service/database.dart';
-import 'package:frontend/Pages/service/the xp and hp bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,8 +35,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String displayedImage =
-      'assets/dog.png'; // This variable holds the currently displayed image
+  String displayedImage = 'assets/dog.png'; // This variable holds the currently displayed image
   Key gifKey = UniqueKey();
   final Session session = Session();
 
@@ -45,7 +43,6 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
   }
-
   void changeDisplayedImage(String imagePath, int duration) {
     setState(() {
       displayedImage = imagePath;
@@ -57,6 +54,8 @@ class _HomeState extends State<Home> {
       });
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +70,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           Positioned(
-            top: 50,
+            top: 25,
             left: 15,
             child: FutureBuilder<UserModel>(
               future: session.getCurrentUser(),
@@ -90,6 +89,7 @@ class _HomeState extends State<Home> {
                         child: Image.asset(
                           'assets/avatar${user.avatar}.png',
                         ),
+
                       ),
                       const SizedBox(width: 10),
                       // Spacing between avatar and text
@@ -115,10 +115,6 @@ class _HomeState extends State<Home> {
             ),
           ),
 
-          Center(
-            child: XPHPBar(session: session, locaHP: 50, locaXP: 55),
-          ),
-
           Positioned(
             left: 90,
             top: 200,
@@ -136,98 +132,94 @@ class _HomeState extends State<Home> {
           ),
 
           Positioned(
-            left: 20,
-            top: 200,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                // Button 1 - Display gif1
-                FloatingActionButton(
-                  onPressed: () {
-                    changeDisplayedImage(
-                        'assets/output-onlinegiftools.gif', 2500);
-                  },
-                  backgroundColor: Color(0xFF058743),
-                  child: Image.asset(
-                    'assets/sugar.png',
-                    width: 600,
-                    height: 600,
-                    key: gifKey, // Pass the gifKey here
+              left: 20,
+              top: 200,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  // Button 1 - Display gif1
+                  FloatingActionButton(
+                    onPressed: () {
+                      changeDisplayedImage('assets/output-onlinegiftools.gif', 2500);
+                    },
+                    backgroundColor: Color(0xFF058743),
+                    child: Image.asset(
+                      'assets/sugar.png',
+                      width: 600,
+                      height: 600,
+                      key: gifKey, // Pass the gifKey here
+                    ),
                   ),
-                ),
 
-                SizedBox(height: 20), // Space between buttons
+                  SizedBox(height: 20), // Space between buttons
 
-                // Button 2 - Display gif2
+                  // Button 2 - Display gif2
 
-                FloatingActionButton(
-                  onPressed: () {
-                    changeDisplayedImage('assets/heart1.gif', 2400);
-                  },
-                  backgroundColor: Color(0xFF058743),
-                  child: Image.asset(
-                    'assets/hed.png',
-                    width: 250,
-                    height: 250,
+
+
+                  FloatingActionButton(
+                    onPressed: () {
+                      changeDisplayedImage('assets/heart1.gif', 2400);
+                    },
+                    backgroundColor: Color(0xFF058743),
+                    child: Image.asset(
+                      'assets/hed.png',
+                      width: 250,
+                      height: 250,
+                    ),
                   ),
-                ),
-                SizedBox(height: 20), // Space between buttons
+                  SizedBox(height: 20), // Space between buttons
 
-                // Third button with lock
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    FloatingActionButton(
-                      onPressed: () {
-                        // Show a dialog notification when the button is pressed
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Center(
-                                // Center the title
-                                child: Text(
-                                  'Unlock at level 7',
-                                  style: TextStyle(
-                                      fontSize: 14), // Adjust font size
-                                ),
-                              ),
-                              content: Container(
-                                height: 8, // Adjust height
-                              ),
-                              actions: [
-                                Center(
-                                  // Center the button
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(
-                                      'OK',
-                                      style: TextStyle(
-                                          fontSize: 12), // Adjust font size
-                                    ),
+                  // Third button with lock
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      FloatingActionButton(
+                        onPressed: () {
+                          // Show a dialog notification when the button is pressed
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Center( // Center the title
+                                  child: Text(
+                                    'Unlock at level 7',
+                                    style: TextStyle(fontSize: 14), // Adjust font size
                                   ),
                                 ),
-                              ],
-                              contentPadding:
-                                  EdgeInsets.all(5), // Adjust padding
-                            );
-                          },
-                        );
-                      },
-                      backgroundColor: Color(0xFF058743),
-                      child: Image.asset(
-                        'assets/dances.png',
-                        width: 50,
-                        height: 50,
+                                content: Container(
+                                  height: 8, // Adjust height
+                                ),
+                                actions: [
+                                  Center( // Center the button
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text(
+                                        'OK',
+                                        style: TextStyle(fontSize: 12), // Adjust font size
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                                contentPadding: EdgeInsets.all(5), // Adjust padding
+                              );
+                            },
+                          );
+                        },
+                        backgroundColor: Color(0xFF058743),
+                        child: Image.asset(
+                          'assets/dances.png',
+                          width: 50,
+                          height: 50,
+                        ),
                       ),
-                    ),
-                    Icon(Icons.lock, color: Colors.white),
-                  ],
-                ),
-              ],
-            ),
+                      Icon(Icons.lock, color: Colors.white),
+                    ],
+                  ),
+                ],
+              ),
           ),
         ],
       ),

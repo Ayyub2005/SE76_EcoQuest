@@ -11,8 +11,23 @@ class DatabaseMethods {
         .set(userMap);
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
   Future<Stream<QuerySnapshot>> getUserData(String uid) async {
-    return await FirebaseFirestore.instance.collection('User').snapshots();
+    return await FirebaseFirestore.instance
+        .collection('User')
+        .snapshots();
   }
 }
 
@@ -72,6 +87,7 @@ class UserModel {
   }
 }
 
+
 class Session {
   UserModel? currentUser;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -79,15 +95,13 @@ class Session {
 
   Future<void> loginUser(String email, String password) async {
     try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(email: email, password: password);
       print('User logged in with email: $email');
       await fetchUserData(userCredential.user!.uid);
     } catch (e) {
       print("Error logging in: $e");
     }
   }
-
 //METHOD TO AUTHENTICATE USER AND FIND CURRENT USER
   Future<void> logoutUser() async {
     print('User logging out: ${_auth.currentUser?.email}');
@@ -95,7 +109,6 @@ class Session {
     currentUser = null;
     print('User logged out successfully');
   }
-
   Future<UserModel> getCurrentUser() async {
     if (_auth.currentUser != null) {
       await fetchUserData(_auth.currentUser!.uid);
@@ -104,12 +117,10 @@ class Session {
       throw Exception("No user is currently logged in.");
     }
   }
-
   //METHOD TO RETRIEVE
   Future<void> fetchUserData(String uid) async {
     print('Fetching user data for UID: $uid');
-    DocumentSnapshot userDoc =
-        await _firestore.collection('User').doc(uid).get();
+    DocumentSnapshot userDoc = await _firestore.collection('User').doc(uid).get();
     if (userDoc.exists) {
       currentUser = UserModel.fromMap(userDoc.data() as Map<String, dynamic>);
       print('User data fetched: ${currentUser?.toMap()}');
@@ -117,14 +128,10 @@ class Session {
       print('No user data found for UID: $uid');
     }
   }
-
   //METHOD TO UPDAT
   Future<void> updateUserData(UserModel updatedUser) async {
     print('Updating user data for ${_auth.currentUser?.email}');
-    await _firestore
-        .collection('User')
-        .doc(_auth.currentUser!.uid)
-        .update(updatedUser.toMap());
+    await _firestore.collection('User').doc(_auth.currentUser!.uid).update(updatedUser.toMap());
     currentUser = updatedUser;
     print('User data updated: ${currentUser?.toMap()}');
   }
