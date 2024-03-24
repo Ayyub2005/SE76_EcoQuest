@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
+import '../AR/ar_mystery_box_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -22,22 +24,22 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Bottle Detector'),
+      home: const mlModel(title: 'Bottle Detector'),
     );
   }
 }
 
 ///this is the home page
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class mlModel extends StatefulWidget {
+  const mlModel({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<mlModel> createState() => _mlModelState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _mlModelState extends State<mlModel> {
   ///results will store in this map
   Map results = {};
 
@@ -150,6 +152,11 @@ class _MyHomePageState extends State<MyHomePage> {
             break;
           case "Bottle-Disposed":
             bottleDisposed = true;
+            if (bottleDisposed) {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => ArMysteryBoxScreen()),
+              );
+            }
             break;
           case "Empty":
             empty = true;

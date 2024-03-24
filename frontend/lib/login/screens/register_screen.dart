@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Pages/Navigation.dart';
+import 'package:frontend/Pages/homepage.dart';
 import 'package:frontend/Pages/homescreen.dart';
 import '../../Pages/service/database.dart';
 import '../components/app_text_form_field.dart';
@@ -55,7 +57,7 @@ class _RegisterPageState extends State<RegisterPage> {
         "Level": 1,
         "XP": 0,
         "HP": 100,
-        "Avatar": 0,
+        "Avatar": 5,
         "Character": 1,
         "Email": emailController.text,
         "Nutrition": 1,
@@ -264,7 +266,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     addDetailsDB(); // Add user details to the database
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                      MaterialPageRoute(builder: (context) => NavBar()),
                     );
                   } catch (e) {
                     // Handle registration errors

@@ -21,19 +21,19 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.white,
         ),
       ),
-      home: HomeScreen(),
+      home: ProgressBars(),
     );
   }
 }
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class ProgressBars extends StatefulWidget {
+  const ProgressBars({Key? key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _ProgressBarsState createState() => _ProgressBarsState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _ProgressBarsState extends State<ProgressBars> {
   double xp = 0.0; // Initial XP value
   double hp = 0.5; // Initial HP value
   late Timer _timer;

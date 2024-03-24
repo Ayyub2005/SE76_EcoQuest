@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Pages/Navigation.dart';
 import 'package:frontend/Pages/homescreen.dart';
+import '../../Pages/homepage.dart';
 import '../components/app_text_form_field.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../utils/helpers/snackbar_helper.dart';
@@ -78,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
 
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
+            MaterialPageRoute(builder: (context) => NavBar()),
           );
           print('Successfully Logged in');
 
