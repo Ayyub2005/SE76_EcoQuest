@@ -7,6 +7,8 @@ import 'package:frontend/Pages/rotate_card.dart';
 import 'package:frontend/Pages/settings.dart';
 import 'package:frontend/Pages/user_info.dart';
 
+import '../AR/ar_mystery_box_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -85,7 +87,7 @@ class _NavBarState extends State<NavBar> {
       floatingActionButton: FloatingActionButton(
       onPressed: () {
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => mlModel(title: 'Bottle Detector')),
+          MaterialPageRoute(builder: (context) => ArMysteryBoxScreen()),
         );
       // Your action here
       print('FloatingActionButton pressed');
