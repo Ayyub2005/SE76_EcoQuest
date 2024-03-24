@@ -55,7 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
         "Level": 1,
         "XP": 0,
         "HP": 100,
-        "Avatar": 0,
+        "Avatar": 5,
         "Character": 1,
         "Email": emailController.text,
         "Nutrition": 1,
