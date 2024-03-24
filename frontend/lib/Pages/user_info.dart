@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:frontend/login/screens/update_screen.dart';
 import 'package:frontend/login/screens/login_screen.dart';
+import 'package:frontend/Pages/service/the xp and hp bar.dart';
+import 'package:frontend/Pages/avatar_cust.dart';
 import 'package:frontend/Pages/service/database.dart';
 import '../login/utils/helpers/snackbar_helper.dart';
 
@@ -71,23 +73,23 @@ class _UserInfoPageState extends State<UserInfoPage> {
       // Update selectedImage based on the index
       switch (index) {
         case 1:
-          selectedImage = "Image.asset('assets/sen.png')";
+          selectedImage = 'assets/halfsen.png';
           avatarEmoji = 'assets/avatar1.png';
           break;
         case 2:
-          selectedImage = 'assets/aqeel.png';
+          selectedImage = 'assets/halfaq.png';
           avatarEmoji = 'assets/avatar2.png';
           break;
         case 3:
-          selectedImage = 'assets/dineth.png';
+          selectedImage = 'assets/halfdin.png';
           avatarEmoji = 'assets/avatar3.png';
           break;
         case 4:
-          selectedImage = 'assets/man.png';
+          selectedImage = 'assets/halfmin.png';
           avatarEmoji = 'assets/avatar4.png';
           break;
         case 5:
-          selectedImage = 'assets/ayyub.png';
+          selectedImage = 'assets/halfay.png';
           avatarEmoji = 'assets/avatar5.png';
       }
     });
@@ -128,6 +130,29 @@ class _UserInfoPageState extends State<UserInfoPage> {
           ),
 
           Positioned(
+            top:
+                MediaQuery.of(context).size.height / 5 + 20, // Adjust as needed
+            left:
+                MediaQuery.of(context).size.width / 2 + 30, // Adjust as needed
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AvatartCust()),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.black,
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              child: Text('Customize'),
+            ),
+          ),
+
+          Positioned(
             top: MediaQuery.of(context).size.height / 3,
             left: 20,
             child: FutureBuilder<GetUserInfo>(
@@ -163,76 +188,17 @@ class _UserInfoPageState extends State<UserInfoPage> {
             ),
           ),
 
-          Positioned(
-            top: MediaQuery.of(context).size.height / 3 + 3,
-            right: 20.0,
-            child: Container(
-              width: 130.0,
-              height: 45.0,
-              child: Stack(
-                children: [
-                  // HP Indicator
-                  Positioned(
-                    left: 0.0,
-                    top: 0.0,
-                    child: Image.asset('assets/hearts.png',
-                        width: 24.0, height: 24.0),
-                  ),
-                  Positioned(
-                    left: 30.0,
-                    top: 3.0,
-                    right: 2.0,
-                    bottom: 28.0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white70, width: 2.0),
-                      ),
-                      child: LinearPercentIndicator(
-                        lineHeight: 20.0,
-                        percent: 1.0,
-                        padding: EdgeInsets.zero,
-                        backgroundColor: Colors.black54,
-                        progressColor: Colors.red,
-                        animation: true,
-                        animationDuration: 1000,
-                      ),
-                    ),
-                  ),
-                  // XP Indicator
-                  Positioned(
-                    left: 0.0,
-                    top: 25.0,
-                    child: Image.asset('assets/flash.png',
-                        width: 24.0, height: 24.0),
-                  ),
-                  Positioned(
-                    left: 30.0,
-                    top: 25.0,
-                    right: 2.0,
-                    bottom: 3.0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white70, width: 2.0),
-                      ),
-                      child: LinearPercentIndicator(
-                        lineHeight: 20.0,
-                        percent: 1.0,
-                        padding: EdgeInsets.zero,
-                        backgroundColor: Colors.black54,
-                        progressColor: Colors.yellow,
-                        animation: true,
-                        animationDuration: 1000,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          Center(
+            child: XPHPBar(
+                session: session,
+                locaHP: MediaQuery.of(context).size.height / 3 + 3,
+                locaXP: MediaQuery.of(context).size.height / 3 +
+                    5), // Call the method here
           ),
 
           // Display User Information
           Positioned(
-            top: MediaQuery.of(context).size.height / 3 + 95,
+            top: MediaQuery.of(context).size.height / 3 + 75,
             left: 20,
             right: 20,
             child: FutureBuilder<GetUserInfo>(
@@ -287,9 +253,42 @@ class _UserInfoPageState extends State<UserInfoPage> {
             ),
           ),
 
+          // Log Out Button
+          Positioned(
+            top: MediaQuery.of(context).size.height / 3 + 220,
+            left: 20,
+            right: 20,
+            child: Container(
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () async {
+                  try {
+                    await _auth.signOut(); // Sign out the user
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const LoginPage()), // Navigate to the login page
+                    );
+                  } catch (error) {
+                    print('Error logging out: $error');
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.grey,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text('Log Out'),
+              ),
+            ),
+          ),
+
           // Update Password Button
           Positioned(
-            top: MediaQuery.of(context).size.height / 3 + 270,
+            top: MediaQuery.of(context).size.height / 3 + 280,
             left: 20,
             right: 20,
             child: Container(
@@ -316,7 +315,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
 
           // Delete Account Button
           Positioned(
-            top: MediaQuery.of(context).size.height / 3 + 330,
+            top: MediaQuery.of(context).size.height / 3 + 340,
             left: 20,
             right: 20,
             child: Container(
@@ -374,9 +373,9 @@ class _UserInfoPageState extends State<UserInfoPage> {
             left: 0,
             right: 0,
             child: SizedBox(
-                height: 100), // Add SizedBox below the delete account button
+                height: 300), // Add SizedBox below the delete account button
           ),
-       ],
+        ],
       ),
     );
   }
