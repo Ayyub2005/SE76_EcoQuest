@@ -35,7 +35,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String displayedImage = 'assets/dog-character_default.png'; // This variable holds the currently displayed image
+  String displayedImage = 'assets/dog.png'; // This variable holds the currently displayed image
   Key gifKey = UniqueKey();
   final Session session = Session();
 
@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
 
     Future.delayed(Duration(milliseconds: duration), () {
       setState(() {
-        displayedImage = 'assets/dog-character_default.png'; // Change back to the default image
+        displayedImage = 'assets/dog.png'; // Change back to the default image
       });
     });
   }
@@ -70,7 +70,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           Positioned(
-            top: 15,
+            top: 25,
             left: 15,
             child: FutureBuilder<UserModel>(
               future: session.getCurrentUser(),
@@ -116,17 +116,17 @@ class _HomeState extends State<Home> {
           ),
 
           Positioned(
-            left: 80,
+            left: 90,
             top: 200,
-            bottom: 40,
+            bottom: 0,
             right: 0,
             child: AnimatedSwitcher(
               duration: Duration(milliseconds: 500),
               child: Image.asset(
                 displayedImage,
                 key: ValueKey(displayedImage),
-                width: 400,
-                height: 400,
+                width: 600,
+                height: 600,
               ),
             ),
           ),
@@ -145,8 +145,8 @@ class _HomeState extends State<Home> {
                     backgroundColor: Color(0xFF058743),
                     child: Image.asset(
                       'assets/sugar.png',
-                      width: 150,
-                      height: 150,
+                      width: 600,
+                      height: 600,
                       key: gifKey, // Pass the gifKey here
                     ),
                   ),
