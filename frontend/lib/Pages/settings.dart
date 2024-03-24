@@ -62,7 +62,7 @@ class InstructionsPage extends StatelessWidget {
                       height: 365, // Adjust height as needed
                       width: 365, // Adjust width as needed
                     ),
-                    SizedBox(height: 20), // Add space between the images and the text
+                    SizedBox(height: 15), // Add space between the images and the text
                     Text(
                       'Customize your character and explore the world!',
                       style: TextStyle(
