@@ -119,7 +119,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   child: Image.asset(
                     selectedImage,
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height / 3 - 60,
+                    height: MediaQuery.of(context).size.height / 3 - 20,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -367,6 +367,14 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 child: const Text('Delete Account'),
               ),
             ),
+          ),
+
+          const Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: SizedBox(
+                height: 100), // Add SizedBox below the delete account button
           ),
 
           // Bottom navigation bar with notch
