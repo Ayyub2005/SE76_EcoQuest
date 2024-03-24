@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:frontend/Pages/FYI_data.dart';
+import 'package:frontend/Pages/rotate_card.dart';
 
 void main() {
   runApp(MyApp());
@@ -211,14 +212,18 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                                               child: Padding(
                                                 padding: const EdgeInsets.only(bottom: 16.0), // Adjust the padding as needed
                                                 child: ElevatedButton(
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    Navigator.of(context).push(
+                                                        MaterialPageRoute(builder: (context) => CharacterCards()),
+                                                    );
+                                                  },
                                                   style: ButtonStyle(
                                                     // backgroundColor: MaterialStateProperty.all(Color.fromRGBO(5,15,21,255)), // Change button color here
                                                     foregroundColor: MaterialStateProperty.all(Colors.cyan), // Change text color here
                                                     minimumSize: MaterialStateProperty.all(Size(120, 40)),
                                                     textStyle: MaterialStateProperty.all(TextStyle(fontSize: 16)),
                                                   ),
-                                                  child: Text('OK'), // Add your button text here
+                                                  child: Text('View Card'), // Add your button text here
                                                 ),
                                               ),
                                             ),
