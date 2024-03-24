@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Pages/Navigation.dart';
-import 'package:frontend/Pages/homescreen.dart';
+import 'package:frontend/Pages/homepage.dart';
 import '../../Pages/homepage.dart';
 import '../components/app_text_form_field.dart';
 import '../utils/helpers/navigation_helper.dart';
@@ -67,23 +67,21 @@ class _LoginPageState extends State<LoginPage> {
     disposeControllers();
     super.dispose();
   }
-  Future<void> loginUser() async {
 
+  Future<void> loginUser() async {
     if (_formKey.currentState!.validate()) {
       try {
-        await _auth
-            .signInWithEmailAndPassword(
+        await _auth.signInWithEmailAndPassword(
           email: emailController.text,
           password: passwordController.text,
         );
         await session.loginUser(emailController.text, passwordController.text);
 
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => NavBar()),
-          );
-          print('Successfully Logged in');
-
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Home()),
+        );
+        print('Successfully Logged in');
       } catch (e) {
         print(e);
         SnackbarHelper.showSnackBar(e.toString());
@@ -137,14 +135,18 @@ class _LoginPageState extends State<LoginPage> {
                                 AppStrings.login,
                                 style: AppTheme.titleLarge,
                               ),
+
+                              const SizedBox(
+                                height: 10,
+                              ),
+
+                              const Text(
+                                AppStrings.signInToYourAccount,
+                                style: TextStyle(
+                                  color: Color.fromRGBO(0, 162, 142, 1),
+                                ),
+                              ),
                             ],
-                          ),
-                        ),
-                        const SizedBox(height: 6),
-                        const Text(
-                          AppStrings.signInToYourAccount,
-                          style: TextStyle(
-                            color: Color.fromRGBO(0, 162, 142, 1),
                           ),
                         ),
                       ],
@@ -208,17 +210,12 @@ class _LoginPageState extends State<LoginPage> {
                               );
                             },
                           ),
-                          TextButton(
-                            onPressed: () {},
-                            child: const Text(AppStrings.forgotPassword),
-                          ),
                           const SizedBox(height: 20),
                           ValueListenableBuilder(
                             valueListenable: fieldValidNotifier,
                             builder: (_, isValid, __) {
                               return FilledButton(
-                                onPressed: isValid
-                                    ? loginUser : null,
+                                onPressed: isValid ? loginUser : null,
                                 child: const Text(AppStrings.login),
                               );
                             },
@@ -252,5 +249,4 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
 }
