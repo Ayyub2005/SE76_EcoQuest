@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Pages/Navigation.dart';
 import 'package:frontend/Pages/homepage.dart';
 import 'package:frontend/Pages/homescreen.dart';
 import '../../Pages/service/database.dart';
@@ -265,7 +266,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     addDetailsDB(); // Add user details to the database
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Home()),
+                      MaterialPageRoute(builder: (context) => NavBar()),
                     );
                   } catch (e) {
                     // Handle registration errors

@@ -329,28 +329,6 @@ class _CharacterCardsState extends State<CharacterCards>
           ),
         ],
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 55.0),
-        child: Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: Colors.black, width: 4.0), // Black border
-          ),
-          child: const ClipOval(
-            child: Material(
-              color: Colors.white,
-              child: Icon(
-                Icons.camera_alt_outlined,
-                size: 36,
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

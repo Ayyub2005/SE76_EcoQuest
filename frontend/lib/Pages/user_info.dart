@@ -376,68 +376,8 @@ class _UserInfoPageState extends State<UserInfoPage> {
             child: SizedBox(
                 height: 100), // Add SizedBox below the delete account button
           ),
-
-          // Bottom navigation bar with notch
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: BottomAppBar(
-              color: Colors.black,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 32,
-                    icon: const Icon(Icons.home, color: Colors.white),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Image.asset(
-                      'assets/dragon.png',
-                      width: 30,
-                      height: 30,
-                    ),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    iconSize: 32,
-                    icon: const Icon(Icons.person, color: Colors.white),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    iconSize: 32,
-                    icon: const Icon(Icons.settings, color: Colors.white),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+       ],
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 55.0),
-        child: Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: Colors.black, width: 4.0),
-          ),
-          child: const ClipOval(
-            child: Material(
-              color: Colors.white,
-              child: Icon(
-                Icons.camera_alt_outlined,
-                size: 36,
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:frontend/Pages/avatar_cust.dart';
 import 'package:frontend/Pages/character_customization.dart';
 import 'package:frontend/Pages/homepage.dart';
+import 'package:frontend/Pages/model.dart';
 import 'package:frontend/Pages/rotate_card.dart';
+import 'package:frontend/Pages/settings.dart';
+import 'package:frontend/Pages/user_info.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,9 +40,9 @@ class _NavBarState extends State<NavBar> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     Home(),
-    CharacterCards(numCards: 2),
-    Character_cust(),
-    AvatartCust(),
+    CharacterCards(),
+    UserInfoPage(),
+    InstructionsPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -55,7 +58,8 @@ class _NavBarState extends State<NavBar> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
+        type: BottomNavigationBarType.fixed, // Explicitly set the type to fixed
+        backgroundColor: Colors.black, // This will now work as expected
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home, color: Colors.white),
@@ -78,8 +82,16 @@ class _NavBarState extends State<NavBar> {
         selectedItemColor: Colors.greenAccent,
         onTap: _onItemTapped,
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 55.0),
+      floatingActionButton: FloatingActionButton(
+      onPressed: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => mlModel(title: 'Bottle Detector')),
+        );
+      // Your action here
+      print('FloatingActionButton pressed');
+    },
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 50.0),
         child: Container(
           width: 60,
           height: 60,
@@ -98,6 +110,7 @@ class _NavBarState extends State<NavBar> {
             ),
           ),
         ),
+      ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

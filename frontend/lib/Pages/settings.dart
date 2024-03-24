@@ -5,9 +5,10 @@ void main() {
 }
 
 class InstructionsPage extends StatelessWidget {
+  const InstructionsPage({super.key});
   @override
   Widget build(BuildContext context) {
-    // Calculate the height of the bottom navigation bar
+
     final double bottomNavigationBarHeight = MediaQuery.of(context).padding.bottom;
 
     return MaterialApp(
