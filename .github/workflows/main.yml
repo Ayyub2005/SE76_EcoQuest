@@ -56,9 +56,11 @@ jobs:
 
     - name: Build APK
       run: flutter build apk --release
+      working-directory: frontend 
 
-    - name: Upload APK artifact
-      uses: actions/upload-artifact@v2
+    - name: Deploy to Firebase
+      uses: wzieba/Firebase-Action@v1
       with:
-        name: release-apk
-        path: build/app/outputs/flutter-apk/app-release.apk
+        args: distribute:app:release --app release-apk/app-release.apk
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
