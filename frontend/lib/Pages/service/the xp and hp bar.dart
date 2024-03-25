@@ -96,7 +96,7 @@ class _XPHPBarState extends State<XPHPBar> {
   void _updateXP() async {
     try {
       UserModel user = await widget.session.getCurrentUser();
-      user.xp = xp.toInt();
+      user.xp = xp;
       await widget.session.updateUserData(user);
     } catch (e) {
       print('Error updating XP: $e');

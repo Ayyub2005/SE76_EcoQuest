@@ -123,12 +123,12 @@ class _CharacterCardsState extends State<CharacterCards>
           ),
 
           Center(
-            child: XPHPBar(session: session, locaHP: 50, locaXP: 55),
+            child: XPHPBar(session: session, locaHP: 40, locaXP: 45),
           ),
 
           // User info container
           Positioned(
-            top: 160,
+            top: 590,
             left: 20,
             right: 20,
             child: Container(
@@ -154,7 +154,7 @@ class _CharacterCardsState extends State<CharacterCards>
           ),
 
           Positioned(
-            top: 50,
+            top: 20,
             left: 15,
             child: FutureBuilder<UserModel>(
               future: session.getCurrentUser(),
@@ -205,210 +205,227 @@ class _CharacterCardsState extends State<CharacterCards>
                   height: MediaQuery.of(context).size.height / 2,
                   width: MediaQuery.of(context).size.width / 3 * 2,
                   child: Positioned(
-                    top: MediaQuery.of(context).size.height /
-                        2, // Adjust as needed
-                    child: PageView.builder(
-                      controller: PageController(viewportFraction: 1.0),
-                      itemCount: cardContents.length,
-                      itemBuilder: (context, index) {
-                        return Center(
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width / 3 * 2,
-                            height: MediaQuery.of(context).size.height / 2,
-                            child: Stack(
-                              children: [
-                                GestureDetector(
-                                  onTap: () => _toggleCardFlip(),
-                                  child: AnimatedBuilder(
-                                    animation: _controller,
-                                    builder: (context, child) {
-                                      final angle = (_isCardFlipped
-                                              ? 1 - _controller.value
-                                              : _controller.value) *
-                                          3.14;
-                                      return Transform(
-                                        transform: Matrix4.identity()
-                                          ..setEntry(3, 2, 0.002)
-                                          ..rotateY(angle),
-                                        alignment: Alignment.center,
-                                        child: child,
-                                      );
-                                    },
-                                    child: Card(
-                                      color: const Color.fromRGBO(
-                                          142, 169, 185, 1),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      elevation: 4.0,
-                                      child: Center(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            if (!_isCardFlipped)
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 20.0),
-                                                child: Text(
-                                                  '${cardDetails[index]['name']}',
-                                                  style: const TextStyle(
-                                                      fontSize: 25.0),
+                    top: MediaQuery.of(context).size.height / 3 +
+                        250, // Adjust the top position as needed
+                    left: 0,
+                    right: 0,
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height / 2,
+                      child: PageView.builder(
+                        controller: PageController(viewportFraction: 1.0),
+                        itemCount: cardContents.length,
+                        itemBuilder: (context, index) {
+                          return Center(
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width / 3 * 2,
+                              height: MediaQuery.of(context).size.height / 2,
+                              child: Stack(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () => _toggleCardFlip(),
+                                    child: AnimatedBuilder(
+                                      animation: _controller,
+                                      builder: (context, child) {
+                                        final angle = (_isCardFlipped
+                                                ? 1 - _controller.value
+                                                : _controller.value) *
+                                            3.14;
+                                        return Transform(
+                                          transform: Matrix4.identity()
+                                            ..setEntry(3, 2, 0.002)
+                                            ..rotateY(angle),
+                                          alignment: Alignment.center,
+                                          child: child,
+                                        );
+                                      },
+                                      child: Card(
+                                        color: const Color.fromRGBO(
+                                            142, 169, 185, 1),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16.0),
+                                        ),
+                                        elevation: 4.0,
+                                        child: Center(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              if (!_isCardFlipped)
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 20.0),
+                                                  child: Text(
+                                                    '${cardDetails[index]['name']}',
+                                                    style: const TextStyle(
+                                                        fontSize: 25.0),
+                                                  ),
                                                 ),
-                                              ),
-                                            if (!_isCardFlipped)
-                                              SizedBox(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                    3,
-                                                child: Image.asset(
-                                                  'assets/character_${index + 1}.jpeg',
-                                                  fit: BoxFit.cover,
+                                              if (!_isCardFlipped)
+                                                SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      2,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      3,
+                                                  child: Image.asset(
+                                                    'assets/character_${index + 1}.jpeg',
+                                                    fit: BoxFit.cover,
+                                                  ),
                                                 ),
-                                              ),
-                                            if (_isCardFlipped)
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      vertical: 20.0,
-                                                      horizontal: 0.0),
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
+                                              if (_isCardFlipped)
+                                                Expanded(
+                                                  child: Stack(
+                                                    fit: StackFit.expand,
                                                     children: [
-                                                      Text(
-                                                        'Care Level: ${cardDetails[index]['careLevel']}',
-                                                        style: const TextStyle(
-                                                            fontSize: 18.0),
-                                                      ),
-                                                      Text(
-                                                        'Habitat: ${cardDetails[index]['habitat']}',
-                                                        style: const TextStyle(
-                                                            fontSize: 18.0),
-                                                      ),
-                                                      Text(
-                                                        'Personality: ${cardDetails[index]['personality']}',
-                                                        style: const TextStyle(
-                                                            fontSize: 18.0),
-                                                      ),
-                                                      Text(
-                                                        'Nutrition Favorite: ${cardDetails[index]['nutritionFavorite']}',
-                                                        style: const TextStyle(
-                                                            fontSize: 18.0),
-                                                      ),
-                                                      Text(
-                                                        'Tips : ${cardDetails[index]['additionalNotes']}',
-                                                        style: const TextStyle(
-                                                            fontSize: 18.0),
-                                                      ),
-                                                      SizedBox(height: 20),
-                                                      if (_isCardFlipped)
-                                                        Positioned.fill(
-                                                          child: Align(
-                                                            alignment: Alignment
-                                                                .bottomCenter,
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .only(
-                                                                      top: 100),
-                                                              // Adjust as needed
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceEvenly,
-                                                                children: [
-                                                                  ElevatedButton(
-                                                                    onPressed:
-                                                                        () {},
-                                                                    style:
-                                                                        ButtonStyle(
-                                                                      // backgroundColor: MaterialStateProperty.all(Color.fromRGBO(5,15,21,255)), // Change button color here
-                                                                      foregroundColor:
-                                                                          MaterialStateProperty.all(
-                                                                              Colors.cyan),
-                                                                      // Change text color here
-                                                                      minimumSize:
-                                                                          MaterialStateProperty.all(Size(
-                                                                              120,
-                                                                              40)),
-                                                                      textStyle:
-                                                                          MaterialStateProperty.all(
-                                                                              TextStyle(fontSize: 16)),
-                                                                    ),
-                                                                    child: Text(
-                                                                        'Customize'),
-                                                                  ),
-                                                                  ElevatedButton(
-                                                                    onPressed:
-                                                                        () {},
-                                                                    style:
-                                                                        ButtonStyle(
-                                                                      // backgroundColor: MaterialStateProperty.all(Color.fromRGBO(5,15,21,255)), // Change button color here
-                                                                      foregroundColor:
-                                                                          MaterialStateProperty.all(
-                                                                              Colors.cyan),
-                                                                      // Change text color here
-                                                                      minimumSize:
-                                                                          MaterialStateProperty.all(Size(
-                                                                              130,
-                                                                              40)),
-                                                                      textStyle:
-                                                                          MaterialStateProperty.all(
-                                                                              TextStyle(fontSize: 16)),
-                                                                    ),
-                                                                    child: Text(
-                                                                        'Select'),
-                                                                  ),
-                                                                ],
-                                                              ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                vertical: 20.0,
+                                                                horizontal:
+                                                                    10.0),
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              'Care Level: ${cardDetails[index]['careLevel']}',
+                                                              style:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          16.0),
                                                             ),
-                                                          ),
+                                                            Text(
+                                                              'Habitat: ${cardDetails[index]['habitat']}',
+                                                              style:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          16.0),
+                                                            ),
+                                                            Text(
+                                                              'Personality: ${cardDetails[index]['personality']}',
+                                                              style:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          16.0),
+                                                            ),
+                                                            Text(
+                                                              'Nutrition Favorite: ${cardDetails[index]['nutritionFavorite']}',
+                                                              style:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          16.0),
+                                                            ),
+                                                            Text(
+                                                              'Tips : ${cardDetails[index]['additionalNotes']}',
+                                                              style:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          16.0),
+                                                            ),
+                                                            SizedBox(
+                                                                height: 20),
+                                                          ],
                                                         ),
+                                                      ),
+                                                      Positioned(
+                                                        left: 0,
+                                                        right: 0,
+                                                        bottom: 20,
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            ElevatedButton(
+                                                              onPressed: () {},
+                                                              style:
+                                                                  ButtonStyle(
+                                                                foregroundColor:
+                                                                    MaterialStateProperty
+                                                                        .all(Colors
+                                                                            .cyan),
+                                                                minimumSize:
+                                                                    MaterialStateProperty
+                                                                        .all(Size(
+                                                                            120,
+                                                                            40)),
+                                                                textStyle: MaterialStateProperty
+                                                                    .all(TextStyle(
+                                                                        fontSize:
+                                                                            16)),
+                                                              ),
+                                                              child: Text(
+                                                                  'Customize'),
+                                                            ),
+                                                            SizedBox(
+                                                                height: 10),
+                                                            ElevatedButton(
+                                                              onPressed: () {},
+                                                              style:
+                                                                  ButtonStyle(
+                                                                foregroundColor:
+                                                                    MaterialStateProperty
+                                                                        .all(Colors
+                                                                            .cyan),
+                                                                minimumSize:
+                                                                    MaterialStateProperty
+                                                                        .all(Size(
+                                                                            120,
+                                                                            40)),
+                                                                textStyle: MaterialStateProperty
+                                                                    .all(TextStyle(
+                                                                        fontSize:
+                                                                            16)),
+                                                              ),
+                                                              child: Text(
+                                                                  'Select'),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
-                                              ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                if (!cardUnlocked[
-                                    index]) // Show translucent div if the card is locked
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(
-                                          16.0), // Same borderRadius as the card
-                                      color: Colors.black.withOpacity(0.5),
-                                    ),
-                                    // width: MediaQuery.of(context).size.width / 3,
-                                    // height: MediaQuery.of(context).size.height / 4,
-                                    child: Center(
+                                  if (!cardUnlocked[
+                                      index]) // Show translucent div if the card is locked
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            16.0), // Same borderRadius as the card
+                                        color: Colors.black.withOpacity(0.5),
+                                      ),
+                                      child: Center(
                                         child: Icon(
-                                      Icons.lock,
-                                      color: Colors.white,
-                                      size: 100,
-                                    )),
-                                  ),
-                              ],
+                                          Icons.lock,
+                                          color: Colors.white,
+                                          size: 100,
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
