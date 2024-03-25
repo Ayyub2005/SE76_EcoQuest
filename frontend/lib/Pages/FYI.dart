@@ -1,9 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:frontend/Pages/FYI_data.dart';
-import 'package:frontend/Pages/Navigation.dart';
 import 'package:frontend/Pages/rotate_card.dart';
-import 'package:frontend/Pages/service/database.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,41 +21,28 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.white,
         ),
       ),
-      home: FYI(),
+      home: FYI(userXp: 2),
     );
   }
 }
 
 class FYI extends StatefulWidget {
-
+  final double userXp;
+  const FYI({super.key, required this.userXp});
   @override
   _FYIState createState() => _FYIState();
 }
 
 class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
-  final Session session = Session();
-  double xp = 0; // Default index
-
-
-
-  Future<void> fetchUserCharacter() async {
-    try {
-      UserModel user = await session.getCurrentUser();
-      setState(() {
-        xp = user.xp;
-      });
-    } catch (e) {
-      print("Error fetching user character: $e");
-    }
-  }
   List<Map<String, String>> cardDetails = [];
   late List<Map<String, String>> rewardDetails;
   late List<Map<String, String>> characterList;
   late List<Map<String, String>> fyiList;
-  late List<double> xpLevel;
+  late List<int> xpLevel;
   late AnimationController _controller;
   late bool _isCardFlipped;
   late bool _unlockCharacter;
+  late bool _xp;
 
   @override
   void initState() {
@@ -69,7 +54,7 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
       duration: Duration(milliseconds: 500),
     );
     _isCardFlipped = false;
-    fetchUserCharacter();
+    initializeCards();
   }
 
   @override
@@ -87,22 +72,22 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
 
     Random random = Random();
     int index;
-    if (xpLevel.contains(xp)) {
+    if (xpLevel.contains(widget.userXp)) {
       setState(() {
         _unlockCharacter = true;
       });
-      // index = 0;
-      // cardDetails.add({
-      //   'name': characterList[index]['name']!
-      // }); // Add character name to cardDetails
+      index = 0;
+      cardDetails.add({
+        'name': characterList[index]['name']!
+      }); // Add character name to cardDetails
     } else {
       setState(() {
         _unlockCharacter = false;
       });
-      // index = random.nextInt(rewardDetails.length);
-      // cardDetails.add({
-      //   'name': rewardDetails[index]['name']!
-      // }); // Add reward name to cardDetails
+      index = random.nextInt(rewardDetails.length);
+      cardDetails.add({
+        'name': rewardDetails[index]['name']!
+      }); // Add reward name to cardDetails
     }
   }
 
@@ -138,7 +123,7 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
           Center(
             child: SizedBox(
               height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width / 3 *3,
+              width: MediaQuery.of(context).size.width / 3 * 2,
               child: Stack(
                 children: [
                   GestureDetector(
@@ -190,11 +175,11 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                                   padding: const EdgeInsets.only(top: 20.0),
                                   child: SizedBox(
                                     width:
-                                        MediaQuery.of(context).size.width / 0.5,
+                                        MediaQuery.of(context).size.width / 3,
                                     height:
                                         MediaQuery.of(context).size.height / 4,
                                     child: Image.asset(
-                                      'assets/rewardsUL.jpg',
+                                      'assets/character_1.jpeg',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -204,11 +189,11 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                                   padding: const EdgeInsets.only(top: 20.0),
                                   child: SizedBox(
                                     width:
-                                        MediaQuery.of(context).size.width / 0.5,
+                                        MediaQuery.of(context).size.width / 3,
                                     height:
-                                        MediaQuery.of(context).size.height / 3,
+                                        MediaQuery.of(context).size.height / 4,
                                     child: Image.asset(
-                                      'assets/rewardsUL.jpg',
+                                      'assets/character_2.jpeg',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -241,7 +226,8 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                                                   onPressed: () {
                                                     Navigator.of(context).push(
                                                       MaterialPageRoute(
-                                                          builder: (context) =>NavBar()),
+                                                          builder: (context) =>
+                                                              CharacterCards()),
                                                     );
                                                   },
                                                   style: ButtonStyle(

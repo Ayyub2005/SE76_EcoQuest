@@ -32,5 +32,5 @@ class Rewards {
       'name': 'The Great Barrier Reef is the largest living structure on Earth and can even be seen from outer space.',
     },
   ];
-  static List<double> xpLevels = [0.12, 0.48, 0.84];
+  static List<int> xpLevels = [12, 68, 167, 235];
 }
