@@ -25,6 +25,7 @@ jobs:
           architecture: x64
 
       - name: Build APK
+        run: cd frontend
         run: flutter build apk --release --split-per-abi
 
       - name: Push to Releases
