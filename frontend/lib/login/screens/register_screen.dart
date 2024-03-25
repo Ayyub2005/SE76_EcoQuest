@@ -27,7 +27,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final ValueNotifier<bool> passwordNotifier = ValueNotifier(true);
   final ValueNotifier<bool> confirmPasswordNotifier = ValueNotifier(true);
-  final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(true);
+  final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
 
   @override
   void initState() {
@@ -260,12 +260,16 @@ class _RegisterPageState extends State<RegisterPage> {
               ElevatedButton(
                 onPressed: () async {
                   try {
-                    await registerUser(); // Wait for user registration to complete
-                    addDetailsDB(); // Add user details to the database
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => NavBar())
-                    );
+                    controllerListener();
+                    if (fieldValidNotifier.value) {
+                      await registerUser(); // Wait for user registration to complete
+                      addDetailsDB(); // Add user details to the database
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => NavBar()),
+                      );
+                    } else
+                      (SnackbarHelper.showSnackBar("Enter details to Sign in"));
                   } catch (e) {
                     // Handle registration errors
                     print(e);

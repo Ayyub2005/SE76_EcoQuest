@@ -10,10 +10,22 @@ class DatabaseMethods {
         .doc(id)
         .set(userMap);
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   Future<Stream<QuerySnapshot>> getUserData(String uid) async {
-    return await FirebaseFirestore.instance
-        .collection('User')
-        .snapshots();
+    return await FirebaseFirestore.instance.collection('User').snapshots();
   }
 }
 
@@ -81,7 +93,8 @@ class Session {
 
   Future<void> loginUser(String email, String password) async {
     try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
       print('User logged in with email: $email');
       await fetchUserData(userCredential.user!.uid);
     } catch (e) {

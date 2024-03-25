@@ -1,8 +1,7 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:frontend/Pages/FYI_data.dart';
-import 'card_data.dart';
+import 'package:frontend/Pages/rotate_card.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.white,
         ),
       ),
-      home: FYI(userXp:12),
+      home: FYI(userXp:2),
     );
   }
 }
@@ -38,9 +37,12 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
   List<Map<String, String>> cardDetails = [];
   late List<Map<String, String>> rewardDetails;
   late List<Map<String, String>> characterList;
+  late List<Map<String, String>> fyiList;
   late List<int> xpLevel;
   late AnimationController _controller;
   late bool _isCardFlipped;
+  late bool _unlockCharacter;
+  late bool _xp;
 
 
 
@@ -65,17 +67,23 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
 
   void initializeCards() {
     rewardDetails = Rewards.rewardDetails;
-    characterList = Rewards.rewardDetails;
+    characterList = Rewards.characterList;
+    fyiList = Rewards.fyiList;
     xpLevel = Rewards.xpLevels;
     cardDetails = []; // Initialize cardDetails as an empty list
 
     Random random = Random();
     int index;
-
     if (xpLevel.contains(widget.userXp)) {
-      index = random.nextInt(characterList.length);
+      setState(() {
+        _unlockCharacter = true;
+      });
+      index = 0;
       cardDetails.add({'name': characterList[index]['name']!}); // Add character name to cardDetails
     } else {
+      setState(() {
+        _unlockCharacter = false;
+      });
       index = random.nextInt(rewardDetails.length);
       cardDetails.add({'name': rewardDetails[index]['name']!}); // Add reward name to cardDetails
     }
@@ -93,26 +101,11 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
 
   }
 
-  // void _xpCheck(){
-  //   Random random = Random();
-  //   int index;
-  //   if (xpLevel.contains(widget.userXp)) {
-  //     index = random.nextInt(characterList.length);
-  //     // Update the card name based on the selected index from characterList
-  //     setState(() {
-  //       cardDetails[0]['name'] = characterList[index]['name']!;
-  //     });
-  //   } else {
-  //     index = random.nextInt(rewardDetails.length);
-  //     // Update the card name based on the selected index from rewardDetails
-  //     setState(() {
-  //       cardDetails[0]['name'] = rewardDetails[index]['name']!;
-  //     });
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
+    Random random = Random();
+    int index = random.nextInt(fyiList.length);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -125,42 +118,6 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
           ),
           // User info container
           // Bottom navigation bar with notch
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: BottomAppBar(
-              color: Colors.black, // Adjusted for dark theme
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 32,
-                    icon: const Icon(Icons.home, color: Colors.white), // Adjusted icon color
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Image.asset(
-                      'assets/dragon.png',
-                      width: 30,
-                      height: 30,
-                    ),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    iconSize: 32,
-                    icon: const Icon(Icons.people, color: Colors.white), // Adjusted icon color
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    iconSize: 32,
-                    icon: const Icon(Icons.settings, color: Colors.white), // Adjusted icon color
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-          ),
 
           Center(
             child: SizedBox(
@@ -194,20 +151,45 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               if (!_isCardFlipped)
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20.0),
+                                const Padding(
+                                  padding:  EdgeInsets.only(top: 20.0),
                                   child: Text(
-                                    '${cardDetails[0]['name']}',
-                                    style: const TextStyle(fontSize: 25.0),
+                                    'Reward',
+                                    style:  TextStyle(fontSize: 35.0),
                                   ),
                                 ),
-                              if (!_isCardFlipped)
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  height: MediaQuery.of(context).size.height / 4,
-                                  child: Image.asset(
-                                    'assets/character_${1}.jpeg',
-                                    fit: BoxFit.cover,
+                              if (_isCardFlipped)
+                                const Padding(
+                                  padding:  EdgeInsets.only(top: 20.0),
+                                  child: Text(
+                                    'Did You Know...',
+                                    style:  TextStyle(fontSize: 35.0),
+                                  ),
+                                ),
+                              if(_unlockCharacter && !_isCardFlipped)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 20.0),
+                                  child:
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width / 3,
+                                    height: MediaQuery.of(context).size.height / 4,
+                                    child: Image.asset(
+                                      'assets/character_1.jpeg',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              if (!_isCardFlipped && !_unlockCharacter)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 20.0),
+                                  child:
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width / 3,
+                                    height: MediaQuery.of(context).size.height / 4,
+                                    child: Image.asset(
+                                      'assets/character_2.jpeg',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               if (_isCardFlipped)
@@ -219,10 +201,33 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'Care Level: ${cardDetails[0]['careLevel']}',
-                                          style: const TextStyle(fontSize: 18.0),
+                                          '${fyiList[index]['name']}',
+                                          style:  TextStyle(fontSize: 18.0),
                                         ),
                                         SizedBox(height: 20),
+                                        if (_isCardFlipped)
+                                          Positioned.fill(
+                                            child: Align(
+                                              alignment: Alignment.bottomCenter,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(bottom: 16.0), // Adjust the padding as needed
+                                                child: ElevatedButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).push(
+                                                        MaterialPageRoute(builder: (context) => CharacterCards()),
+                                                    );
+                                                  },
+                                                  style: ButtonStyle(
+                                                    // backgroundColor: MaterialStateProperty.all(Color.fromRGBO(5,15,21,255)), // Change button color here
+                                                    foregroundColor: MaterialStateProperty.all(Colors.cyan), // Change text color here
+                                                    minimumSize: MaterialStateProperty.all(Size(120, 40)),
+                                                    textStyle: MaterialStateProperty.all(TextStyle(fontSize: 16)),
+                                                  ),
+                                                  child: Text('View Card'), // Add your button text here
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                       ],
                                     ),
                                   ),
@@ -239,28 +244,6 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
           ),
         ],
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 55.0),
-        child: Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: Colors.black, width: 4.0), // Black border
-          ),
-          child: const ClipOval(
-            child: Material(
-              color: Colors.white,
-              child: Icon(
-                Icons.camera_alt_outlined,
-                size: 36,
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
