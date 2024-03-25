@@ -59,8 +59,6 @@ jobs:
       working-directory: frontend 
 
     - name: Deploy to Firebase
-      uses: wzieba/Firebase-Action@v1
-      with:
-        args: distribute:app:release --app release-apk/app-release.apk
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      run: cd frontend
+      run: firebase appdistribution:distribute ./build/app/outputs/flutter-apk/app-release.apk --app ${{ secrets.FIREBASE_APP_ID }} --token $FIREBASE_TOKEN
+      working-directory: frontend 
