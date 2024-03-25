@@ -19,6 +19,9 @@ jobs:
       with:
         flutter-version: '3.16.9'  # You can specify the Flutter version you want
 
+    - name: Change to Flutter project directory
+      run: cd frontend
+
     - name: Get dependencies
       run: flutter pub get
 
