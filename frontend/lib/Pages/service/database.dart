@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,7 +36,7 @@ class UserModel {
   int avatar;
   int character;
   String email;
-  int hp;
+  double  hp;
   int level;
   String name;
   int nutrition;

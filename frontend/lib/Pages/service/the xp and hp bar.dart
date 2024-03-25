@@ -61,8 +61,7 @@ class _XPHPBarState extends State<XPHPBar> {
       UserModel user = await widget.session.getCurrentUser();
       setState(() {
         hp = user.hp / 100;
-        hp = prefs.getDouble('hp') ?? hp;
-        xp = user.xp.toDouble();
+        xp = user.xp;
       });
     } catch (e) {
       print('Error loading user data: $e');
@@ -73,7 +72,7 @@ class _XPHPBarState extends State<XPHPBar> {
     try {
       final prefs = await SharedPreferences.getInstance();
       UserModel user = await widget.session.getCurrentUser();
-      user.hp = (hp * 100).toInt();
+      user.hp = (hp * 100);
       prefs.setDouble('hp', hp);
       await widget.session.updateUserData(user);
     } catch (e) {
