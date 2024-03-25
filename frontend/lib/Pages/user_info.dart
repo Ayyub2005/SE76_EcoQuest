@@ -387,7 +387,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
     return userData;
   }
 }
-
+//
 class UserInfo extends StatelessWidget {
   final String avatarUrl;
   final String userName;

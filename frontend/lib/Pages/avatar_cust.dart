@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:frontend/Pages/service/database.dart';
 import 'package:firebase_core/firebase_core.dart';
+//
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
