@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Pages/Navigation.dart';
-import 'package:frontend/Pages/homescreen.dart';
+import 'package:frontend/Pages/homepage.dart';
 import '../../Pages/homepage.dart';
 import '../components/app_text_form_field.dart';
 import '../utils/helpers/navigation_helper.dart';
@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
 
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => NavBar()),
+          MaterialPageRoute(builder: (context) => Home()),
         );
         print('Successfully Logged in');
       } catch (e) {
@@ -136,7 +136,10 @@ class _LoginPageState extends State<LoginPage> {
                                 style: AppTheme.titleLarge,
                               ),
 
-                              const SizedBox(height: 6),
+                              const SizedBox(
+                                height: 10,
+                              ),
+
                               const Text(
                                 AppStrings.signInToYourAccount,
                                 style: TextStyle(
