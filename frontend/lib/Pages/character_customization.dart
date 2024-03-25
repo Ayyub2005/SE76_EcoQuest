@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Pages/Navigation.dart';
+import 'package:frontend/Pages/homePageFinal.dart';
+import 'package:frontend/Pages/service/database.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,6 +35,8 @@ class Character_cust extends StatefulWidget {
 
 class _Character_custState extends State<Character_cust> {
   String displayedAccessory = 'assets/dog-character_default.png';
+  final Session session=Session();
+  int index=0;
 
   @override
   Widget build(BuildContext context) {
@@ -148,17 +153,18 @@ class _Character_custState extends State<Character_cust> {
             bottom: 90, // Adjust the bottom position as needed
             child: ElevatedButton(
               onPressed: () async {
-              //   String? uid = FirebaseAuth.instance.currentUser?.uid;
-              //   if (uid != null) {
-              //   Map<String,dynamic> userMap= {
-              //     "XP": 450
-              //   };
-              //   await DatabaseMethods().addUserData(userMap, uid);
-              //   print('Elevated Button Pressed');
-              // } else {
-              //     print("User is not logged in.");
-              //     // Handle the case where the user is not logged in
-              //     }
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('FOREST GUARDIAN IS READY FOR BATTLE!!'),
+                    duration: Duration(seconds: 2), // Adjust the duration as needed
+                  ),
+                );
+                // Wait for the SnackBar to be dismissed
+                await Future.delayed(Duration(seconds: 2));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NavBar()),
+                );
                 },
               child: Text('Customize'),
             ),

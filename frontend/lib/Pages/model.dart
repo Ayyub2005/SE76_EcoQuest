@@ -1,11 +1,8 @@
 import 'dart:convert';
-
-// import 'package:file_picker/file_picker.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-
 import '../AR/ar_mystery_box_screen.dart';
 
 void main() {
@@ -153,7 +150,8 @@ class _mlModelState extends State<mlModel> {
           case "Bottle-Disposed":
             bottleDisposed = true;
             if (bottleDisposed) {
-              Navigator.of(context).push(
+              Navigator.push(
+                context,
                 MaterialPageRoute(builder: (context) => ArMysteryBoxScreen()),
               );
             }
@@ -167,12 +165,32 @@ class _mlModelState extends State<mlModel> {
         }
       }
     }
+    if (!bottleDisposed) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Error"),
+            content: Text("Bottle not disposed. Please retry."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    }
     return {
       "Dustbin": dustbin,
       "Bottle-Disposed": bottleDisposed,
       "Empty": empty,
       "Plastic-Bottle": plasticBottle,
     };
+
   }
 
   ///this is to capture the video through the image_picker plugin
