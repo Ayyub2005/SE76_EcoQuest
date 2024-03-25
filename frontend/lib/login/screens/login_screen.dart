@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
 
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Home()),
+          MaterialPageRoute(builder: (context) => NavBar()),
         );
         print('Successfully Logged in');
       } catch (e) {
