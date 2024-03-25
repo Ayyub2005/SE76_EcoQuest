@@ -17,19 +17,25 @@ jobs:
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.16.9'  # You can specify the Flutter version you want
+        flutter-version: '3.19.4'  # You can specify the Flutter version you want
 
     - name: Change to Flutter project directory
       run: cd frontend
 
+    - name: Set Dart SDK version
+      run: flutter --version
+
     - name: Get dependencies
       run: flutter pub get
+      working-directory: frontend  
 
     - name: Analyze code
       run: flutter analyze
+      working-directory: frontend  
 
     - name: Run tests
       run: flutter test
+      working-directory: frontend  
 
   release:
     name: Release APK
