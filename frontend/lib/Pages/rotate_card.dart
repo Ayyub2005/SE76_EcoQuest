@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Pages/character_customization.dart';
 import 'card_data.dart';
 import 'package:frontend/Pages/Navigation.dart';
 import 'navigation.dart';
@@ -236,7 +237,13 @@ class _CharacterCardsState extends State<CharacterCards>
                                                               children: [
                                                                 ElevatedButton(
                                                                   onPressed:
-                                                                      () {},
+                                                                      () {
+                                                                        Navigator.push(
+                                                                          context,
+                                                                          MaterialPageRoute(builder: (context) =>Character_cust(),
+                                                                          ),
+                                                                        );
+                                                                      },
                                                                   style:
                                                                       ButtonStyle(
                                                                     // backgroundColor: MaterialStateProperty.all(Color.fromRGBO(5,15,21,255)), // Change button color here

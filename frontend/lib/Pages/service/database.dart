@@ -10,20 +10,6 @@ class DatabaseMethods {
         .doc(id)
         .set(userMap);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   Future<Stream<QuerySnapshot>> getUserData(String uid) async {
     return await FirebaseFirestore.instance
         .collection('User')

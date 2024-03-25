@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Pages/homepage.dart';
-// import 'views/camera_view.dart';
+import 'package:frontend/Pages/homePageFinal.dart';
 import 'splash.dart';
-import 'homescreen.dart';
 import 'character_customization.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -24,7 +22,7 @@ class MyApp extends StatelessWidget {
 
       routes: {
         '/splash': (context) => const PageOne(),
-        '/homescreen': (context) =>  Home(), // Use HomeScreen from Page2
+        '/homescreen': (context) =>  HomePageSelector(), // Use HomeScreen from Page2
         '/character_customization': (context) =>
             Character_cust(), // Use HomeScreen from Page3
         // '/cameraview': (context) => const CameraView(),
