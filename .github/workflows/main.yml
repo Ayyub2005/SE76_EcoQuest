@@ -24,12 +24,15 @@ jobs:
 
     - name: Get dependencies
       run: flutter pub get
+      working-directory: frontend  
 
     - name: Analyze code
       run: flutter analyze
+      working-directory: frontend  
 
     - name: Run tests
       run: flutter test
+      working-directory: frontend  
 
   release:
     name: Release APK
