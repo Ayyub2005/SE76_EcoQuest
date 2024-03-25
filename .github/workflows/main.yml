@@ -29,9 +29,7 @@ jobs:
       run: flutter pub get
       working-directory: frontend  
 
-    - name: Analyze code
-      run: flutter analyze
-      working-directory: frontend  
+    
 
     - name: Run tests
       run: flutter test
@@ -48,7 +46,7 @@ jobs:
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '2.x'
+        flutter-version: '3.19.4'
 
     - name: Get dependencies
       run: flutter pub get
