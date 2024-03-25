@@ -11,26 +11,26 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: PageOne(),
+      home: Splash(),
     );
   }
 }
 
-class PageOne extends StatefulWidget {
-  const PageOne({Key? key}) : super(key: key);
+class Splash extends StatefulWidget {
+  const Splash({Key? key}) : super(key: key);
 
   @override
-  _PageOneState createState() => _PageOneState();
+  _SplashState createState() => _SplashState();
 }
 
-class _PageOneState extends State<PageOne> {
+class _SplashState extends State<Splash> {
   double _opacity = 0.0;
 
   @override
   void initState() {
     super.initState();
     // Start the fading animation after 1 second (1000 milliseconds)
-    Future.delayed(const Duration(milliseconds: 1000), () {
+    Future.delayed(const Duration(milliseconds: 700), () {
       setState(() {
         _opacity = 1.0;
       });

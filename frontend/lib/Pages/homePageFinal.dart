@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Pages/service/database.dart';
+import 'package:frontend/Pages/service/the%20xp%20and%20hp%20bar.dart';
 
 void main() {
   runApp(MyApp());
@@ -78,8 +79,6 @@ class _HomeState extends State<Home> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,6 +91,9 @@ class _HomeState extends State<Home> {
               fit: BoxFit.cover,
             ),
           ),
+          Center(
+              child: XPHPBar(session: widget.session, locaHP: 50, locaXP: 55),
+              ),
           Positioned(
             top: 15,
             left: 15,
@@ -110,7 +112,8 @@ class _HomeState extends State<Home> {
                       CircleAvatar(
                         radius: 30,
                         child: Image.asset(
-                          'assets/avatar${user.avatar}.png',
+                          // 'assets/avatar${user.avatar}.png',
+                          'assets/avatar1.png',
                         ),
 
                       ),

@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/splash',
 
       routes: {
-        '/splash': (context) => const PageOne(),
+        '/splash': (context) => const Splash(),
         '/homescreen': (context) =>  HomePageSelector(), // Use HomeScreen from Page2
         '/character_customization': (context) =>
             Character_cust(), // Use HomeScreen from Page3

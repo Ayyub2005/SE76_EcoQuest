@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Pages/avatar_cust.dart';
-import 'package:frontend/Pages/character_customization.dart';
 import 'package:frontend/Pages/homePageFinal.dart';
 import 'package:frontend/Pages/model.dart';
 import 'package:frontend/Pages/rotate_card.dart';
@@ -8,6 +6,7 @@ import 'package:frontend/Pages/settings.dart';
 import 'package:frontend/Pages/user_info.dart';
 
 import '../AR/ar_mystery_box_screen.dart';
+
 
 
 void main() {
@@ -89,6 +88,9 @@ class _NavBarState extends State<NavBar> {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => mlModel(title: 'Bottle Detection')),
           );
+          // Navigator.of(context).push(
+          //   MaterialPageRoute(builder: (context) => ArMysteryBoxScreen()),
+          // );
           print('FloatingActionButton pressed');
         },
         backgroundColor: Colors.white,
