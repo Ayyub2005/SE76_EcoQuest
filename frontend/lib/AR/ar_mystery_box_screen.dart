@@ -9,7 +9,6 @@ import '../Pages/service/database.dart';
 class ArMysteryBoxScreen extends StatefulWidget {
   const ArMysteryBoxScreen({super.key});
 
-
   @override
   State<ArMysteryBoxScreen> createState() => _ArMysteryBoxScreenState();
 }
@@ -17,16 +16,17 @@ class ArMysteryBoxScreen extends StatefulWidget {
 class _ArMysteryBoxScreenState extends State<ArMysteryBoxScreen> {
   ArCoreController? coreController;
   final Session session = Session();
-  int userXp = 0;
+  double userXp = 0;
 
-  augmentedRealityViewCreated(ArCoreController controller){
+  augmentedRealityViewCreated(ArCoreController controller) {
     coreController = controller;
 
     displayCube(coreController!);
   }
 
-  displayCube(ArCoreController controller)async{
-    final ByteData questionMtextureBytes = await rootBundle.load("assets/QM.png");
+  displayCube(ArCoreController controller) async {
+    final ByteData questionMtextureBytes =
+        await rootBundle.load("assets/QM.png");
 
     final materials = ArCoreMaterial(
       color: Colors.purple,
@@ -34,18 +34,17 @@ class _ArMysteryBoxScreenState extends State<ArMysteryBoxScreen> {
     );
 
     final cube = ArCoreCube(
-        size: vector64.Vector3(0.75,0.75,0.75),
-        materials: [materials],
+      size: vector64.Vector3(0.75, 0.75, 0.75),
+      materials: [materials],
     );
 
     final node = ArCoreNode(
       shape: cube,
-      position: vector64.Vector3(-0.5,0.5,-3.5),
+      position: vector64.Vector3(-0.5, 0.5, -3.5),
     );
 
     coreController!.addArCoreNode(node);
   }
-
 
   void fetchAndSetCharacter() async {
     UserModel currentUser = await session.getCurrentUser();
@@ -55,15 +54,16 @@ class _ArMysteryBoxScreenState extends State<ArMysteryBoxScreen> {
       });
     }
   }
+
   void updateSession() async {
     // Increment character value in the session by 1
     UserModel currentUser = await session.getCurrentUser();
     if (currentUser != null) {
       int updatedCharacter = currentUser.character + 1;
       currentUser.character = updatedCharacter;
-      int updatedXp= currentUser.xp + 1;
+      double updatedXp = currentUser.xp + 1;
       currentUser.xp = updatedXp;
-      int updatedHp= currentUser.hp + 1;
+      int updatedHp = currentUser.hp + 1;
       currentUser.hp = updatedHp;
       await session.updateUserData(currentUser);
     }
@@ -93,15 +93,19 @@ class _ArMysteryBoxScreenState extends State<ArMysteryBoxScreen> {
                 onPressed: () {
                   updateSession();
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => FYI(userXp: userXp)),
+                    MaterialPageRoute(
+                        builder: (context) => FYI(userXp: userXp)),
                   );
                 },
                 child: const Text('Claim'),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Color.fromRGBO(0, 162, 142, 1)), // Change button background color to black
-                  foregroundColor: MaterialStateProperty.all(Colors.white), // Change text color here
+                  backgroundColor: MaterialStateProperty.all(Color.fromRGBO(0,
+                      162, 142, 1)), // Change button background color to black
+                  foregroundColor: MaterialStateProperty.all(
+                      Colors.white), // Change text color here
                   minimumSize: MaterialStateProperty.all(const Size(120, 40)),
-                  textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 16)),
+                  textStyle:
+                      MaterialStateProperty.all(const TextStyle(fontSize: 16)),
                 ),
               ),
             ),
@@ -111,6 +115,3 @@ class _ArMysteryBoxScreenState extends State<ArMysteryBoxScreen> {
     );
   }
 }
-
-
-

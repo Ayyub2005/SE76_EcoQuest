@@ -39,7 +39,7 @@ class UserModel {
   String name;
   int nutrition;
   String password;
-  int xp;
+  double xp;
 
   UserModel({
     this.accessory = 0,

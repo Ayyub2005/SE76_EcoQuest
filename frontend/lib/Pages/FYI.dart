@@ -21,13 +21,13 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.white,
         ),
       ),
-      home: FYI(userXp:2),
+      home: FYI(userXp: 2),
     );
   }
 }
 
 class FYI extends StatefulWidget {
-  final int userXp;
+  final double userXp;
   const FYI({super.key, required this.userXp});
   @override
   _FYIState createState() => _FYIState();
@@ -43,8 +43,6 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
   late bool _isCardFlipped;
   late bool _unlockCharacter;
   late bool _xp;
-
-
 
   @override
   void initState() {
@@ -79,13 +77,17 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
         _unlockCharacter = true;
       });
       index = 0;
-      cardDetails.add({'name': characterList[index]['name']!}); // Add character name to cardDetails
+      cardDetails.add({
+        'name': characterList[index]['name']!
+      }); // Add character name to cardDetails
     } else {
       setState(() {
         _unlockCharacter = false;
       });
       index = random.nextInt(rewardDetails.length);
-      cardDetails.add({'name': rewardDetails[index]['name']!}); // Add reward name to cardDetails
+      cardDetails.add({
+        'name': rewardDetails[index]['name']!
+      }); // Add reward name to cardDetails
     }
   }
 
@@ -98,7 +100,6 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
     } else {
       _controller.reverse(from: 1.0);
     }
-
   }
 
   @override
@@ -130,7 +131,10 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                     child: AnimatedBuilder(
                       animation: _controller,
                       builder: (context, child) {
-                        final angle = (_isCardFlipped ? 1 - _controller.value : _controller.value) * 3.14;
+                        final angle = (_isCardFlipped
+                                ? 1 - _controller.value
+                                : _controller.value) *
+                            3.14;
                         return Transform(
                           transform: Matrix4.identity()
                             ..setEntry(3, 2, 0.002)
@@ -152,27 +156,28 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                             children: [
                               if (!_isCardFlipped)
                                 const Padding(
-                                  padding:  EdgeInsets.only(top: 20.0),
+                                  padding: EdgeInsets.only(top: 20.0),
                                   child: Text(
                                     'Reward',
-                                    style:  TextStyle(fontSize: 35.0),
+                                    style: TextStyle(fontSize: 35.0),
                                   ),
                                 ),
                               if (_isCardFlipped)
                                 const Padding(
-                                  padding:  EdgeInsets.only(top: 20.0),
+                                  padding: EdgeInsets.only(top: 20.0),
                                   child: Text(
                                     'Did You Know...',
-                                    style:  TextStyle(fontSize: 35.0),
+                                    style: TextStyle(fontSize: 35.0),
                                   ),
                                 ),
-                              if(_unlockCharacter && !_isCardFlipped)
+                              if (_unlockCharacter && !_isCardFlipped)
                                 Padding(
                                   padding: const EdgeInsets.only(top: 20.0),
-                                  child:
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width / 3,
-                                    height: MediaQuery.of(context).size.height / 4,
+                                  child: SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 3,
+                                    height:
+                                        MediaQuery.of(context).size.height / 4,
                                     child: Image.asset(
                                       'assets/character_1.jpeg',
                                       fit: BoxFit.cover,
@@ -182,10 +187,11 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                               if (!_isCardFlipped && !_unlockCharacter)
                                 Padding(
                                   padding: const EdgeInsets.only(top: 20.0),
-                                  child:
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width / 3,
-                                    height: MediaQuery.of(context).size.height / 4,
+                                  child: SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 3,
+                                    height:
+                                        MediaQuery.of(context).size.height / 4,
                                     child: Image.asset(
                                       'assets/character_2.jpeg',
                                       fit: BoxFit.cover,
@@ -195,14 +201,17 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                               if (_isCardFlipped)
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 20.0, horizontal: 0.0),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Text(
                                           '${fyiList[index]['name']}',
-                                          style:  TextStyle(fontSize: 18.0),
+                                          style: TextStyle(fontSize: 18.0),
                                         ),
                                         SizedBox(height: 20),
                                         if (_isCardFlipped)
@@ -210,20 +219,33 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                                             child: Align(
                                               alignment: Alignment.bottomCenter,
                                               child: Padding(
-                                                padding: const EdgeInsets.only(bottom: 16.0), // Adjust the padding as needed
+                                                padding: const EdgeInsets.only(
+                                                    bottom:
+                                                        16.0), // Adjust the padding as needed
                                                 child: ElevatedButton(
                                                   onPressed: () {
                                                     Navigator.of(context).push(
-                                                        MaterialPageRoute(builder: (context) => CharacterCards()),
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              CharacterCards()),
                                                     );
                                                   },
                                                   style: ButtonStyle(
                                                     // backgroundColor: MaterialStateProperty.all(Color.fromRGBO(5,15,21,255)), // Change button color here
-                                                    foregroundColor: MaterialStateProperty.all(Colors.cyan), // Change text color here
-                                                    minimumSize: MaterialStateProperty.all(Size(120, 40)),
-                                                    textStyle: MaterialStateProperty.all(TextStyle(fontSize: 16)),
+                                                    foregroundColor:
+                                                        MaterialStateProperty
+                                                            .all(Colors
+                                                                .cyan), // Change text color here
+                                                    minimumSize:
+                                                        MaterialStateProperty
+                                                            .all(Size(120, 40)),
+                                                    textStyle:
+                                                        MaterialStateProperty
+                                                            .all(TextStyle(
+                                                                fontSize: 16)),
                                                   ),
-                                                  child: Text('View Card'), // Add your button text here
+                                                  child: Text(
+                                                      'View Card'), // Add your button text here
                                                 ),
                                               ),
                                             ),
