@@ -294,7 +294,22 @@ class _CharacterCardsState extends State<CharacterCards>
                                                             fontSize: 18.0),
                                                       ),
                                                       Text(
+                                                        'Habitat: ${cardDetails[index]['habitat']}',
+                                                        style: const TextStyle(
+                                                            fontSize: 18.0),
+                                                      ),
+                                                      Text(
+                                                        'Personality: ${cardDetails[index]['personality']}',
+                                                        style: const TextStyle(
+                                                            fontSize: 18.0),
+                                                      ),
+                                                      Text(
                                                         'Nutrition Favorite: ${cardDetails[index]['nutritionFavorite']}',
+                                                        style: const TextStyle(
+                                                            fontSize: 18.0),
+                                                      ),
+                                                      Text(
+                                                        'Tips : ${cardDetails[index]['additionalNotes']}',
                                                         style: const TextStyle(
                                                             fontSize: 18.0),
                                                       ),
