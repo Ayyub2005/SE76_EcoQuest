@@ -1,10 +1,13 @@
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:frontend/Pages/FYI.dart';
 import 'package:vector_math/vector_math_64.dart' as vector64;
+import '../Pages/service/database.dart';
 
 class ArMysteryBoxScreen extends StatefulWidget {
   const ArMysteryBoxScreen({super.key});
+
 
   @override
   State<ArMysteryBoxScreen> createState() => _ArMysteryBoxScreenState();
@@ -12,6 +15,8 @@ class ArMysteryBoxScreen extends StatefulWidget {
 
 class _ArMysteryBoxScreenState extends State<ArMysteryBoxScreen> {
   ArCoreController? coreController;
+  final Session session = Session();
+  double userXp = 0;
 
   augmentedRealityViewCreated(ArCoreController controller){
     coreController = controller;
@@ -28,8 +33,8 @@ class _ArMysteryBoxScreenState extends State<ArMysteryBoxScreen> {
     );
 
     final cube = ArCoreCube(
-        size: vector64.Vector3(0.75,0.75,0.75),
-        materials: [materials],
+      size: vector64.Vector3(0.75,0.75,0.75),
+      materials: [materials],
     );
 
     final node = ArCoreNode(
@@ -40,87 +45,69 @@ class _ArMysteryBoxScreenState extends State<ArMysteryBoxScreen> {
     coreController!.addArCoreNode(node);
   }
 
-  void claimReward() {
-    // Implement your function to claim the reward
-    print("Claim reward");
+
+  void fetchAndSetCharacter() async {
+    UserModel currentUser = await session.getCurrentUser();
+    if (currentUser != null) {
+      setState(() {
+        userXp = currentUser.xp;
+      });
+    }
+  }
+  void updateSession() async {
+    // Increment character value in the session by 1
+    UserModel currentUser = await session.getCurrentUser();
+    if (currentUser != null) {
+      currentUser.character = ++currentUser.character;
+      currentUser.xp = (currentUser.xp + 12)/100;
+      currentUser.hp = ++currentUser.hp;
+      currentUser.accessory = ++currentUser.accessory;
+      await session.updateUserData(currentUser);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAndSetCharacter();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Mystery Box"),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ArCoreView(
-              onArCoreViewCreated: augmentedRealityViewCreated,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-              onPressed: claimReward,
-              child: const Text('Claim'),
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 50), // makes the button wide
+      body: Container(
+        color: Colors.black, // Change the background color of the container
+        child: Column(
+          children: [
+            Expanded(
+              child: ArCoreView(
+                onArCoreViewCreated: augmentedRealityViewCreated,
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  updateSession();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => FYI()),
+                  );
+                },
+                child: const Text('Claim'),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Color.fromRGBO(0, 162, 142, 1)), // Change button background color to black
+                  foregroundColor: MaterialStateProperty.all(Colors.white), // Change text color here
+                  minimumSize: MaterialStateProperty.all(const Size(120, 40)),
+                  textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 16)),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-// import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
-// import 'package:flutter/material.dart';
-// import 'package:vector_math/vector_math_64.dart';
-//
-// class ArMysteryBoxScreen extends StatefulWidget {
-//   const ArMysteryBoxScreen({super.key});
-//
-//   @override
-//   State<ArMysteryBoxScreen> createState() => _ArMysteryBoxScreenState();
-// }
-//
-// class _ArMysteryBoxScreenState extends State<ArMysteryBoxScreen> {
-//   ArCoreController? coreController;
-//
-//   augmentedRealityViewCreated(ArCoreController controller) {
-//     coreController = controller;
-//     displayModel(coreController!);
-//       debugPrint("Mystery box loaded");
-//
-//   }
-//
-//   displayModel(ArCoreController controller) async {
-//     // Ensure your .obj file is correctly referenced in your pubspec.yamlw
-//     String modelPath = "assets/untitled.glb";  // Update with your actual model path
-//
-//     // Use ArCoreNode with ArCoreReferenceNode to load the .obj model
-//     final node = ArCoreReferenceNode(
-//       name: '3DModel',
-//       objectUrl: modelPath,
-//       position: Vector3(0, 0, 0),
-//       scale: Vector3.all(2.0),
-//       rotation: Vector4(0,0,0,0),
-//     );
-//
-//     controller.addArCoreNode(node);
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text("Mystery Box"),
-//       ),
-//       body: ArCoreView(
-//         onArCoreViewCreated: augmentedRealityViewCreated,
-//       ),
-//     );
-//   }
-// }
+
 

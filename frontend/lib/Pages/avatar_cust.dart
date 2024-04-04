@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:frontend/Pages/service/database.dart';
 import 'package:firebase_core/firebase_core.dart';
+
+import 'Navigation.dart';
 //
 
 void main() async {
@@ -40,18 +42,18 @@ class _AvatartCustState extends State<AvatartCust> {
   String selectedImage = ""; // Default selected image
 
   Session session = Session();
-  late int index = 1;
+  late int index;
 
-  void fetchAndSetCharacter() async {
-    UserModel currentUser = await session.getCurrentUser();
-    if (currentUser != null) {
-      setState(() {
-        index = currentUser
-            .character; // Set the index based on the fetched character value
-        selectOption(index); // Update the selectedImage based on the index
-      });
-    }
-  }
+  // void fetchAndSetCharacter() async {
+  //   UserModel currentUser = await session.getCurrentUser();
+  //   if (currentUser != null) {
+  //     setState(() {
+  //       index = currentUser
+  //           .avatar; // Set the index based on the fetched character value
+  //       selectOption(index); // Update the selectedImage based on the index
+  //     });
+  //   }
+  // }
 
   void selectOption(int optionIndex) async {
     setState(() {
@@ -82,7 +84,7 @@ class _AvatartCustState extends State<AvatartCust> {
   @override
   void initState() {
     super.initState();
-    fetchAndSetCharacter();
+    // fetchAndSetCharacter();
   }
 
   @override
@@ -199,18 +201,21 @@ class _AvatartCustState extends State<AvatartCust> {
               onTap: () async {
                 UserModel currentUser = await session.getCurrentUser();
                 if (currentUser != null) {
-                  currentUser.character =
+                  currentUser.avatar =
                       index; // Update the character field with the current index
                   await session.updateUserData(
                       currentUser); // Update the user's data in Firebase
                 }
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => NavBar()),
+                );
               },
               child: AnimatedContainer(
                 duration: Duration(
                     milliseconds: 1000), // Adjust animation duration as needed
                 curve: Curves.easeInOut,
                 width: 90,
-                height: 100,
+                height: 30,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(0, 162, 142, 1),
                   borderRadius: BorderRadius.circular(10.0),
@@ -248,28 +253,6 @@ class _AvatartCustState extends State<AvatartCust> {
           ),
         ],
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 55.0),
-        child: Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: Colors.black, width: 4.0), // Black border
-          ),
-          child: const ClipOval(
-            child: Material(
-              color: Colors.white,
-              child: Icon(
-                Icons.camera_alt_outlined,
-                size: 36,
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

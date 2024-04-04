@@ -1,7 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:frontend/Pages/FYI_data.dart';
+import 'package:frontend/Pages/Navigation.dart';
 import 'package:frontend/Pages/rotate_card.dart';
+import 'package:frontend/Pages/service/database.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,28 +23,41 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.white,
         ),
       ),
-      home: FYI(userXp: 2),
+      home: FYI(),
     );
   }
 }
 
 class FYI extends StatefulWidget {
-  final double userXp;
-  const FYI({super.key, required this.userXp});
+
   @override
   _FYIState createState() => _FYIState();
 }
 
 class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
+  final Session session = Session();
+  double xp = 0; // Default index
+
+
+
+  Future<void> fetchUserCharacter() async {
+    try {
+      UserModel user = await session.getCurrentUser();
+      setState(() {
+        xp = user.xp;
+      });
+    } catch (e) {
+      print("Error fetching user character: $e");
+    }
+  }
   List<Map<String, String>> cardDetails = [];
   late List<Map<String, String>> rewardDetails;
   late List<Map<String, String>> characterList;
   late List<Map<String, String>> fyiList;
-  late List<int> xpLevel;
+  late List<double> xpLevel;
   late AnimationController _controller;
   late bool _isCardFlipped;
   late bool _unlockCharacter;
-  late bool _xp;
 
   @override
   void initState() {
@@ -54,7 +69,7 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
       duration: Duration(milliseconds: 500),
     );
     _isCardFlipped = false;
-    initializeCards();
+    fetchUserCharacter();
   }
 
   @override
@@ -72,22 +87,22 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
 
     Random random = Random();
     int index;
-    if (xpLevel.contains(widget.userXp)) {
+    if (xpLevel.contains(xp)) {
       setState(() {
         _unlockCharacter = true;
       });
-      index = 0;
-      cardDetails.add({
-        'name': characterList[index]['name']!
-      }); // Add character name to cardDetails
+      // index = 0;
+      // cardDetails.add({
+      //   'name': characterList[index]['name']!
+      // }); // Add character name to cardDetails
     } else {
       setState(() {
         _unlockCharacter = false;
       });
-      index = random.nextInt(rewardDetails.length);
-      cardDetails.add({
-        'name': rewardDetails[index]['name']!
-      }); // Add reward name to cardDetails
+      // index = random.nextInt(rewardDetails.length);
+      // cardDetails.add({
+      //   'name': rewardDetails[index]['name']!
+      // }); // Add reward name to cardDetails
     }
   }
 
@@ -123,7 +138,7 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
           Center(
             child: SizedBox(
               height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width / 3 * 2,
+              width: MediaQuery.of(context).size.width / 3 *3,
               child: Stack(
                 children: [
                   GestureDetector(
@@ -132,8 +147,8 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                       animation: _controller,
                       builder: (context, child) {
                         final angle = (_isCardFlipped
-                                ? 1 - _controller.value
-                                : _controller.value) *
+                            ? 1 - _controller.value
+                            : _controller.value) *
                             3.14;
                         return Transform(
                           transform: Matrix4.identity()
@@ -175,11 +190,11 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                                   padding: const EdgeInsets.only(top: 20.0),
                                   child: SizedBox(
                                     width:
-                                        MediaQuery.of(context).size.width / 3,
+                                    MediaQuery.of(context).size.width/1.2,
                                     height:
-                                        MediaQuery.of(context).size.height / 4,
+                                    MediaQuery.of(context).size.height / 3,
                                     child: Image.asset(
-                                      'assets/character_1.jpeg',
+                                      'assets/RewardFinal.png',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -189,11 +204,11 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                                   padding: const EdgeInsets.only(top: 20.0),
                                   child: SizedBox(
                                     width:
-                                        MediaQuery.of(context).size.width / 3,
+                                    MediaQuery.of(context).size.width / 1.2,
                                     height:
-                                        MediaQuery.of(context).size.height / 4,
+                                    MediaQuery.of(context).size.height / 3,
                                     child: Image.asset(
-                                      'assets/character_2.jpeg',
+                                      'assets/RewardFinal.png',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -205,9 +220,9 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                                         vertical: 20.0, horizontal: 0.0),
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      MainAxisAlignment.start,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                      CrossAxisAlignment.center,
                                       children: [
                                         Text(
                                           '${fyiList[index]['name']}',
@@ -221,28 +236,27 @@ class _FYIState extends State<FYI> with SingleTickerProviderStateMixin {
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
                                                     bottom:
-                                                        16.0), // Adjust the padding as needed
+                                                    16.0), // Adjust the padding as needed
                                                 child: ElevatedButton(
                                                   onPressed: () {
                                                     Navigator.of(context).push(
                                                       MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              CharacterCards()),
+                                                          builder: (context) =>NavBar()),
                                                     );
                                                   },
                                                   style: ButtonStyle(
                                                     // backgroundColor: MaterialStateProperty.all(Color.fromRGBO(5,15,21,255)), // Change button color here
                                                     foregroundColor:
-                                                        MaterialStateProperty
-                                                            .all(Colors
-                                                                .cyan), // Change text color here
+                                                    MaterialStateProperty
+                                                        .all(Colors
+                                                        .cyan), // Change text color here
                                                     minimumSize:
-                                                        MaterialStateProperty
-                                                            .all(Size(120, 40)),
+                                                    MaterialStateProperty
+                                                        .all(Size(120, 40)),
                                                     textStyle:
-                                                        MaterialStateProperty
-                                                            .all(TextStyle(
-                                                                fontSize: 16)),
+                                                    MaterialStateProperty
+                                                        .all(TextStyle(
+                                                        fontSize: 16)),
                                                   ),
                                                   child: Text(
                                                       'View Card'), // Add your button text here

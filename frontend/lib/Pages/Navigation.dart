@@ -87,10 +87,8 @@ class _NavBarState extends State<NavBar> {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => mlModel(title: 'Bottle Detection')),
+            // MaterialPageRoute(builder: (context) => ArMysteryBoxScreen()),
           );
-          // Navigator.of(context).push(
-          //   MaterialPageRoute(builder: (context) => ArMysteryBoxScreen()),
-          // );
           print('FloatingActionButton pressed');
         },
         backgroundColor: Colors.white,

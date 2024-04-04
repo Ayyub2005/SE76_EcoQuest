@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Pages/Navigation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,14 +41,11 @@ class _Character_custState extends State<Character_cust> {
         children: [
           // Background image
           Positioned.fill(
-              child: Opacity(
-                opacity: 0.5,
                 child: Image.asset(
                  'assets/background6.png',
                   fit: BoxFit.cover,
                 )
             ),
-          ),
           // Title "Choose your Avatar" with rounded white box stroke
           Positioned(
             top: 30,
@@ -148,17 +146,18 @@ class _Character_custState extends State<Character_cust> {
             bottom: 90, // Adjust the bottom position as needed
             child: ElevatedButton(
               onPressed: () async {
-              //   String? uid = FirebaseAuth.instance.currentUser?.uid;
-              //   if (uid != null) {
-              //   Map<String,dynamic> userMap= {
-              //     "XP": 450
-              //   };
-              //   await DatabaseMethods().addUserData(userMap, uid);
-              //   print('Elevated Button Pressed');
-              // } else {
-              //     print("User is not logged in.");
-              //     // Handle the case where the user is not logged in
-              //     }
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('FOREST GUARDIAN IS READY FOR BATTLE!!'),
+                    duration: Duration(seconds: 2), // Adjust the duration as needed
+                  ),
+                );
+                // Wait for the SnackBar to be dismissed
+                await Future.delayed(Duration(seconds: 2));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NavBar()),
+                );
                 },
               child: Text('Customize'),
             ),
