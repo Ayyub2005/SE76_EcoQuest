@@ -9,7 +9,11 @@ To use this project, simply clone the repository and follow the instructions in 
 Contributors:
 
 Ayyub Hameem (w1957956, 20211374)
+
 Dinethra Wickramasekera (w19541189, 20221135)
+
 Senali Wijesekera (w1953303, 20220648)
+
 Yahya Ali (20220610, 20211374)
+
 Aqeel Aslam Azeez (w1953295, 20220628)
